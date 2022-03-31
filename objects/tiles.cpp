@@ -12,7 +12,11 @@ class Tile {
 		// An array containg the arrays in the current tile 
 		std::map<std::string, 
 			std::queue<Ant>> ants; 
+
 	public: 
+		// A set of attributes should be public 
+		int pheromone; // The quantity of pheromones 
+		
 		/**  
 		* Insert an ant in the array `ants`; we should be carefull to 
 		* multithreading access.  
@@ -30,7 +34,12 @@ class Tile {
 				ants[colony].push(ant); 
 			} 
 		} 
-
+		
+		/**  
+		* Kill an ant; as it contemplates shared data structures, it should control 
+		* multiple accesses.  
+		* @param Ant * ant the killed ant 
+		*/  
 		void killAnt(Ant * ant) { 
 			// The ants from the same colony are indistinguishable 
 			std::string colony = ant->colony->name; 
@@ -38,7 +47,27 @@ class Tile {
 			// And, in particular, we should extract any of them from the 
 			// corresponding queue 
 			ants[colony].pop(); 
+
+			if (ants[colony].size() < 1) { 
+				delete ants[colony]; 
+			} 
 		} 
 
+		std::map<std::string, int> numAnts() { 
+			// Instantiate a map with the quantities of ants for each colony 
+			std::map<std::string, int> nAnts; 
+			
+			// Iterate across each colony in the current tile 
+			for (std::map<std::string, std::queue<Ant>>::iterator iter = ants.begin; 
+					iter != ants.end(); ++iter) { 
+				std::string colony = iter->first; 
+				// Compute the quantity of ants 
+				int currAnts = (iter->second).size(); 
+
+				nAnts[colony] = currAnts; 
+			} 
+			// Compute the map 			
+			return nAnts; 
+		} 
 } 
 		
