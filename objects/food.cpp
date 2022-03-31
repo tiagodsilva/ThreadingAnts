@@ -20,10 +20,15 @@ class Food {
 		
 		/**  
 		* Consume the food; it should be designed as in the Philosophers' dilemma (eat or don't eat).  
+		* @return true if there was food to be consumed; in the other scenario, `false` is the variable. 
 		*/  
-		void consume() { 
-			if (volume >= 1) 
+		bool consume() { 
+			if (volume >= 1) {  
 				volume--; 
+				return true; 
+			} else { 
+				return false; 
+			} 
 		} 
 
 		/**  

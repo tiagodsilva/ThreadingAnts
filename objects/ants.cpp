@@ -52,10 +52,7 @@ class Ant {
 
 		void eat(Food * food) { 
 			// should be synchronized 
-			if (food->volume >= 1) {  
-				food->volume--; 
-				hasFood = true;  
-			} 
+			hasFood = food.consume(); 
 		} 
 
 		/**  
