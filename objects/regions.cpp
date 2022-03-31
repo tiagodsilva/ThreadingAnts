@@ -25,8 +25,11 @@ class Region {
 		* @param Map * map the map to which we tied the tiles 
 		*/  
 		Region(int xRegion, int yRegion, 
-				int xOffsetRegion, int yOffsetRegion, Map * mapRegion) 
-			: x(xRegion), y(yRegion), xOffset(xOffsetRegion), yOffset(yOffsetRegion), 
+				int xOffsetRegion, 
+				int yOffsetRegion, 
+				Map * mapRegion) 
+			: x(xRegion), y(yRegion), 
+			xOffset(xOffsetRegion), yOffset(yOffsetRegion), 
 			mapRegion(map) { 
 				// Identify the tiles in the region charecterized by the provided coordinates 
 				for (int col = x; col < x + xOffset; col++) { 

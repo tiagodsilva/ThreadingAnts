@@ -77,8 +77,8 @@ class Map {
 		} 
 
 		/**  
-		* Print, in the terminal, the current map's state as a text.  
-		*/  
+		* Print, in the terminal, the map's state as a text.  
+		*/   
 		void print() { 
 			// Print each tile in row major sequence 
 			for (int row = 0; row < height; row++) { 
