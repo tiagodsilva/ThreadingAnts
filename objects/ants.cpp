@@ -9,6 +9,7 @@ class Ant {
 
 		Tile * antHill; // The tile correspondent to the anthill 
 	public: 
+		bool hasFood; // Whether the ant contains food 
 		/**  
 		* Execute a movement for the current ant.  
 		* @param x, y the coordinates 
@@ -18,4 +19,18 @@ class Ant {
 			y_pos += y; 
 		} 
 
+		void eat(Food * food) { 
+			// should be synchronized 
+			food->volume--; 
+			hasFood = true; 
+		} 
+
+		/**  
+		* Compute the ants coordinates 
+		* @return int * the coordinates' array 
+		*/  
+		int * getCoordinates() { 
+			int coords[] = {x_pos, y_pos}; 
+			return coords; 
+		} 
 }; 
