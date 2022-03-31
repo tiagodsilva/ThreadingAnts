@@ -40,7 +40,7 @@ class Map {
 		*/  
 		Tile getTile(int x, int y) { 
 			// Compute the tile's instance from coordinates x and y 
-			if (x >= width || y >= height) 
+			if (x >= width || y >= height || x <= -1 || y <= -1) 
 				return NULL; 
 
 			const i = y * width + x; 
