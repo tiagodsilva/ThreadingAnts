@@ -17,6 +17,10 @@ class Tile {
 		// A set of attributes should be public 
 		int pheromone; // The quantity of pheromones 
 		
+		/**  
+		* Constructor method for `Tile` 
+		* @param int x_tile, y_tile the tile's coordinates 
+		*/  	
 		Tile(int x_tile, int y_tile) 
 			: x(x_tile), y(y_tile) 
 			{} 
