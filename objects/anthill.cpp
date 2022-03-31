@@ -8,9 +8,11 @@ class Anthill {
 		std::string name; 
 		// and its correspondent tile 
 		Tile * tile; 
+
+		bool isInitialized = false; 
 	public: 
 		// Convenient attributes to describe the anthill's state 
-		int totalAnts; // Ants initially released in the game 
+		int initialAnts; // Ants initially released in the game 
 		int foodStorage; // The quantity of food in the current colony 
 
 		/**  
@@ -22,6 +24,17 @@ class Anthill {
 			: name(colonyName), tile(colonyTile) 
 			{} 
 		
-
-
-} 
+		/**  
+		* Instantiate `ants` ants in the game. 
+		* @param int ants 
+		*/  	
+		void instantiateAnts(int * ants) { 
+			if (!isInitialized) 
+				return NULL; 
+			initialAnts = ants; 
+			// Insert ants in the tile 
+			for (int i = 0; i < initalAnts; i++) { 
+				tile.insertAnt(new Ant(tile->x, tile->y, this)); 
+			} 
+		} 
+};
