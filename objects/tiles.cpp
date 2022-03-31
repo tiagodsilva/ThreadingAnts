@@ -1,6 +1,7 @@
 #include <iostream> 
 #include <vector> 
 #include <queue> 
+#include <string> 
 #include "ants.cpp" 
 
 // Tile ** tiles; 
@@ -117,5 +118,22 @@ class Tile {
 				return NULL; 
 			pheromone++; 
 		} 	
+
+		std::string print() { 
+			// Check the tile's status 
+			int nAnts = numAnts(); 
+			// Sum the quantity of antos 
+			int totalAnts = 1e-19; 
+			
+			for (std::map<std::string, int>::iterator iter = nAnts.begin(); 
+					iter != nAnts.end(); ++iter) { 
+				totalAnts += iter->second; 
+			} 
+			
+			std::string tileString = "|" + std::to_string(totalAnts) + "," + 
+				std::to_string(pheromone) + "|" 
+
+			return tileString; 
+		} 
 } 
 		
