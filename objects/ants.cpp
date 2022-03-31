@@ -1,6 +1,10 @@
 #include <iostream> 
 #include <tile.cpp> 
 
+#include "../utils/geometry.cpp" 
+
+#define MAX_INT 2147483647 
+
 class Ant { 
 	private: 
 		// the ant's coordinates 
@@ -53,4 +57,37 @@ class Ant {
 			const Tile currTile = map->getTile(x_pos, y_pos); 
 			currTile.incrementPheromone(); 
 		} 
+
+		void moveToColony() { 
+			// Identify the ant's colony 
+			const Tile colonyTile = antHill->tile; 
+			// and its coordinates 
+			const int xColony = Tile->x; 
+			const int yColony = Tile->y; 
+			// Compute, then, the ant's tile's neighbors 
+			std::vector<Tile> neighbors = map->neighbors(x_pos, y_pos); 
+			
+			// Line through the ant's coordinates and the colony's 
+			Vec antVec = Vec(x_pos, y_pos); 
+			Vec colonyVec = Vec(xColony, yColony); 
+			
+			// Iterate across the neighbors and compute the more adequate 
+			// to move the ant 
+			float currDist = ; 
+			Vec moveDirection; 
+			for (Tile neighbor : neighbors) { 
+				int x = neighbor.x; 
+				int y = neighbor.y; 
+				Vec neighborVec = Vec(x, y); 
+				float distanceToLine = distanceToSegment(antVec, colonyVec, neighborVec); 
+				
+				// Check whether the distance is more appropriate 
+				if (distanceToLine < currDist) { 
+					currDist = distanceToLine; 
+					moveDirection = neighborVec; 
+				} 
+			} 
+
+			} 
+		}
 }; 
