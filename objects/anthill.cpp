@@ -37,4 +37,11 @@ class Anthill {
 				tile.insertAnt(new Ant(tile->x, tile->y, this)); 
 			} 
 		} 
+
+		/**  
+		* Increment the anthill's food; it should be cautious to simultaneuous access.  
+		*/  
+		void incrementFood() { 
+			foodStorage++; 
+		} 
 };
