@@ -4,6 +4,22 @@
 struct Vec { 
 	int x; 
 	int y; 
+
+	Vec(int xVec, int yVec) 
+		: xVec(x), yVec(y) 
+		{} 
+
+	Vec operator*(double s) { 
+		return Vec(s * x, s * y); 
+	} 
+
+	Vec operator+(Vec v) { 
+		return Vec(x + v.x, y + v.y); 
+	} 
+
+	Vec operator-(Vec w) { 
+		return Vec(x - w.x, y - w.y); 
+	} 
 } 
 
 float lengthSquared(Vec v, Vec w) { 
