@@ -8,6 +8,7 @@ class Ant {
 		int y_pos; 
 
 		Anthill * antHill; // The tile correspondent to the anthill 
+		Map * map; // The map in which the game occurs 
 	public: 
 		bool hasFood; // Whether the ant contains food 
 
@@ -15,9 +16,10 @@ class Ant {
 		* Constructor method for `Ant`.  
 		* @param int x, y the ant's coordinates in the map 
 		* @param Anthill colony the colony to which the colony's pertains  
+		* @param Map map the map in which the game unfolds; it is, now, a convenient attribute
 		*/  
-		Ant(int x, int y, Anthill colony) 
-			: x_pos(x), y_pos(y), antHill(colony) 
+		Ant(int x, int y, Anthill colony, Map * antsMap) 
+			: x_pos(x), y_pos(y), antHill(colony), map(antsMap)  
 			{} 
 		/**  
 		* Execute a movement for the current ant.  
@@ -46,10 +48,9 @@ class Ant {
 		/**  
 		* Increment the pheromone's intensity in the current ant's tile; 
 		* a map would be maybe convenient 
-		* @param Tile ** tiles a possibly global list of tiles 
 		*/  
-		void releasePheromone(Tile ** tiles) { 
-			const Tile currTile = tiles[x_pos][y_pos]; 
+		void releasePheromone() { 
+			const Tile currTile = map->getTile(x_pos, y_pos); 
 			currTile.incrementPheromone(); 
 		} 
 }; 
