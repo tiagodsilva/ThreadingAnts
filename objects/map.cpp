@@ -40,7 +40,38 @@ class Map {
 		*/  
 		Tile getTile(int x, int y) { 
 			// Compute the tile's instance from coordinates x and y 
+			if (x >= width || y >= height) 
+				return NULL; 
+
 			const i = y * width + x; 
 			return tiles[i]; 
+		} 
+
+		std::vector<Tile> neighbors(int x, int y) { 
+			// Vector to consolidate the neighborhood tiles 
+			std::vector<Tile> neighborsTiles; 
+			// Identify whether the tile is in a corner 
+			int ys[] = {y - 1, y, y + 1}; 
+			int xs[] = {x - 1, x, x + 1};  
+
+			// Iterate across the tile's neighbors 
+			for (int i = -1; i < 2; i++) { 
+				// Compute the actual neighbor 
+				for (int j = -1; j < 2; j++) { 
+					int currX = xs[i]; 
+					int currY = ys[j]; 
+
+					if (currX == x && currY == y) 
+						continue; 
+					
+					Tile currTile = getTile(int x, int y); 
+					if (!currTile) 
+						continue; 
+					
+					neighborsTiles.push(currTile); 
+				} 
+			} 
+
+			return neighborsTiles; 
 		} 
 }; 
