@@ -13,6 +13,7 @@ class Ant {
 
 		Anthill * antHill; // The tile correspondent to the anthill 
 		Map * map; // The map in which the game occurs 
+		int fov; // the ant's field of view 
 	public: 
 		bool hasFood; // Whether the ant contains food 
 
@@ -22,8 +23,8 @@ class Ant {
 		* @param Anthill colony the colony to which the colony's pertains  
 		* @param Map map the map in which the game unfolds; it is, now, a convenient attribute
 		*/  
-		Ant(int x, int y, Anthill colony, Map * antsMap) 
-			: x_pos(x), y_pos(y), antHill(colony), map(antsMap)  
+		Ant(int x, int y, Anthill colony, Map * antsMap, int fieldOfView) 
+			: x_pos(x), y_pos(y), antHill(colony), map(antsMap), fov(fieldOfView) 
 			{} 
 		/**  
 		* Execute a movement for the current ant.  
