@@ -125,7 +125,7 @@ class Ant {
 		Tile hasFoodNear() { 
 			// Instantiate the neighbors in the field of view 
 			std::vector<Tile> neighbors = map->neighbors(x_pos, y_pos); 
-
+			
 			for (Tile neighbor : neighbors) { 
 				if (neighbor.hasFood) 
 					return neighbor; 
@@ -133,4 +133,26 @@ class Ant {
 			return NULL; 		
 		} 
 
+		/**  
+		* Assert the existence of food in the field of view and, in this case, move to it.  
+		*/  
+		bool moveToFood() { 
+			// Verify if there is food near 
+			if (Tile neighbo = hasFoodNear()) { 
+				int x = neighbor.x; 
+				int y = neighbor.y; 
+				Vec antVec = Vec(x_pos, y_pos); 
+				Vec foodVec = Vec(x, y); 
+
+				// Ant's neighbors 
+				std::vector<Tile> neighbors = map->neighbors(x_pos, y_pos); 
+				
+				// Identify and apply the food's direction 
+				moveInSegment(antVec, foodVec, neighbors); 
+				return true; 
+			} 
+			
+			// Notify that no movement was executed; this is convenient to move randomly 
+			return false; 
+		} 
 }; 
