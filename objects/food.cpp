@@ -18,5 +18,20 @@ class Food {
 			: tile(foodTile), initialVolume(initVolume), volume(initVolume) 
 			{} 
 		
+		/**  
+		* Consume the food; it should be designed as in the Philosophers' dilemma (eat or don't eat).  
+		*/  
+		void consume() { 
+			if (volume >= 1) 
+				volume--; 
+		} 
+
+		/**  
+		* Restore the initial volume, as asserted in the parameter `initialVolume`.  
+		*/  
+		void restore() { 
+			volume = initialVolume; 
+		} 
+
 			
 } 
