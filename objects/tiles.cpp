@@ -62,7 +62,10 @@ class Tile {
 				delete ants[colony]; 
 			} 
 		} 
-
+		
+		/**  
+		* Compute the quantity of ants from each colony in the current tile.  
+		*/  
 		std::map<std::string, int> numAnts() { 
 			// Instantiate a map with the quantities of ants for each colony 
 			std::map<std::string, int> nAnts; 
@@ -79,7 +82,10 @@ class Tile {
 			// Compute the map 			
 			return nAnts; 
 		} 
-
+			
+		/**  
+		* Increment the pheromone's density in this tile. 
+		*/  
 		void incrementPheromone() { 
 			pheromone++; 
 		} 	
