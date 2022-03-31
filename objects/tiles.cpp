@@ -38,6 +38,8 @@ class Tile {
 		* @param Ant ant the ant to be inserted in the tile 
 		*/  
 		void insertAnt(Ant * ant) { 
+			if (ifFood || isAnthill) 
+				return; 
 			// Capture ant's colony 
 			std::string colony = ant->colony->name; 
 
@@ -56,6 +58,8 @@ class Tile {
 		* @param Ant * ant the killed ant 
 		*/  
 		void killAnt(Ant * ant) { 
+			if (isFood || isAnthill) 
+				return; 
 			// The ants from the same colony are indistinguishable 
 			std::string colony = ant->colony->name; 
 
@@ -72,6 +76,8 @@ class Tile {
 		* Compute the quantity of ants from each colony in the current tile.  
 		*/  
 		std::map<std::string, int> numAnts() { 
+			if (isFood || isAnthill) 
+				return NULL; 
 			// Instantiate a map with the quantities of ants for each colony 
 			std::map<std::string, int> nAnts; 
 			
@@ -92,6 +98,8 @@ class Tile {
 		* Increment the pheromone's density in this tile. 
 		*/  
 		void incrementPheromone() { 
+			if (isFood || isAnthill) 
+				return NULL; 
 			pheromone++; 
 		} 	
 } 
