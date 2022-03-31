@@ -47,19 +47,20 @@ class Map {
 			return tiles[i]; 
 		} 
 
-		std::vector<Tile> neighbors(int x, int y) { 
+		std::vector<Tile> neighbors(int x, int y, 
+				int xLeftOffset = -1, 
+				int yBottomOffset = -1, 
+				int xRightOffset = 1, 
+				int yTopOffset = 1) { 
 			// Vector to consolidate the neighborhood tiles 
 			std::vector<Tile> neighborsTiles; 
-			// Identify whether the tile is in a corner 
-			int ys[] = {y - 1, y, y + 1}; 
-			int xs[] = {x - 1, x, x + 1};  
-
+			
 			// Iterate across the tile's neighbors 
-			for (int i = -1; i < 2; i++) { 
+			for (int col = xLeftOffset; col < xRightOffset; col++) { 
 				// Compute the actual neighbor 
-				for (int j = -1; j < 2; j++) { 
-					int currX = xs[i]; 
-					int currY = ys[j]; 
+				for (int row = yBottomOffset; row < yTopOffset; row++) { 
+					int currX = x + col;  
+					int currY = y + row; 
 
 					if (currX == x && currY == y) 
 						continue; 
@@ -71,7 +72,7 @@ class Map {
 					neighborsTiles.push(currTile); 
 				} 
 			} 
-
+			
 			return neighborsTiles; 
 		} 
 }; 
