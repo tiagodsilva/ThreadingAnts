@@ -13,7 +13,7 @@ class Tile {
 	
 		// An array containg the arrays in the current tile 
 		std::map<std::string, 
-			std::queue<Ant>> ants; 
+			std::queue<Ant*>> ants; 
 
 		// Attribute to assert whether the tile contains an anthill or it is 
 		// a food coordinates 
@@ -46,7 +46,7 @@ class Tile {
 			// Check whether there is already an key correspoding to the 
 			// colony with name `colony` 
 			if (ants.find(colony) == ants.end()) { 
-				ants[colony] = new std::queue<Ant>;  
+				ants[colony] = new std::queue<Ant*>;  
 			} else { 
 				ants[colony].push(ant); 
 			} 
@@ -65,7 +65,8 @@ class Tile {
 
 			// And, in particular, we should extract any of them from the 
 			// corresponding queue 
-			ants[colony].pop(); 
+			Ant * ant = ants[colony].pop(); 
+			delete ant; 
 
 			if (ants[colony].size() < 1) { 
 				delete ants[colony]; 
@@ -82,7 +83,7 @@ class Tile {
 			std::map<std::string, int> nAnts; 
 			
 			// Iterate across each colony in the current tile 
-			for (std::map<std::string, std::queue<Ant>>::iterator iter = ants.begin; 
+			for (std::map<std::string, std::queue<Ant*>>::iterator iter = ants.begin; 
 					iter != ants.end(); ++iter) { 
 				std::string colony = iter->first; 
 				// Compute the quantity of ants 
