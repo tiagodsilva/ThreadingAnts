@@ -30,8 +30,15 @@ class Ant {
 		* @param x, y the coordinates 
 		*/  
 		void move(int x, int y) { 
+			// Identify the ant's current tile 
+			Tile tile = map->getTile(x_pos, y_pos); 
+			// and extract this ant from it 
+			tile.extractAnt(this); 
 			x_pos += x; 
 			y_pos += y; 
+			// Insert the ant in the other tile 
+			Tile nextTile = map->getTile(x_pos, y_pos); 
+			nextTile.insertAnt(this); 
 		} 
 
 		void eat(Food * food) { 

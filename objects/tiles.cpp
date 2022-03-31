@@ -3,7 +3,7 @@
 #include <queue> 
 #include "ants.cpp" 
 
-Tile ** tiles; 
+// Tile ** tiles; 
 
 class Tile { 
 	private: 
