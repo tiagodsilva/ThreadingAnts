@@ -110,4 +110,19 @@ class Ant {
 			move(xDir, yDir); 
 			} 
 		}
+
+	/**  
+	* Check whether the field of view contemplate a food object.  
+	*/  
+	bool hasFoodNear() { 
+		// Instantiate the neighbors in the field of view 
+		std::vector<Tile> neighbors = map->neighbors(x_pos, y_pos);
+		
+		for (Tile neighbor : neighbors) { 
+			if (neighbor.hasFood) 
+				return true; 
+		} 
+
+		return false; 
+	} 
 }; 
