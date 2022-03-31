@@ -29,13 +29,15 @@ class Anthill {
 		* @param int ants 
 		*/  	
 		void instantiateAnts(int * ants) { 
-			if (!isInitialized) 
+			if (isInitialized) 
 				return NULL; 
 			initialAnts = ants; 
 			// Insert ants in the tile 
 			for (int i = 0; i < initalAnts; i++) { 
 				tile.insertAnt(new Ant(tile->x, tile->y, this)); 
 			} 
+
+			isInitialized = true; 
 		} 
 
 		/**  
