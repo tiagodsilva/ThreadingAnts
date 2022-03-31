@@ -60,19 +60,33 @@ class Tile {
 		void killAnt(Ant * ant) { 
 			if (isFood || isAnthill) 
 				return; 
-			// The ants from the same colony are indistinguishable 
-			std::string colony = ant->colony->name; 
 
-			// And, in particular, we should extract any of them from the 
-			// corresponding queue 
-			Ant * ant = ants[colony].pop(); 
+			// Extract the ant from the queue 
+			Ant * thisAnt = extractAnt(ant); 
+			delete thisAnt; 
+	
+			// Kill the ant 
 			delete ant; 
-
-			if (ants[colony].size() < 1) { 
-				delete ants[colony]; 
-			} 
 		} 
 		
+		// Extracting an ant is correlated to killing it; however, we do not delete the instance 
+		/**  
+		* Extracts an ant for the current tile; it was directed to other tile. 
+		* @param Ant * ant the ant that is going to be extracted from this tile 
+		*/  
+		Ant * extractAnt(Ant * ant) { 
+			if (isFood || isAnthill) 
+				return NULL; 
+
+			// Identify the ant's colony; ants from the same colony are indistinguishable 
+			std::string colony = ant->colony->name; 
+			
+			// Check whether the colony still contains insects 
+			if (ants[colony].size() < 1) 
+				delete ants[colony]; 
+
+			return ants[colony].pop(); 
+		} 		
 		/**  
 		* Compute the quantity of ants from each colony in the current tile.  
 		*/  
