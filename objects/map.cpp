@@ -75,4 +75,21 @@ class Map {
 			
 			return neighborsTiles; 
 		} 
+
+		/**  
+		* Print, in the terminal, the current map's state as a text.  
+		*/  
+		void print() { 
+			// Print each tile in row major sequence 
+			for (int row = 0; row < height; row++) { 
+				for (int col = 0; col < width; col++) { 
+					Tile currTile = getTile(col, row); 
+					std::string tileString = currTile.print(); 
+					// Send the current string to the terminal 
+					std::cout << tileString; 
+				} 
+				// Then, print the next row 
+				std::cout << std::endl; 
+			} 
+		} 
 }; 

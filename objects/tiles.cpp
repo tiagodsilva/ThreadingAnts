@@ -3,7 +3,7 @@
 #include <queue> 
 #include <string> 
 #include "ants.cpp" 
-
+#include "map.cpp" 
 // Tile ** tiles; 
 
 class Tile { 
