@@ -87,29 +87,14 @@ class Ant {
 			Vec antVec = Vec(x_pos, y_pos); 
 			Vec colonyVec = Vec(xColony, yColony); 
 			
-			// Iterate across the neighbors and compute the more adequate 
-			// to move the ant 
-			float currDist = MAX_INT; 
-			Vec moveDirection; 
-			for (Tile neighbor : neighbors) { 
-				int x = neighbor.x; 
-				int y = neighbor.y; 
-				Vec neighborVec = Vec(x, y); 
-				float distanceToLine = distanceToSegment(antVec, colonyVec, neighborVec); 
-				
-				// Check whether the distance is more appropriate 
-				if (distanceToLine < currDist) { 
-					currDist = distanceToLine; 
-					moveDirection = neighborVec; 
-				} 
-			} 
-
-			// Move the ant 
-			int xDir = moveDirection.x - x;
-			int yDir = moveDirection.y - y; 
-			move(xDir, yDir); 
+			moveSegment(antVec, colonyVec, neighbors); 
 		} 
 
+		/**  
+		* Shift a ant across a segment, which is characterized by a pair of vectors.  
+		* @param Vec v, w the vectors subjacent to the segment 
+		* @param std::vector<Tile> neighbors the list of neighbors of the ant 
+		*/  
 		void moveInSegment(Vec v, Vec w, std::vector<Tile> neighbors) { 
 			// Move across the segment that underlies the convex combinations of the 
 			// vectors `v` and `w` 
