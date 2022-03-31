@@ -110,7 +110,29 @@ class Ant {
 			move(xDir, yDir); 
 		} 
 
+		void moveInSegment(Vec v, Vec w, std::vector<Tile> neighbors) { 
+			// Move across the segment that underlies the convex combinations of the 
+			// vectors `v` and `w` 
+			float currDist = MAX_INT; 
+			Vec moveDirection; 
+			for (Tile neighbor : neighbors) { 
+				int x = neighbor.x; 
+				int y = neighbor.y; 
 
+				Vec neighborVec = Vec(x, y); 
+				float distanceToLine = distanceToSegment(v, w, neighborVec); 
+
+				if (distanceToLine < currDist) { 
+					currDist = distanceToLine; 
+					moveDirection = neighborVec; 
+				} 
+			} 
+
+			// Identify the movement direction 
+			int xDir = moveDirection.x - x; 
+			int yDir = moveDirection.y - y; 
+			move(xDir, yDir); 
+		} 
 
 		/**  
 		* Check whether there is a food object contemplated in the field of view.  
