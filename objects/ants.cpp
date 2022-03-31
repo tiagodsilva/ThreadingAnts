@@ -73,7 +73,7 @@ class Ant {
 			
 			// Iterate across the neighbors and compute the more adequate 
 			// to move the ant 
-			float currDist = ; 
+			float currDist = MAX_INT; 
 			Vec moveDirection; 
 			for (Tile neighbor : neighbors) { 
 				int x = neighbor.x; 
@@ -88,6 +88,10 @@ class Ant {
 				} 
 			} 
 
+			// Move the ant 
+			int xDir = moveDirection.x - x;
+			int yDir = moveDirection.y - y; 
+			move(xDir, yDir); 
 			} 
 		}
 }; 
