@@ -30,5 +30,13 @@ class Map {
 				} 
 		} 
 
-
+		/**  
+		* Identify a tile from a set of coordinates in the plane 
+		* @param int x, y the tile's coordinates 
+		*/  
+		Tile getTile(int x, int y) { 
+			// Compute the tile's coordinates 
+			const int i = y * width + x; 
+			return tiles[i]; 
+		} 
 }; 
