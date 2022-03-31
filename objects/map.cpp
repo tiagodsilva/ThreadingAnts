@@ -11,6 +11,10 @@ class Map {
 		// The tiles in the map 
 		Tile * tiles; 
 	public: 
+		/**  
+		* Constructor method for Map.  
+		* @param mapWidth, mapHeight the map's dimensions 
+		*/  
 		Map(int mapWidth, int mapHeight) 
 			: width(mapWidth), height(mapHeight) { 
 				// Instantiate an array of tiles 
@@ -29,14 +33,14 @@ class Map {
 					tiles[i] = new Tile(column, row); 
 				} 
 		} 
-
+		
 		/**  
-		* Identify a tile from a set of coordinates in the plane 
+		* Compute the tile from the coordinates x and y.  
 		* @param int x, y the tile's coordinates 
 		*/  
 		Tile getTile(int x, int y) { 
-			// Compute the tile's coordinates 
-			const int i = y * width + x; 
+			// Compute the tile's instance from coordinates x and y 
+			const i = y * width + x; 
 			return tiles[i]; 
 		} 
 }; 
