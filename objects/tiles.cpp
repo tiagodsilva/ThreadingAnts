@@ -3,6 +3,8 @@
 #include <queue> 
 #include "ants.cpp" 
 
+Tile ** tiles; 
+
 class Tile { 
 	private: 
 		// Tile's coordinates 
@@ -18,12 +20,13 @@ class Tile {
 		int pheromone; // The quantity of pheromones 
 		
 		/**  
-		* Constructor method for `Tile` 
+		* Constructor method for `Tile`.  
 		* @param int x_tile, y_tile the tile's coordinates 
-		*/  	
+		*/  
 		Tile(int x_tile, int y_tile) 
 			: x(x_tile), y(y_tile) 
 			{} 
+	
 		/**  
 		* Insert an ant in the array `ants`; we should be carefull to 
 		* multithreading access.  
@@ -76,5 +79,9 @@ class Tile {
 			// Compute the map 			
 			return nAnts; 
 		} 
+
+		void incrementPheromone() { 
+			pheromone++; 
+		} 	
 } 
 		

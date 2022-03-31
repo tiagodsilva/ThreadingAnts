@@ -7,7 +7,7 @@ class Ant {
 		int x_pos; 
 		int y_pos; 
 
-		AntHill * antHill; // The tile correspondent to the anthill 
+		Anthill * antHill; // The tile correspondent to the anthill 
 	public: 
 		bool hasFood; // Whether the ant contains food 
 
@@ -41,5 +41,15 @@ class Ant {
 		int * getCoordinates() { 
 			int coords[] = {x_pos, y_pos}; 
 			return coords; 
+		} 
+	
+		/**  
+		* Increment the pheromone's intensity in the current ant's tile; 
+		* a map would be maybe convenient 
+		* @param Tile ** tiles a possibly global list of tiles 
+		*/  
+		void releasePheromone(Tile ** tiles) { 
+			const Tile currTile = tiles[x_pos][y_pos]; 
+			currTile.incrementPheromone(); 
 		} 
 }; 
