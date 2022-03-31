@@ -15,6 +15,10 @@ class Tile {
 		std::map<std::string, 
 			std::queue<Ant>> ants; 
 
+		// Attribute to assert whether the tile contains an anthill or it is 
+		// a food coordinates 
+		bool isAnthill; 
+		bool isFood; 
 	public: 
 		// A set of attributes should be public 
 		int pheromone; // The quantity of pheromones 
@@ -23,8 +27,9 @@ class Tile {
 		* Constructor method for `Tile`.  
 		* @param int x_tile, y_tile the tile's coordinates 
 		*/  
-		Tile(int x_tile, int y_tile) 
-			: x(x_tile), y(y_tile) 
+		Tile(int x_tile, int y_tile, bool containsAnthill = false, 
+				bool containsFood = false) 
+			: x(x_tile), y(y_tile), isAnthill(containsAnthill), isFood(containsFood)  
 			{} 
 	
 		/**  
