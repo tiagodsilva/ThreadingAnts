@@ -17,6 +17,9 @@ class Tile {
 		// A set of attributes should be public 
 		int pheromone; // The quantity of pheromones 
 		
+		Tile(int x_tile, int y_tile) 
+			: x(x_tile), y(y_tile) 
+			{} 
 		/**  
 		* Insert an ant in the array `ants`; we should be carefull to 
 		* multithreading access.  
