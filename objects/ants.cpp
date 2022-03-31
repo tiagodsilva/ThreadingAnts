@@ -7,9 +7,18 @@ class Ant {
 		int x_pos; 
 		int y_pos; 
 
-		Tile * antHill; // The tile correspondent to the anthill 
+		AntHill * antHill; // The tile correspondent to the anthill 
 	public: 
 		bool hasFood; // Whether the ant contains food 
+
+		/**  
+		* Constructor method for `Ant`.  
+		* @param int x, y the ant's coordinates in the map 
+		* @param Anthill colony the colony to which the colony's pertains  
+		*/  
+		Ant(int x, int y, Anthill colony) 
+			: x_pos(x), y_pos(y), antHill(colony) 
+			{} 
 		/**  
 		* Execute a movement for the current ant.  
 		* @param x, y the coordinates 
