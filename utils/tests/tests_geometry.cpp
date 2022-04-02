@@ -51,6 +51,21 @@ void testMultiplication(Vec * v, double s) {
 	std::cout << "The operator * was checked!" << std::endl; 
 } 
 
+/**  
+* Verify, on the other hand, whether the computation of the distance between a point and a 
+* segment is consitent with what we should contemplate.  
+* @param Vec * v, Vec * w, Vec p the vectors underlying the segment and the point, the distance 
+* 	to which we are going to compute 
+* @param double expectedDistance the distance we should verify 
+*/  
+void testDistances(Vec * v, Vec * w, Vec p, double expectedDistance) { 
+	// Compute the distances 
+	double distance = distanceToSegment(*v, *w, p); 
+
+	const double tol = 1e-5; 
+	IS_TRUE(distance <= expectedDistance + tol && distance >= expectedDistance - tol); 
+} 
+
 int main() { 
 	// Instantiate vectors 
 	Vec * v = new Vec(1, 3); 
@@ -60,4 +75,10 @@ int main() {
 	testSum(v, w); 
 	testSubtraction(v, w); 
 	testMultiplication(v, 3); 
+
+	Vec p = (*v + *w) * .5; 
+	testDistances(v, w, p, int(1e-13)); 
+
+	p = Vec(1, 4); 
+	testDistances(v, w, p, std::sqrt(2)/2); 
 } 
