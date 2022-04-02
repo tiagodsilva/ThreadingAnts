@@ -43,6 +43,11 @@ void testMultiplication(Vec * v, double s) {
 	IS_TRUE(vs.x == s * v->x); 
 	IS_TRUE(vs.y == s * v->y); 
 
+	vs = (*v) * s; 
+
+	IS_TRUE(vs.x == s * v->x); 
+	IS_TRUE(vs.y == s * v->y); 
+
 	std::cout << "The operator * was checked!" << std::endl; 
 } 
 
