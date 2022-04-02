@@ -2,6 +2,8 @@
 #include <vector> 
 #include <string> 
 
+class Tile; 
+
 class Anthill { 
 	private: 
 		// the colony's name and coordinates, sequentially 
