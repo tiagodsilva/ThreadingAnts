@@ -1,5 +1,5 @@
 #include <iostream> 
-#include <math> 
+#include <math.h> 
 
 /**  
 * A vector in C++; it simulates the pointwise operations in NumPy, for instance.  
@@ -13,9 +13,9 @@ struct Vec {
 	* @param int xVec, yVec the vector coordinates in the Cartesian plane. 
 	*/  
 	Vec(int xVec, int yVec) 
-		: xVec(x), yVec(y) 
+		: x(xVec), y(yVec) 
 		{} 
-} 
+};  
 
 /**  
 * Multiply, by a real scalar, a vector.  
@@ -23,6 +23,15 @@ struct Vec {
 * @param Vec &w a reference to the vector 
 */  
 Vec operator*(double s, const Vec &w) { 
+	return Vec(s * w.x, s * w.y); 
+} 
+
+/**  
+* Multiply, by a real scalar, a vector to the right.  
+* @param Vec &v a reference to the vector 
+* @param double s the real scalar 
+*/  
+Vec operator*(const Vec &w, double s) { 
 	return Vec(s * w.x, s * w.y); 
 } 
 
@@ -55,7 +64,7 @@ float lengthSquared(Vec v, Vec w) {
 * @param Vec v, w the vectors whose distance is going to be estimated. 
 */  
 float distance(Vec v, Vec w) { 
-	return sqrt(lengthSquared(v, w)); 
+	return std::sqrt(lengthSquared(v, w)); 
 } 
 
 /**  
@@ -76,12 +85,13 @@ float distanceToSegment(Vec v, Vec w, Vec p) {
 	// Compute the distance between v and w -- to assert that the 
 	// segment is actually a segment 
 	const float squaredDistance = lengthSquared(v, w); 
-	if (float < 1e-19) return distance(v, w); 
+	if (squaredDistance < 1e-19) return distance(v, w); 
 	// https://stackoverflow.com/questions/849211
 	// We are clipping the parameter `alpha` to the unitary interval in the real line, 
 	// since we aim to identify a point in the segment; precisely, we are tackling the 
 	// scenario in which the point is not in the segment. 
-	const float alpha = max(0, min(1, dot(p - v, w - v)/squaredDistance)); 
+	const float alpha = std::max(float(0), 
+			std::min(float(1), dotProduct(p - v, w - v)/squaredDistance)); 
 	const Vec projection = v + alpha * (w - v); 
 	return distance(p, projection); 
 } 
