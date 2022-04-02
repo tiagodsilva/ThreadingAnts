@@ -28,4 +28,4 @@ class Ant {
 		void moveInSegment(Vec v, Vec w, std::vector<Tile> neighbors); 
 		Tile hasFoodNear(); 
 		bool moveToFood(); 
-} 
+};  
