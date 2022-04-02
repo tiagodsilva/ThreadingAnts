@@ -2,6 +2,8 @@
 #include <vector> 
 #include <string> 
 
+#include "tiles.cpp" 
+
 class Map { 
 	private: 
 		// The map's dimensions 
