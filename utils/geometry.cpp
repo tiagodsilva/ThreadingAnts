@@ -15,19 +15,32 @@ struct Vec {
 	Vec(int xVec, int yVec) 
 		: xVec(x), yVec(y) 
 		{} 
-
-	Vec operator*(double s) { 
-		return Vec(s * x, s * y); 
-	} 
-
-	Vec operator+(Vec v) { 
-		return Vec(x + v.x, y + v.y); 
-	} 
-
-	Vec operator-(Vec w) { 
-		return Vec(x - w.x, y - w.y); 
-	} 
 } 
+
+/**  
+* Multiply, by a real scalar, a vector.  
+* @param double s the real scalar 
+* @param Vec &w a reference to the vector 
+*/  
+Vec operator*(double s, const Vec &w) { 
+	return Vec(s * w.x, s * w.y); 
+} 
+
+/**  
+* Sum a pair of vectors, which are instances of the struct `Vec`.  
+* @params const Vec &v, const Vec &w the vectors that are we are going to sum 
+*/  
+Vec operator+(const Vec &v, const Vec &w) { 
+	return Vec(v.x + w.x, v.y + w.y); 
+} 
+
+/**  
+* Apply a subtraction between a pair of vectors, instances of `Vec`.  
+* @param const Vec &v, const Vec &w references to the vectors 
+*/  
+Vec operator-(const Vec &v, const Vec &w) { 
+	return Vec(v.x - w.x, v.y - w.y); 
+}
 
 /**  
 * Compute the squared distance between a pair of vectors. 
