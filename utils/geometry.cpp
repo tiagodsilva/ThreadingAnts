@@ -5,14 +5,14 @@
 * A vector in C++; it simulates the pointwise operations in NumPy, for instance.  
 */  
 struct Vec { 
-	int x; 
-	int y; 
+	float x; 
+	float y; 
 
 	/**  
 	* Constructor method for `Vec`.  
 	* @param int xVec, yVec the vector coordinates in the Cartesian plane. 
 	*/  
-	Vec(int xVec, int yVec) 
+	Vec(float xVec, float yVec) 
 		: x(xVec), y(yVec) 
 		{} 
 };  
@@ -85,7 +85,7 @@ float distanceToSegment(Vec v, Vec w, Vec p) {
 	// Compute the distance between v and w -- to assert that the 
 	// segment is actually a segment 
 	const float squaredDistance = lengthSquared(v, w); 
-	if (squaredDistance < 1e-19) return distance(v, w); 
+	if (squaredDistance == int(1e-19)) return distance(v, w); 
 	// https://stackoverflow.com/questions/849211
 	// We are clipping the parameter `alpha` to the unitary interval in the real line, 
 	// since we aim to identify a point in the segment; precisely, we are tackling the 
