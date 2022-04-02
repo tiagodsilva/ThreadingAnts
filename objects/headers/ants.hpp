@@ -1,5 +1,10 @@
 #include<iostream> 
 
+class Map; 
+class Anthill; 
+class Food; 
+class Tile; 
+
 class Ant { 
 	private: 
 		// The ant's coordinates 
