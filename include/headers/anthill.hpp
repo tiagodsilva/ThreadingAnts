@@ -1,3 +1,5 @@
+#ifndef ANTHILL_H 
+#define ANTHILL_H 
 #include <iostream> 
 #include <vector> 
 #include <string> 
@@ -21,4 +23,4 @@ class Anthill {
 		void instantiateAnts(int numAnts); 
 		void incrementFood(); 
 }; 
-
+#endif 

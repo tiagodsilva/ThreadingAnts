@@ -1,3 +1,5 @@
+#ifndef ANT_H 
+#define ANT_H 
 #include<iostream> 
 
 #include "../../utils/geometry.cpp"
@@ -30,3 +32,4 @@ class Ant {
 		Tile hasFoodNear(); 
 		bool moveToFood(); 
 };  
+#endif 
