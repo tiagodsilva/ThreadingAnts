@@ -2,6 +2,8 @@
 #include <vector> 
 #include <string> 
 
+class Tile; 
+
 class Map { 
 	private: 
 		// the map's dimensions 
