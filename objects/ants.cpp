@@ -2,6 +2,7 @@
 #include "tiles.cpp" 
 
 #include "headers/ants.hpp" 
+#include "headers/anthill.hpp" 
 #include "../utils/geometry.cpp" 
 
 #define MAX_INT 2147483647 
