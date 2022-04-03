@@ -1,3 +1,5 @@
+#ifndef MAP_H 
+#define MAP_H 
 #include <iostream> 
 #include <vector> 
 #include <string> 
@@ -23,3 +25,4 @@ class Map {
 		void print(); 
 
 }; 
+#endif 

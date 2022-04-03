@@ -1,3 +1,5 @@
+#ifndef FOOD_H 
+#define FOOD_H 
 #include <iostream> 
 #include <vector> 
 
@@ -16,3 +18,4 @@ class Food {
 		consume(); 
 		restore(); 
 };  
+#endif 
