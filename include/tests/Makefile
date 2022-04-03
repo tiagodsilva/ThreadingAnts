@@ -3,7 +3,7 @@ GCC=g++
 CFLAGS=-g -Wall -o 
 LDFLAGS=-pthread 
 
-FILENAME=testAnts.cpp  
+FILENAME?=testAnts.cpp  
 COMPILED=main 
 
 all: ${COMPILED} 

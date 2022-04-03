@@ -1,5 +1,5 @@
 #include <iostream> 
-#include "../geometry.cpp" 
+#include "../headers/geometry.hpp" 
 
 #define IS_TRUE(x) { if(!(x)) std::cout << __FUNCTION__ << " inadequate; line " << __LINE__ << std::endl; } 
 
