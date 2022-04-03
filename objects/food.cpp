@@ -6,7 +6,7 @@
 * @param Tile * foodTile the tile in which it was placed in the game 
 * @param int initVolume the initial volume of the food in this tile 
 */  
-Food(Tile * foodTile, int initVolume) 
+Food::Food(Tile * foodTile, int initVolume) 
 	: tile(foodTile), initialVolume(initVolume), volume(initVolume) 
 	{} 
 		
@@ -16,7 +16,7 @@ Food(Tile * foodTile, int initVolume)
 * @return true if there was food to be consumed; 
 * in the other scenario, `false` is the variable. 
 */  
-bool consume() { 
+bool Food::consume() { 
 	if (volume >= 1) {  
 		volume--; 
 		return true; 
@@ -28,6 +28,6 @@ bool consume() {
 /**  
 * Restore the initial volume, as asserted in the parameter `initialVolume`.  
 */  
-void restore() { 
+void Food::restore() { 
 	volume = initialVolume; 
 } 
