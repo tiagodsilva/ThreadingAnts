@@ -4,7 +4,7 @@
 /**  
 * A vector in C++; it simulates the pointwise operations in NumPy, for instance.  
 */  
-struct AVec { 
+struct Vec { 
 	float x; 
 	float y; 
 
@@ -12,7 +12,7 @@ struct AVec {
 	* Constructor method for `Vec`.  
 	* @param int xVec, yVec the vector coordinates in the Cartesian plane. 
 	*/  
-	AVec(float xVec, float yVec) 
+	Vec(float xVec, float yVec) 
 		: x(xVec), y(yVec) 
 		{} 
 };  
@@ -22,8 +22,8 @@ struct AVec {
 * @param double s the real scalar 
 * @param Vec &w a reference to the vector 
 */  
-AVec operator*(double s, const AVec &w) { 
-	return AVec(s * w.x, s * w.y); 
+Vec operator*(double s, const Vec &w) { 
+	return Vec(s * w.x, s * w.y); 
 } 
 
 /**  
@@ -31,7 +31,7 @@ AVec operator*(double s, const AVec &w) {
 * @param Vec &v a reference to the vector 
 * @param double s the real scalar 
 */  
-AVec operator*(const AVec &w, double s) { 
+Vec operator*(const Vec &w, double s) { 
 	return Vec(s * w.x, s * w.y); 
 } 
 
@@ -39,23 +39,23 @@ AVec operator*(const AVec &w, double s) {
 * Sum a pair of vectors, which are instances of the struct `Vec`.  
 * @params const Vec &v, const Vec &w the vectors that are we are going to sum 
 */  
-AVec operator+(const AVec &v, const AVec &w) { 
-	return AVec(v.x + w.x, v.y + w.y); 
+Vec operator+(const Vec &v, const Vec &w) { 
+	return Vec(v.x + w.x, v.y + w.y); 
 } 
 
 /**  
 * Apply a subtraction between a pair of vectors, instances of `Vec`.  
 * @param const Vec &v, const Vec &w references to the vectors 
 */  
-AVec operator-(const AVec &v, const AVec &w) { 
-	return AVec(v.x - w.x, v.y - w.y); 
+Vec operator-(const Vec &v, const Vec &w) { 
+	return Vec(v.x - w.x, v.y - w.y); 
 }
 
 /**  
 * Compute the squared distance between a pair of vectors. 
 * @param Vec v, w the vectors whose distance is going to be computed.  
 */  
-float lengthSquared(AVec v, AVec w) { 
+float lengthSquared(Vec v, Vec w) { 
 	return (v.x - w.x) * (v.x - w.x) + (v.y - w.y) * (v.y - w.y); 
 } 
 
@@ -63,7 +63,7 @@ float lengthSquared(AVec v, AVec w) {
 * Compute the actual distance (the Euclidean norm); it computes the square root.  
 * @param Vec v, w the vectors whose distance is going to be estimated. 
 */  
-float distance(AVec v, AVec w) { 
+float distance(Vec v, Vec w) { 
 	return std::sqrt(lengthSquared(v, w)); 
 } 
 
@@ -71,7 +71,7 @@ float distance(AVec v, AVec w) {
 * Compute the dot product between the vectors `v` and `w`.  
 * @param Vec v, w the vectors that are going to underlie the dot product. 
 */  
-float dotProduct(AVec v, AVec w) { 
+float dotProduct(Vec v, Vec w) { 
 	return v.x * w.x + v.y * w.y; 
 } 
 
@@ -81,7 +81,7 @@ float dotProduct(AVec v, AVec w) {
 * @param Vec v, w the vectors underlying the segment 
 * @param p the point from which the distance is going to be computed 
 */  
-float distanceToSegment(AVec v, AVec w, AVec p) { 
+float distanceToSegment(Vec v, Vec w, Vec p) { 
 	// Compute the distance between v and w -- to assert that the 
 	// segment is actually a segment 
 	const float squaredDistance = lengthSquared(v, w); 
@@ -92,7 +92,7 @@ float distanceToSegment(AVec v, AVec w, AVec p) {
 	// scenario in which the point is not in the segment. 
 	const float alpha = std::max(float(0), 
 			std::min(float(1), dotProduct(p - v, w - v)/squaredDistance)); 
-	const AVec projection = v + alpha * (w - v); 
+	const Vec projection = v + alpha * (w - v); 
 	return distance(p, projection); 
 } 
 
