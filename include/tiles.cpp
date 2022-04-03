@@ -6,7 +6,7 @@
 // #include "map.cpp" 
 // Tile ** tiles; 
 
-#include "headers/tiles.hpp" 
+#include "headers/objects.hpp" 
 
 /**  
 * Constructor method for `Tile`.  

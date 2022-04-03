@@ -2,9 +2,8 @@
 #include <vector> 
 // #include "tiles.cpp" 
 
-#include "headers/ants.hpp" 
-#include "headers/anthill.hpp" 
-#include "../utils/geometry.cpp" 
+#include "headers/objects.hpp" 
+#include "headers/geometry.hpp" 
 
 #define MAX_INT 2147483647 
 
@@ -14,7 +13,7 @@
 * @param Anthill colony the colony to which the colony's pertains  
 * @param Map map the map in which the game unfolds; it is, now, a convenient attribute
 */  
-Ant::Ant(int x, int y, Anthill colony, Map * antsMap, int fieldOfView) 
+Ant::Ant(int x, int y, Anthill * colony, Map * antsMap, int fieldOfView) 
 	: x_pos(x), y_pos(y), antHill(colony), map(antsMap), fov(fieldOfView) 
 	{} 
 /**  
@@ -44,18 +43,25 @@ void Ant::die() {
 
 void Ant::eat(Food * food) { 
 	// should be synchronized 
-	hasFood = food.consume(); 
+	hasFood = food->consume(); 
 } 
 
 /**  
 * Compute the ants coordinates 
-* @return int * the coordinates' array 
+* @return int x the horizontal coordinate 
 */  
-int * Ant::getCoordinates() { 
-	int coords[] = {x_pos, y_pos}; 
-	return coords; 
+int Ant::getX() { 
+	return x; 
 } 
-	
+
+/**  
+* Compute the ants coordinates. 
+* @return int y the vertical coordinate  
+*/  
+int Ant::getY() { 
+	return y; 
+} 
+
 /**  
 * Increment the pheromone's intensity in the current ant's tile; 
 * a map would be maybe convenient 

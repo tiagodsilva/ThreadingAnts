@@ -1,7 +1,7 @@
 #include <iostream> 
 #include <vector> 
 
-#include "headers/food.hpp" 
+#include "headers/objects.hpp" 
 /**  
 * Constructor method for `Food`.  
 * @param Tile * foodTile the tile in which it was placed in the game 

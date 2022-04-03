@@ -1,11 +1,25 @@
 #ifndef CLASSES_H 
 #define CLASSES_H 
+#include <iostream> 
+#include <vector> 
+#include <map> 
+#include <queue> 
+
+#include "geometry.hpp" 
+
+class Anthill; 
+class Map; 
+class Ant; 
+class Tile; 
+class Region; 
+class Food; 
 
 class Anthill { 
 	private: 
 		// the colony's name and coordinates, sequentially 
 		std::string name; 
-		Tile * tile; 
+		int x_pos; 
+		int y_pos; 
 		
 		// Whether the ants were inserted in the game 
 		bool isInitialized = false; 
@@ -14,39 +28,15 @@ class Anthill {
 		int foodStorage; 
 
 		// Methods 
-		Anthill(Tile * colonyTile, std::string colonyName); 
+		Anthill(int x, int y, std::string colonyName); 
 		void instantiateAnts(int numAnts); 
 		void incrementFood(); 
 }; 
 
-class Ant {
-	private:
-		// The ant's coordinates
-		int x_pos;
-		int y_pos;
-
-		Anthill * antHill;
-		Map * map;
-		int fov; // field of view
-	public:
-		bool hasFood;
-
-		// Explicit ants methods
-		Ant(int x, int y, Anthill colony, Map * antsMap, int fieldOfView);
-		void move(int x, int y);
-		void die();
-		void eat(Food * food);
-		int * getCoordinates();
-		void releasePheromone();
-		void moveToColony();
-		void moveInSegment(Vec v, Vec w, std::vector<Tile> neighbors);
-		Tile hasFoodNear();
-		bool moveToFood();
-};
-
 class Food { 
 	private: 
-		Tile * tile; // the tile in which the food is in the game 
+		int x_pos;
+	       	int y_pos;  // the tile in which the food is in the game 
 		int volume; // the amount of volume 
 
 		int initialVolume; // the initial volume of food in this tile; 
@@ -54,9 +44,10 @@ class Food {
 	public: 
 		// methods 
 		Food(Tile * foodTile, int initVolume); 
-		consume(); 
-		restore(); 
+		bool consume(); 
+		void restore(); 
 }; 
+
 
 class Map {
 	private:
@@ -78,28 +69,32 @@ class Map {
 
 };
 
-class Region { 
-	private: 
-		std::vector<Tile> tiles; // the tiles in this region 
-		// Coordinates in which region starts 
-		//  + 
-		//  + Region 
-		//  + 
-		// (x, y) + + +   
-		int x; 
-		int y; 
 
-		// The horizontal and vertical offsets 
-		int xOffset; 
-		int yOffset; 
+class Ant {
+	private:
+		// The ant's coordinates
+		int x_pos;
+		int y_pos;
 
-		Map * map; // the game in which the game unfolds 
-		// it needs a mutex 
-	public: 
-		Region(int xRegion, int yRegion, 
-				int xOffsetRegion, yOffsetRegion, 
-				Map * mapRegion); 
-}; 
+		Anthill * antHill;
+		Map * map;
+		int fov; // field of view
+	public:
+		bool hasFood;
+
+		// Explicit ants methods
+		Ant(int x, int y, Anthill * colony, Map * antsMap, int fieldOfView);
+		void move(int x, int y);
+		void die();
+		void eat(Food * food);
+		int getX(); 
+		int getY(); 
+		void releasePheromone();
+		void moveToColony();
+		void moveInSegment(Vec v, Vec w, std::vector<Tile> neighbors);
+		Tile hasFoodNear();
+		bool moveToFood();
+};
 
 class Tile {
 	private:
@@ -126,4 +121,26 @@ class Tile {
 		std::string print();
 };
 
+class Region { 
+	private: 
+		std::vector<Tile> tiles; // the tiles in this region 
+		// Coordinates in which region starts 
+		//  + 
+		//  + Region 
+		//  + 
+		// (x, y) + + +   
+		int x; 
+		int y; 
+
+		// The horizontal and vertical offsets 
+		int xOffset; 
+		int yOffset; 
+
+		Map * map; // the game in which the game unfolds 
+		// it needs a mutex 
+	public: 
+		Region(int xRegion, int yRegion, 
+				int xOffsetRegion, int yOffsetRegion, 
+				Map * mapRegion); 
+}; 
 #endif 
