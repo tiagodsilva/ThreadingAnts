@@ -13,8 +13,8 @@
 * @param Anthill colony the colony to which the colony's pertains  
 * @param Map map the map in which the game unfolds; it is, now, a convenient attribute
 */  
-Ant::Ant(int x, int y, Anthill * colony, Map * antsMap, int fieldOfView) 
-	: x_pos(x), y_pos(y), antHill(colony), map(antsMap), fov(fieldOfView) 
+Ant::Ant(int x, int y, Anthill * colony, int fieldOfView) 
+	: x_pos(x), y_pos(y), antHill(colony), fov(fieldOfView) 
 	{} 
 /**  
 * Execute a movement for the current ant.  
@@ -22,14 +22,14 @@ Ant::Ant(int x, int y, Anthill * colony, Map * antsMap, int fieldOfView)
 */  
 void Ant::move(int x, int y) { 
 	// Identify the ant's current tile 
-	Tile tile = map->getTile(x_pos, y_pos); 
+	Tile * tile = map->getTile(x_pos, y_pos); 
 	// and extract this ant from it 
-	tile.extractAnt(this); 
+	tile->extractAnt(this); 
 	x_pos += x; 
 	y_pos += y; 
 	// Insert the ant in the other tile 
-	Tile nextTile = map->getTile(x_pos, y_pos); 
-	nextTile.insertAnt(this); 
+	Tile * nextTile = map->getTile(x_pos, y_pos); 
+	nextTile->insertAnt(this); 
 } 
 		
 /**  
@@ -37,8 +37,8 @@ void Ant::move(int x, int y) {
 */  	
 void Ant::die() { 
 	// Identify ant's tile 
-	Tile tile = map->getTile(x_pos, y_pos); 
-	tile.killAnt(this); 
+	Tile * tile = map->getTile(x_pos, y_pos); 
+	tile->killAnt(this); 
 } 
 
 void Ant::eat(Food * food) { 
@@ -67,18 +67,20 @@ int Ant::getY() {
 * a map would be maybe convenient 
 */  
 void Ant::releasePheromone() { 
-	Tile currTile = map->getTile(x_pos, y_pos); 
-	currTile.incrementPheromone(); 
+	Tile * currTile = map->getTile(x_pos, y_pos); 
+	currTile->incrementPheromone(); 
 } 
 
 void Ant::moveToColony() { 
 	// Identify the ant's colony 
-	Tile * colonyTile = antHill->getTile(); 
+	int colonyX = antHill->getX(); 
+	int colonyY = antHill->getY(); 
+	Tile * colonyTile = map->getTile(colonyX, colonyY); 
 	// and its coordinates 
 	const int xColony = colonyTile->getX(); 
 	const int yColony = colonyTile->getY(); 
 	// Compute, then, the ant's tile's neighbors 
-	std::vector<Tile> neighbors = map->neighbors(x_pos, y_pos); 
+	std::vector<Tile*> neighbors = map->neighbors(x_pos, y_pos); 
 			
 	// Line through the ant's coordinates and the colony's 
 	Vec antVec = Vec(x_pos, y_pos); 
@@ -92,14 +94,14 @@ void Ant::moveToColony() {
 * @param Vec v, w the vectors subjacent to the segment 
 * @param std::vector<Tile> neighbors the list of neighbors of the ant 
 */  
-void Ant::moveInSegment(Vec v, Vec w, std::vector<Tile> neighbors) { 
+void Ant::moveInSegment(Vec v, Vec w, std::vector<Tile*> neighbors) { 
 	// Move across the segment that underlies the convex combinations of the 
 	// vectors `v` and `w` 
 	float currDist = MAX_INT; 
 	Vec moveDirection = Vec(int(1e-13), int(1e-13)); 
-	for (Tile neighbor : neighbors) { 
-		int x = neighbor.x; 
-		int y = neighbor.y; 
+	for (Tile * neighbor : neighbors) { 
+		int x = neighbor->getX(); 
+		int y = neighbor->getY(); 
 
 		Vec neighborVec = Vec(x, y); 
 		float distanceToLine = distanceToSegment(v, w, neighborVec); 
@@ -111,23 +113,24 @@ void Ant::moveInSegment(Vec v, Vec w, std::vector<Tile> neighbors) {
 	} 
 	
 	// Identify the movement direction 
-	int xDir = moveDirection.x - x; 
-	int yDir = moveDirection.y - y; 
+	int xDir = moveDirection.x - x_pos; 
+	int yDir = moveDirection.y - y_pos; 
 	move(xDir, yDir); 
 } 
 
 /**  
 * Check whether there is a food object contemplated in the field of view.  
 */  
-Tile Ant::hasFoodNear() { 
+Tile * Ant::hasFoodNear() { 
 	// Instantiate the neighbors in the field of view 
-	std::vector<Tile> neighbors = map->neighbors(x_pos, y_pos); 
+	std::vector<Tile*> neighbors = map->neighbors(x_pos, y_pos); 
 			
-	for (Tile neighbor : neighbors) { 
-		if (neighbor.hasFood) 
+	for (Tile * neighbor : neighbors) { 
+		if (neighbor->isFood) 
 			return neighbor; 
 	} 
-	return NULL; 		
+	// Use the actual tile 
+	return map->getTile(x_pos, y_pos); 		
 } 
 
 /**  
@@ -135,14 +138,17 @@ Tile Ant::hasFoodNear() {
 */  
 bool Ant::moveToFood() { 
 	// Verify if there is food near 
-	if (Tile neighbo = hasFoodNear()) { 
-		int x = neighbor.x; 
-		int y = neighbor.y; 
+	Tile * neighbor = hasFoodNear(); 
+	Tile * currTile = map->getTile(x_pos, y_pos); 
+	if (neighbor->getX() != currTile->getX() || 
+			neighbor->getY() != currTile->getY()) { 
+		int x = neighbor->getX(); 
+		int y = neighbor->getY(); 
 		Vec antVec = Vec(x_pos, y_pos); 
 		Vec foodVec = Vec(x, y); 
 
 		// Ant's neighbors 
-		std::vector<Tile> neighbors = map->neighbors(x_pos, y_pos); 
+		std::vector<Tile*> neighbors = map->neighbors(x_pos, y_pos); 
 				
 		// Identify and apply the food's direction 
 		moveInSegment(antVec, foodVec, neighbors); 
@@ -153,3 +159,9 @@ bool Ant::moveToFood() {
 	return false; 
 } 
 
+/**  
+* Identify the ant's anthill.  
+*/  
+Anthill * Ant::getAnthill() { 
+	return antHill; 
+} 

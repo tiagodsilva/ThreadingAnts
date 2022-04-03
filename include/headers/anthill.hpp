@@ -20,7 +20,7 @@ class Anthill {
 
 		// Methods 
 		Anthill(Tile * colonyTile, std::string colonyName); 
-		void instantiateAnts(int numAnts); 
+		void instantiateAnts(int numAnts, int fov); 
 		void incrementFood(); 
 }; 
 #endif 

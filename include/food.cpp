@@ -7,8 +7,8 @@
 * @param Tile * foodTile the tile in which it was placed in the game 
 * @param int initVolume the initial volume of the food in this tile 
 */  
-Food::Food(Tile * foodTile, int initVolume) 
-	: tile(foodTile), initialVolume(initVolume), volume(initVolume) 
+Food::Food(int x, int y, int initVolume) 
+	: x_pos(x), y_pos(y), initialVolume(initVolume), volume(initVolume) 
 	{} 
 		
 /**  

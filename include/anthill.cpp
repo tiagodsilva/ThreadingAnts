@@ -9,21 +9,23 @@
 * @param colonyTile the tile correspondent with the colony  
 * @param name the colony's name; it should be an identifier 
 */  
-Anthill::Anthill(Tile * colonyTile, std::string colonyName) 
-	: name(colonyName), tile(colonyTile) 
+Anthill::Anthill(int x, int y, std::string colonyName) 
+	: name(colonyName), x_pos(x), y_pos(y)   
 	{} 
 		
 /**  
 * Instantiate `ants` ants in the game. 
 * @param int ants 
+* @param fov the ant's field of view 
 */  	
-void Anthill::instantiateAnts(int ants) { 
+void Anthill::instantiateAnts(int ants, int fov) { 
 	if (isInitialized) 
-		return NULL; 
+		return; 
 	initialAnts = ants; 
 	// Insert ants in the tile 
-	for (int i = 0; i < initalAnts; i++) { 
-		tile.insertAnt(new Ant(tile->x, tile->y, this)); 
+	Tile * thisTile = map->getTile(x_pos, y_pos); 
+	for (int i = 0; i < initialAnts; i++) { 
+		thisTile->insertAnt(new Ant(x_pos, y_pos, this, fov)); 
 	} 
 
 	isInitialized = true; 
@@ -45,9 +47,18 @@ std::string Anthill::getName() {
 } 
 
 /**  
-* Compute the anthill's tile.  
-* @return Tile * tile the anthill's tile in the game 
+* Compute the x coordinate of the anthill, which is correspondent to the horizontal 
+* axis.  
+* @return int x_pos the x coordinate 
 */  
-Tile * getTile() { 
-	return tile; 
+int Anthill::getX() { 
+	return x_pos; 
+} 
+
+/**  
+* Identify the y coordinate of the anthill, a pointer to the vertical axis.  
+* @return int y_pos the y coordinate 
+*/  
+int Anthill::getY() { 
+	return y_pos; 
 } 

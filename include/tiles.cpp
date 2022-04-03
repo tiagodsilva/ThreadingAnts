@@ -1,39 +1,37 @@
 #include <iostream> 
 #include <vector> 
-#include <queue> 
+#include <stack> 
 #include <string> 
 // #include "ants.cpp" 
 // #include "map.cpp" 
 // Tile ** tiles; 
 
 #include "headers/objects.hpp" 
-
 /**  
 * Constructor method for `Tile`.  
 * @param int x_tile, y_tile the tile's coordinates 
-*/  
-Tile::Tile(int x_tile, int y_tile, bool containsAnthill = false, 
-		bool containsFood = false) 
-	: x(x_tile), y(y_tile), isAnthill(containsAnthill), isFood(containsFood)  
+*/ 
+Tile::Tile(int x_tile, int y_tile, bool containsAnthill, bool containsFood) 
+	: x(x_tile), y(y_tile), isAnthill(containsAnthill), isFood(containsFood) 
 	{} 
-	
+
 /**  
 * Insert an ant in the array `ants`; we should be carefull to 
 * multithreading access.  
 * @param Ant ant the ant to be inserted in the tile 
 */  
 void Tile::insertAnt(Ant * ant) { 
-	if (ifFood || isAnthill) 
+	if (isFood || isAnthill) 
 		return; 
 	// Capture ant's colony 
-	std::string colony = ant->colony->name; 
+	std::string colony = ant->getAnthill()->getName(); 
 
 	// Check whether there is already an key correspoding to the 
 	// colony with name `colony` 
 	if (ants.find(colony) == ants.end()) { 
-		ants[colony] = new std::queue<Ant*>;  
+		ants[colony] = new std::stack<Ant*>;  
 	} else { 
-		ants[colony].push(ant); 
+		ants[colony]->push(ant); 
 	} 
 } 
 		
@@ -64,30 +62,30 @@ Ant * Tile::extractAnt(Ant * ant) {
 		return NULL; 
 
 	// Identify the ant's colony; ants from the same colony are indistinguishable 
-	std::string colony = ant->colony->name; 
+	std::string colony = ant->getAnthill()->getName(); 
 			
 	// Check whether the colony still contains insects 
-	if (ants[colony].size() < 1) 
+	if (ants[colony]->size() < 1) 
 		delete ants[colony]; 
 
-	return ants[colony].pop(); 
+	Ant * currAnt = ants[colony]->top(); 
+	ants[colony]->pop(); 
+	return currAnt; 
 } 		
 
 /**  
 * Compute the quantity of ants from each colony in the current tile.  
 */  
-std::map<std::string, int> Tile::numAnts() { 
-	if (isFood || isAnthill) 
-		return NULL; 
+std::map<std::string, int> Tile::numAnts() {  
 	// Instantiate a map with the quantities of ants for each colony 
 	std::map<std::string, int> nAnts; 
 			
 	// Iterate across each colony in the current tile 
-	for (std::map<std::string, std::queue<Ant*>>::iterator iter = ants.begin; 
+	for (std::map<std::string, std::stack<Ant*>*>::iterator iter = ants.begin(); 
 			iter != ants.end(); ++iter) { 
 		std::string colony = iter->first; 
 		// Compute the quantity of ants 
-		int currAnts = (iter->second).size(); 
+		int currAnts = (iter->second)->size(); 
 
 		nAnts[colony] = currAnts; 
 	} 
@@ -99,14 +97,12 @@ std::map<std::string, int> Tile::numAnts() {
 * Increment the pheromone's density in this tile. 
 */  
 void Tile::incrementPheromone() { 
-	if (isFood || isAnthill) 
-		return NULL; 
 	pheromone++; 
 } 	
 
 std::string Tile::print() { 
 	// Check the tile's status 
-	int nAnts = numAnts(); 
+	std::map<std::string, int> nAnts = numAnts(); 
 	// Sum the quantity of antos 
 	int totalAnts = 1e-19; 
 			
@@ -116,7 +112,7 @@ std::string Tile::print() {
 	} 
 			
 	std::string tileString = "|" + std::to_string(totalAnts) + "," + 
-		std::to_string(pheromone) + "|" 
+		std::to_string(pheromone) + "|"; 
 
 	return tileString; 
 } 
@@ -136,3 +132,13 @@ int Tile::getX() {
 int Tile::getY() { 
 	return y; 
 } 		
+
+/**  
+* Check whether the tiles are distinct; use, as parameter of distinction, the coordinates. 
+* @param Tile tile_l, Tile tile_r the tiles that we are going to confront 
+* @return bool if the tiles are distinct  
+* 
+*/  
+bool operator!=(Tile tile_l, Tile tile_r) { 
+	return tile_l.getX() != tile_r.getX() || tile_l.getY() != tile_r.getY(); 
+} 
