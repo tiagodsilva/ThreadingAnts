@@ -51,7 +51,7 @@ void Ant::eat(Food * food) {
 * @return int x the horizontal coordinate 
 */  
 int Ant::getX() { 
-	return x; 
+	return x_pos; 
 } 
 
 /**  
@@ -59,7 +59,7 @@ int Ant::getX() {
 * @return int y the vertical coordinate  
 */  
 int Ant::getY() { 
-	return y; 
+	return y_pos; 
 } 
 
 /**  
@@ -67,16 +67,16 @@ int Ant::getY() {
 * a map would be maybe convenient 
 */  
 void Ant::releasePheromone() { 
-	const Tile currTile = map->getTile(x_pos, y_pos); 
+	Tile currTile = map->getTile(x_pos, y_pos); 
 	currTile.incrementPheromone(); 
 } 
 
 void Ant::moveToColony() { 
 	// Identify the ant's colony 
-	const Tile colonyTile = antHill->tile; 
+	Tile * colonyTile = antHill->getTile(); 
 	// and its coordinates 
-	const int xColony = Tile->x; 
-	const int yColony = Tile->y; 
+	const int xColony = colonyTile->getX(); 
+	const int yColony = colonyTile->getY(); 
 	// Compute, then, the ant's tile's neighbors 
 	std::vector<Tile> neighbors = map->neighbors(x_pos, y_pos); 
 			
@@ -84,7 +84,7 @@ void Ant::moveToColony() {
 	Vec antVec = Vec(x_pos, y_pos); 
 	Vec colonyVec = Vec(xColony, yColony); 
 			
-	moveSegment(antVec, colonyVec, neighbors); 
+	moveInSegment(antVec, colonyVec, neighbors); 
 } 
 
 /**  
@@ -96,7 +96,7 @@ void Ant::moveInSegment(Vec v, Vec w, std::vector<Tile> neighbors) {
 	// Move across the segment that underlies the convex combinations of the 
 	// vectors `v` and `w` 
 	float currDist = MAX_INT; 
-	Vec moveDirection; 
+	Vec moveDirection = Vec(int(1e-13), int(1e-13)); 
 	for (Tile neighbor : neighbors) { 
 		int x = neighbor.x; 
 		int y = neighbor.y; 

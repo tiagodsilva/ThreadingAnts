@@ -35,3 +35,19 @@ void Anthill::instantiateAnts(int ants) {
 void Anthill::incrementFood() { 
 	foodStorage++; 
 } 
+
+/**  
+* Capture the anthill's name.  
+* @return std::string name the anthill name 
+*/  
+std::string Anthill::getName() { 
+	return name; 
+} 
+
+/**  
+* Compute the anthill's tile.  
+* @return Tile * tile the anthill's tile in the game 
+*/  
+Tile * getTile() { 
+	return tile; 
+} 

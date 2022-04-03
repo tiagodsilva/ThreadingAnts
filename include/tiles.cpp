@@ -121,4 +121,18 @@ std::string Tile::print() {
 	return tileString; 
 } 
 
-		
+/**  
+* Compute the tile's coordinates.  
+* @return int x the tile's horizontal coordinate 
+*/  
+int Tile::getX() { 
+	return x; 
+} 
+
+/**  
+* Identify the tile's coordinates. 
+* @return int y the tile's vertical coordinate  
+*/  
+int Tile::getY() { 
+	return y; 
+} 		

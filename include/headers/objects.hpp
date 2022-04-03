@@ -18,8 +18,7 @@ class Anthill {
 	private: 
 		// the colony's name and coordinates, sequentially 
 		std::string name; 
-		int x_pos; 
-		int y_pos; 
+		Tile * tile; 
 		
 		// Whether the ants were inserted in the game 
 		bool isInitialized = false; 
@@ -28,9 +27,12 @@ class Anthill {
 		int foodStorage; 
 
 		// Methods 
-		Anthill(int x, int y, std::string colonyName); 
+		Anthill(Tile * tile, std::string colonyName); 
 		void instantiateAnts(int numAnts); 
 		void incrementFood(); 
+
+		Tile * getTile(); 
+		std::string getName(); 
 }; 
 
 class Food { 
@@ -119,6 +121,8 @@ class Tile {
 		std::map<std::string, int> numAnts();
 		void incrementPheromone();
 		std::string print();
+		int getX(); 
+		int getY(); 
 };
 
 class Region { 
