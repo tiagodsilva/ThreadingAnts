@@ -1,3 +1,5 @@
+#ifndef REGION_H 
+#define REGION_H 
 #include <iostream> 
 #include <vector> 
 
@@ -25,3 +27,4 @@ class Region {
 				int xOffsetRegion, yOffsetRegion, 
 				Map * mapRegion); 
 }; 
+#endif 
