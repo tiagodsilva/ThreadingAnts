@@ -1,3 +1,5 @@
+#ifndef GEOMETRY_H 
+#define GEOMETRY_H 
 #include <iostream> 
 #include <math.h> 
 
@@ -95,4 +97,4 @@ float distanceToSegment(Vec v, Vec w, Vec p) {
 	const Vec projection = v + alpha * (w - v); 
 	return distance(p, projection); 
 } 
-
+#endif 
