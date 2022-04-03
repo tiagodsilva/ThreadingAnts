@@ -57,7 +57,7 @@ void Tile::killAnt(Ant * ant) {
 * Extracts an ant for the current tile; it was directed to other tile. 
 * @param Ant * ant the ant that is going to be extracted from this tile 
 */  
-Ant * extractAnt(Ant * ant) { 
+Ant * Tile::extractAnt(Ant * ant) { 
 	if (isFood || isAnthill) 
 		return NULL; 
 
@@ -74,7 +74,7 @@ Ant * extractAnt(Ant * ant) {
 /**  
 * Compute the quantity of ants from each colony in the current tile.  
 */  
-std::map<std::string, int> numAnts() { 
+std::map<std::string, int> Tile::numAnts() { 
 	if (isFood || isAnthill) 
 		return NULL; 
 	// Instantiate a map with the quantities of ants for each colony 
@@ -96,13 +96,13 @@ std::map<std::string, int> numAnts() {
 /**  
 * Increment the pheromone's density in this tile. 
 */  
-void incrementPheromone() { 
+void Tile::incrementPheromone() { 
 	if (isFood || isAnthill) 
 		return NULL; 
 	pheromone++; 
 } 	
 
-std::string print() { 
+std::string Tile::print() { 
 	// Check the tile's status 
 	int nAnts = numAnts(); 
 	// Sum the quantity of antos 
