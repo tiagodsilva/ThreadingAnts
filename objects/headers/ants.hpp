@@ -1,5 +1,6 @@
 #include<iostream> 
 
+#include "../../utils/geometry.cpp"
 class Map; 
 class Anthill; 
 class Food; 
