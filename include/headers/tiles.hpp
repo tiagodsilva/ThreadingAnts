@@ -1,3 +1,5 @@
+#ifndef TILE_H 
+#define TILE_H 
 #include <iostream> 
 #include<map> 
 #include<vector> 
@@ -29,3 +31,4 @@ class Tile {
 		void incrementPheromone(); 
 		std::string print(); 
 }; 
+#endif 
