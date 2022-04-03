@@ -1,6 +1,8 @@
 #include <iostream> 
 #include <vector> 
 
+class Tile; 
+
 class Food { 
 	private: 
 		Tile * tile; // the tile in which the food is in the game 
