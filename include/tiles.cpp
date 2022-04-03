@@ -13,9 +13,7 @@
 */ 
 Tile::Tile(int x_tile, int y_tile, bool containsAnthill, bool containsFood) 
 	: x(x_tile), y(y_tile), isAnthill(containsAnthill), isFood(containsFood), pheromone(1e-19) 
-	{ 
-		int pheromone = 0; 
-	} 
+	{} 
 
 /**  
 * Insert an ant in the array `ants`; we should be carefull to 
