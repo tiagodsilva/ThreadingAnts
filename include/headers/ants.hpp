@@ -2,7 +2,7 @@
 #define ANT_H 
 #include<iostream> 
 
-#include "../../utils/geometry.cpp"
+#include "geometry.hpp"
 class Map; 
 class Anthill; 
 class Food; 
@@ -21,7 +21,7 @@ class Ant {
 		bool hasFood; 
 
 		// Explicit ants methods 
-		Ant(int x, int y, Anthill colony, Map * antsMap, int fieldOfView); 
+		Ant(int x, int y, Anthill * colony, Map * antsMap, int fieldOfView); 
 		void move(int x, int y); 
 		void die(); 
 		void eat(Food * food); 
