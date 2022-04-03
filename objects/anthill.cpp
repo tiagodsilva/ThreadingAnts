@@ -4,7 +4,6 @@
 
 #include "headers/anthill.hpp" 
 
-
 /**  
 * Constructor method for the `Anthill` object 
 * @param colonyTile the tile correspondent with the colony  

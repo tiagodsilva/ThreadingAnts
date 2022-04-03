@@ -1,5 +1,5 @@
 #include <iostream> 
-#include "tiles.cpp" 
+// #include "tiles.cpp" 
 
 #include "headers/ants.hpp" 
 #include "headers/anthill.hpp" 

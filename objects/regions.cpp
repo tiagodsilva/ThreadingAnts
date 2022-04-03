@@ -1,6 +1,8 @@
 #include <iostream> 
 #include <vector> 
 
+#include "headers/regions.hpp" 
+
 /**  
 * Constructor method for `Region`; it is designed to be a mutex keeper.  
 * @param int xRegion, yRegion, xOffsetRegion, 

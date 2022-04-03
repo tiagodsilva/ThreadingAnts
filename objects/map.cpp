@@ -3,6 +3,7 @@
 #include <string> 
 
 // #include "tiles.cpp" 
+#include "headers/map.hpp" 
 /**  
 * Constructor method for Map.  
 * @param mapWidth, mapHeight the map's dimensions 

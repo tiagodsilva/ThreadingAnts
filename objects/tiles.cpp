@@ -2,9 +2,11 @@
 #include <vector> 
 #include <queue> 
 #include <string> 
-#include "ants.cpp" 
-#include "map.cpp" 
+// #include "ants.cpp" 
+// #include "map.cpp" 
 // Tile ** tiles; 
+
+#include "headers/tiles.hpp" 
 
 /**  
 * Constructor method for `Tile`.  
