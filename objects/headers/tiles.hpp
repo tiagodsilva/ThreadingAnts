@@ -1,4 +1,9 @@
 #include <iostream> 
+#include<map> 
+#include<vector> 
+#include<queue> 
+
+class Ant; 
 
 class Tile { 
 	private: 
