@@ -121,7 +121,7 @@ void Map::insertFood(int x, int y, int initialVolume) {
 	Tile * currTile = tiles[i]; 
 	if (!currTile->isFood) { 
 		tiles[i] = new Tile(x, y, true); 
-		foods.push_back(new Food(x, y, initialVolume)); 
+		foods[std::make_pair(x, y)] = new Food(x, y, initialVolume); 
 	} 
 	delete currTile; 
 } 
@@ -133,4 +133,30 @@ void Map::insertFood(int x, int y, int initialVolume) {
 */  
 Anthill * Map::getAnthill(std::string anthillName) { 
 	return anthillMap[anthillName]; 
+} 
+
+/**  
+* Compute the food object in a tile; this tile has coordinates `x` and `y`.  
+* @param int x, int y the tile's coordinates 
+*/  
+Food * getFood(int x, int y) { 
+	return foods[std::make_pair(x, y)]; 
+} 
+
+std::vector<Food*> getFoods() { 
+	// Iterate across the map `food`; it is appropriate 
+	std::map<std::pair<int, int>, Food*> iterator; 
+	
+	std::vector<Food*> foodsVector; 
+
+	for (iterator = foods.begin(); iterations != foods.end(); 
+			++iterator) { 
+		// food's coordinates 
+		std::pair<int, int> coords = iterator->first; 
+		// and the actual instance 
+		Food * food = iterator->second; 
+		foodsVector.push_back(food); 
+	} 
+
+	return foodsVector; 
 } 
