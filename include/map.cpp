@@ -139,7 +139,7 @@ Anthill * Map::getAnthill(std::string anthillName) {
 * Compute the food object in a tile; this tile has coordinates `x` and `y`.  
 * @param int x, int y the tile's coordinates 
 */  
-Food * getFood(int x, int y) { 
+Food * Map::getFood(int x, int y) { 
 	return foods[std::make_pair(x, y)]; 
 } 
 
@@ -147,9 +147,9 @@ Food * getFood(int x, int y) {
 * Instantiate a vector with the foods, instances of `Food`, in the map.  
 * @return std::vector<Food*> a vector with the foods in the game 
 */  
-std::vector<Food*> getFoods() { 
+std::vector<Food*> Map::getFoods() { 
 	// Iterate across the map `food`; it is appropriate 
-	std::map<std::pair<int, int>, Food*> iterator; 
+	std::map<std::pair<int, int>, Food*>::iterator iterator; 
 	
 	std::vector<Food*> foodsVector; 
 
