@@ -5,12 +5,13 @@
 
 // #include "tiles.cpp" 
 #include "headers/objects.hpp" 
+
 /**  
 * Constructor method for Map.  
 * @param mapWidth, mapHeight the map's dimensions 
 */  
-Map::Map(int mapWidth, int mapHeight) 
-	: width(mapWidth), height(mapHeight) { 
+Map::Map(int mapWidth, int mapHeight, int fov) 
+	: width(mapWidth), height(mapHeight), fov(fov) { 
 		// Instantiate an array of tiles 
 		int area = mapWidth * mapHeight; 
 		// and insert tiles in it 
@@ -91,7 +92,7 @@ void Map::print() {
 * @param int x, int y the tile's coordinates 
 * @param std::string anthillName the colony's name 
 */  
-void Map::insertAnthill(int x, int y, std::string anthillName) { 
+void Map::insertAnthill(int x, int y, std::string anthillName, int nAnts) { 
 	// Identify the tiles correspondent to the coordinates `x` and `y`
 	const int i = y * width + x; 
 	Tile * currTile = tiles[i]; 
@@ -102,9 +103,12 @@ void Map::insertAnthill(int x, int y, std::string anthillName) {
 	} 
 	anthillMap[anthillName] = new Anthill(x, y, anthillName); 
 
+	// Initialize the ants 
+	anthillMap[anthillName]->initializeAnts(nAnts, fov); 
+
 	// Modify the vector containing the tiles 
 	tiles[i] = new Tile(x, y, anthillName); 
-	
+
 	// and allocate the RAM 
 	delete currTile; 
 } 

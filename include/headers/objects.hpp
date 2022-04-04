@@ -124,8 +124,11 @@ class Map {
 		
 		// and a list with the foods' coordinates 
 		std::map<std::pair<int, int>, Food*> foods; 
+
+		// the ant's field of view 
+		int fov; 
 	public:
-		Map(int mapWidth, int mapHeight);
+		Map(int mapWidth, int mapHeight, int fov);
 		Map(); 
 		Tile * getTile(int x, int y);
 		std::vector<Tile*> neighbors(int x, int y,
@@ -133,7 +136,8 @@ class Map {
 				int yBottomOffset = -1,
 				int xRightOffset = 1,
 				int yTopOffset = 1);
-		void insertAnthill(int x, int y, std::string anthillName); 
+		void insertAnthill(int x, int y, std::string anthillName, 
+				int nAnts); 
 		void insertFood(int x, int y, int initialVolume); 
 		Anthill * getAnthill(std::string anthillName); 
 		Food * getFood(int x, int y); 
