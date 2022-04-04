@@ -10,7 +10,6 @@
 
 void testTile(int x, int y) { 
 	// the variable `map` is global 
-	std::string colonyName = "Spartans"; 
 	Tile * tile = map->getTile(x, y); 
 } 
 
@@ -18,10 +17,12 @@ int main() {
 	// Instantiate the ants 
 	int mapWidth = 5; 
 	int mapHeight = 4; 
-	map = new Map(mapWidth, mapHeight); 
+	int fov = 2; 
+	map = new Map(mapWidth, mapHeight, fov); 
 	
 	// Insert anthills and foods 
-	map->insertAnthill(1, 3, "Spartans"); 
+	std::string colonyName = "Spartans"; 
+	map->insertAnthill(1, 3, colonyName); 
 	map->insertFood(4, 3, 32); 
 
 	std::cout << map->getTile(1, 3) << std::endl; 

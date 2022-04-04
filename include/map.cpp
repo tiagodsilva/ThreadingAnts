@@ -104,7 +104,7 @@ void Map::insertAnthill(int x, int y, std::string anthillName, int nAnts) {
 	anthillMap[anthillName] = new Anthill(x, y, anthillName); 
 
 	// Initialize the ants 
-	anthillMap[anthillName]->initializeAnts(nAnts, fov); 
+	anthillMap[anthillName]->instantiateAnts(nAnts, fov); 
 
 	// Modify the vector containing the tiles 
 	tiles[i] = new Tile(x, y, anthillName); 
