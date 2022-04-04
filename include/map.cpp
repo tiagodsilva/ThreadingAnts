@@ -85,3 +85,33 @@ void Map::print() {
 	} 
 } 
 
+/**  
+* Insert an anthill in the tile with coordinates `x` and `y`.  
+* @param int x, int y the tile's coordinates 
+* @param std::string anthillName the colony's name 
+*/  
+void Map::insertAnthill(int x, int y, std::string anthillName) { 
+	// Identify the tiles correspondent to the coordinates `x` and `y`
+	const int i = y * width + x; 
+	Tile * currTile = tiles[i]; 
+
+	// Modify the vector containing the tiles 
+	tiles[i] = new Tile(x, y, anthillName); 
+
+	// and allocate the RAM 
+	delete currTile; 
+} 
+
+/**  
+* Insert food in the tile correspondent to the coordinates `x` and `y`.  
+* @param int x, int y 
+*/  
+void Map::insertFood(int x, int y) { 
+	// Accordingly to the method `insertAnthill`, 
+	// identify and modify the container 
+	const int i = y * width + x; 
+	Tile * currTile = tiles[i]; 
+	tiles[i] = new Tile(x, y, true); 
+	delete currTile; 
+} 
+

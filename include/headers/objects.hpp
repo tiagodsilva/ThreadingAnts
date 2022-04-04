@@ -125,7 +125,7 @@ class Map {
 				int yBottomOffset = -1,
 				int xRightOffset = 1,
 				int yTopOffset = 1);
-		void insertAnthill(int x, int y); 
+		void insertAnthill(int x, int y, std::string anthillName); 
 		void insertFood(int x, int y); 
 		void print();
 

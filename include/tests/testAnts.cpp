@@ -10,6 +10,7 @@
 
 void testTile(int x, int y) { 
 	// the variable `map` is global 
+	std::string colonyName = "Spartans"; 
 	Tile * tile = map->getTile(x, y); 
 } 
 
