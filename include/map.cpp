@@ -97,9 +97,10 @@ void Map::insertAnthill(int x, int y, std::string anthillName) {
 
 	if (anthillMap.count(anthillName) == 1) { 
 		printf("The anthill with name %s is already in the map!", 
-				anthillName); 
+				anthillName.c_str()); 
 
 	anthillMap[anthillName] = new Anthill(x, y, anthillName); 
+
 	// Modify the vector containing the tiles 
 	tiles[i] = new Tile(x, y, anthillName); 
 	
