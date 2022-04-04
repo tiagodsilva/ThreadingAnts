@@ -101,14 +101,14 @@ void Map::insertAnthill(int x, int y, std::string anthillName, int nAnts) {
 		printf("The anthill with name %s is already in the map!", 
 				anthillName.c_str()); 
 	} 
-	anthillMap[anthillName] = new Anthill(x, y, anthillName); 
-
-	// Initialize the ants 
-	anthillMap[anthillName]->instantiateAnts(nAnts, fov); 
+	anthillMap.insert({anthillName, new Anthill(x, y, anthillName)}); 
 
 	// Modify the vector containing the tiles 
 	tiles[i] = new Tile(x, y, anthillName); 
-
+	
+	anthillMap[anthillName]->instantiateAnts(nAnts, fov); 
+	
+	std::cout << tiles[i]->ants->find(anthillName)->second << std::endl; 
 	// and allocate the RAM 
 	delete currTile; 
 } 

@@ -86,11 +86,9 @@ class Tile {
 		// Tile's coordinates
 		int x;
 		int y;
-
+	public:
 		// Array with the ants in this tile for each colony
 		std::map<std::string, std::stack<Ant*>*> * ants;
-	
-	public:
 		// Ramifications of this tile 
 		bool isAnthill; 
 		std::string anthillName; 

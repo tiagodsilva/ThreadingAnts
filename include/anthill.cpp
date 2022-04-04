@@ -27,7 +27,8 @@ void Anthill::instantiateAnts(int ants, int fov) {
 	for (int i = 0; i < initialAnts; i++) { 
 		thisTile->insertAnt(new Ant(x_pos, y_pos, this, fov)); 
 	} 
-
+	
+	std::cout << thisTile << std::endl; 
 	isInitialized = true; 
 } 
 

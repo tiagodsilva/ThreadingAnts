@@ -35,7 +35,7 @@ Tile::Tile(int x_tile, int y_tile, std::string anthillName)
 * @param Ant ant the ant to be inserted in the tile 
 */  
 void Tile::insertAnt(Ant * ant) { 
-	if (isFood || isAnthill) 
+	if (isFood) 
 		return; 
 	// Capture ant's colony 
 	std::string colony = ant->getAnthill()->getName(); 
@@ -94,7 +94,7 @@ Ant * Tile::extractAnt(Ant * ant) {
 std::map<std::string, int> Tile::numAnts() {  
 	// Instantiate a map with the quantities of ants for each colony 
 	std::map<std::string, int> nAnts; 
-			
+
 	// Iterate across each colony in the current tile 
 	for (std::map<std::string, std::stack<Ant*>*>::iterator iter = ants->begin(); 
 			iter != ants->end(); ++iter) { 
