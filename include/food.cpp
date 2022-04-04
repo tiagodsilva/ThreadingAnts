@@ -32,3 +32,10 @@ bool Food::consume() {
 void Food::restore() { 
 	volume = initialVolume; 
 } 
+
+/**  
+* Compute the food's volume, in arbitrary units. 
+*/  
+int Food::getVolume() { 
+	return volume; 
+} 

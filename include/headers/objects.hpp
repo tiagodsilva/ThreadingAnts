@@ -52,6 +52,7 @@ class Food {
 		Food(int x, int y, int initVolume); 
 		bool consume(); 
 		void restore(); 
+		int getVolume(); 
 }; 
 
 class Ant {

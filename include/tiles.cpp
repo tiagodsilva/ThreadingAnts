@@ -112,8 +112,13 @@ void Tile::incrementPheromone() {
 
 std::string Tile::print() { 
 
-	if (isFood) 
-		return std::string("|Food|"); 
+	if (isFood) { 
+		// Identify the food properties of this tile 
+		Food * food = map->getFood(x, y); 
+		int foodVolume = food->getVolume(); 
+		return "|" + std::string("Food") + "," + 
+			std::to_string(foodVolume) + "|"; 
+	} 
 
 	if (isAnthill) { 
 		Anthill * currAnthill = map->getAnthill(anthillName); 
