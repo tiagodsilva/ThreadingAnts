@@ -95,9 +95,14 @@ void Map::insertAnthill(int x, int y, std::string anthillName) {
 	const int i = y * width + x; 
 	Tile * currTile = tiles[i]; 
 
+	if (anthillMap.count(anthillName) == 1) { 
+		printf("The anthill with name %s is already in the map!", 
+				anthillName); 
+
+	anthillMap[anthillName] = new Anthill(x, y, anthillName); 
 	// Modify the vector containing the tiles 
 	tiles[i] = new Tile(x, y, anthillName); 
-
+	
 	// and allocate the RAM 
 	delete currTile; 
 } 
@@ -105,13 +110,25 @@ void Map::insertAnthill(int x, int y, std::string anthillName) {
 /**  
 * Insert food in the tile correspondent to the coordinates `x` and `y`.  
 * @param int x, int y 
+* @param int initialVolume the intiial food's volume  
 */  
-void Map::insertFood(int x, int y) { 
+void Map::insertFood(int x, int y, int initialVolume) { 
 	// Accordingly to the method `insertAnthill`, 
 	// identify and modify the container 
 	const int i = y * width + x; 
 	Tile * currTile = tiles[i]; 
-	tiles[i] = new Tile(x, y, true); 
+	if (!currTile->isFood) { 
+		tiles[i] = new Tile(x, y, true); 
+		foods.push_back(new Food(x, y, initialVolume)); 
+	} 
 	delete currTile; 
 } 
 
+/**  
+* Identify, using the anthill's name, its characteristics.  
+* @param std::string anthillName the anthill's name 
+* @return Anthill * anthill the anthill object 
+*/  
+Anthill * Map::getAnthill(std::string anthillName) { 
+	return anthillMap[anthillName]; 
+} 

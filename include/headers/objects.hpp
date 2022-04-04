@@ -116,6 +116,12 @@ class Map {
 
 		// the tiles in the map
 		std::vector<Tile*> tiles; 
+
+		// a map from the anthill's name to the anthill 
+		std::map<std::string, Anthill*> anthillMap; 
+		
+		// and a list with the foods' coordinates 
+		std::vector<Food*> foods; 
 	public:
 		Map(int mapWidth, int mapHeight);
 		Map(); 
@@ -126,7 +132,9 @@ class Map {
 				int xRightOffset = 1,
 				int yTopOffset = 1);
 		void insertAnthill(int x, int y, std::string anthillName); 
-		void insertFood(int x, int y); 
+		void insertFood(int x, int y, int initialVolume); 
+		Anthill * getAnthill(std::string anthillName); 
+		std::vector<Food*> getFoods();  
 		void print();
 
 };
