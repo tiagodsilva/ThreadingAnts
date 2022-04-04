@@ -143,13 +143,17 @@ Food * getFood(int x, int y) {
 	return foods[std::make_pair(x, y)]; 
 } 
 
+/**  
+* Instantiate a vector with the foods, instances of `Food`, in the map.  
+* @return std::vector<Food*> a vector with the foods in the game 
+*/  
 std::vector<Food*> getFoods() { 
 	// Iterate across the map `food`; it is appropriate 
 	std::map<std::pair<int, int>, Food*> iterator; 
 	
 	std::vector<Food*> foodsVector; 
 
-	for (iterator = foods.begin(); iterations != foods.end(); 
+	for (iterator = foods.begin(); iterator != foods.end(); 
 			++iterator) { 
 		// food's coordinates 
 		std::pair<int, int> coords = iterator->first; 
