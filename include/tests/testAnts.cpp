@@ -6,7 +6,7 @@
 #include "../regions.cpp" 
 #include "../tiles.cpp" 
 
-#define IS_TRUE(x) if(!(x)) { std::cout << __FUNCTION__ < "inadequate behaviour in line " << __LINE__ << std::endl; } 
+#define IS_TRUE(x) if(!(x)) { std::cout << __FUNCTION__ < " inadequate behaviour in line " << __LINE__ << std::endl; } 
 
 void testTile(int x, int y) { 
 	// the variable `map` is global 
@@ -21,8 +21,8 @@ int main() {
 	map = new Map(mapWidth, mapHeight); 
 	
 	// Insert anthills and foods 
-	// map->insertAnthill(1, 3, "Spartans"); 
-	// map->insertFood(4, 3); 
+	map->insertAnthill(1, 3, "Spartans"); 
+	map->insertFood(4, 3, 32); 
 
 	std::cout << map->getTile(1, 3) << std::endl; 
 

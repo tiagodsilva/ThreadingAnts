@@ -115,8 +115,12 @@ std::string Tile::print() {
 	if (isFood) 
 		return std::string("|Food|"); 
 
-	if (isAnthill) 
-		return std::string(anthillName); 
+	if (isAnthill) { 
+		Anthill * currAnthill = map->getAnthill(anthillName); 
+		int foodStorage = currAnthill->foodStorage; 
+		return "|" + std::string(anthillName) + "," + 
+			std::to_string(pheromone) + "|"; 
+	} 
 
 	// Check the tile's status 
 	std::map<std::string, int> nAnts = numAnts(); 

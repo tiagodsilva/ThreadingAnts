@@ -4,6 +4,7 @@
 #include <vector> 
 #include <map> 
 #include <stack>  
+#include <utility> 
 
 #include "geometry.hpp" 
 
@@ -121,7 +122,7 @@ class Map {
 		std::map<std::string, Anthill*> anthillMap; 
 		
 		// and a list with the foods' coordinates 
-		std::vector<Food*> foods; 
+		std::map<std::pair<int, int>, Food*> foods; 
 	public:
 		Map(int mapWidth, int mapHeight);
 		Map(); 
@@ -134,6 +135,7 @@ class Map {
 		void insertAnthill(int x, int y, std::string anthillName); 
 		void insertFood(int x, int y, int initialVolume); 
 		Anthill * getAnthill(std::string anthillName); 
+		Food * getFood(int x, int y); 
 		std::vector<Food*> getFoods();  
 		void print();
 
