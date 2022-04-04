@@ -27,6 +27,8 @@ int main() {
 	map->insertFood(4, 3, 32); 
 	
 	std::cout << map->getTile(1, 3) << std::endl; 
+	std::cout << map->getTile(1, 9) << std::endl; // it should provide 
+	// a nullptr, in this case 
 	std::cout << map->getTile(1, 3)->numAnts()[colonyName] << std::endl; 
 	map->print(); 
 
