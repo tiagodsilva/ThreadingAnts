@@ -19,6 +19,10 @@ int main() {
 	int mapWidth = 5; 
 	int mapHeight = 4; 
 	map = new Map(mapWidth, mapHeight); 
+	
+	// Insert anthills and foods 
+	map->insertAnthill(1, 3, "Spartans"); 
+	map->insertFood(4, 3); 
 
 	std::cout << map->getTile(1, 3) << std::endl; 
 

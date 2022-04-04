@@ -20,8 +20,8 @@ Map::Map(int mapWidth, int mapHeight)
 			// |+++...+++|+++...+++|...|+++...+++| 
 			//  mapWidth  mapWidth      mapWidth 
 			// (each `mapWidth` tile corresponds to a row).  
-			const int row = i/mapWidth; 
-			const int column = i - mapWidth * row; 
+			const int row = i/mapHeight; 
+			const int column = i - mapHeight * row; 
 			tiles.push_back(new Tile(column, row, false)); 
 		} 
 } 
