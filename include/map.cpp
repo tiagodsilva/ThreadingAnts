@@ -22,7 +22,7 @@ Map::Map(int mapWidth, int mapHeight)
 			// (each `mapWidth` tile corresponds to a row).  
 			const int row = i/mapWidth; 
 			const int column = i - mapWidth * row; 
-			tiles.push_back(new Tile(column, row, false, false)); 
+			tiles.push_back(new Tile(column, row, false)); 
 		} 
 } 
 		

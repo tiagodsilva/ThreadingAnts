@@ -11,9 +11,19 @@
 * Constructor method for `Tile`.  
 * @param int x_tile, y_tile the tile's coordinates 
 */ 
-Tile::Tile(int x_tile, int y_tile, bool containsAnthill, bool containsFood) 
-	: x(x_tile), y(y_tile), isAnthill(containsAnthill), isFood(containsFood), pheromone(1e-19) 
+Tile::Tile(int x_tile, int y_tile, bool containsFood) 
+	: x(x_tile), y(y_tile), isAnthill(false), isFood(containsFood), pheromone(1e-19) 
 	{} 
+
+/**  
+* Constructor method for `Tile`; it contains an anthill.  
+* @param int x_tile, int y_tile the tile's coordinates 
+* @param std::string anthillName the colony's name of the tile's anthill 
+*/  
+Tile::Tile(int x_tile, int y_tile, std::string anthillName) 
+	: x(x_tile), y(y_tile), isAnthill(true), anthillName(anthillName), 
+	isFood(false), pheromone(1e-19) 
+ 	{} 
 
 /**  
 * Insert an ant in the array `ants`; we should be carefull to 
@@ -101,6 +111,13 @@ void Tile::incrementPheromone() {
 } 	
 
 std::string Tile::print() { 
+
+	if (isFood) 
+		return std::string("|Food|"); 
+
+	if (isAnthill) 
+		return std::string(anthillName); 
+
 	// Check the tile's status 
 	std::map<std::string, int> nAnts = numAnts(); 
 	// Sum the quantity of antos 

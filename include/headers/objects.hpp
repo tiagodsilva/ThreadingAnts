@@ -91,11 +91,12 @@ class Tile {
 	public:
 		// Ramifications of this tile 
 		bool isAnthill; 
+		std::string anthillName; 
 		bool isFood; 
 		int pheromone; // the intensity of pheromone in these coordinates
 
-		Tile(int x_tile, int y_tile, 
-				bool containsAnthill, bool containsFood);
+		Tile(int x_tile, int y_tile, bool containsFood);
+		Tile(int x_tile, int y_tile, std::string anthillName); 
 		Tile(); 
 		void insertAnt(Ant * ant);
 		void killAnt(Ant * ant);
