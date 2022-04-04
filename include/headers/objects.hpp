@@ -88,7 +88,7 @@ class Tile {
 		int y;
 
 		// Array with the ants in this tile for each colony
-		std::map<std::string, std::stack<Ant*>*> ants;
+		std::map<std::string, std::stack<Ant*>*> * ants;
 	
 	public:
 		// Ramifications of this tile 

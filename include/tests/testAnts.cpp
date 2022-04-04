@@ -22,11 +22,12 @@ int main() {
 	
 	// Insert anthills and foods 
 	std::string colonyName = "Spartans"; 
-	map->insertAnthill(1, 3, colonyName); 
+	int nAnts = 32; // the anthill's attributes 
+	map->insertAnthill(1, 3, colonyName, nAnts); 
 	map->insertFood(4, 3, 32); 
 
 	std::cout << map->getTile(1, 3) << std::endl; 
-
+	// std::cout << map->getTile(1, 3)->numAnts()[colonyName] << std::endl; 
 	map->print(); 
 
 	// Assert tile's methods 

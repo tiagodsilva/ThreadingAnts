@@ -13,7 +13,9 @@
 */ 
 Tile::Tile(int x_tile, int y_tile, bool containsFood) 
 	: x(x_tile), y(y_tile), isAnthill(false), isFood(containsFood), pheromone(1e-19) 
-	{} 
+	{
+		ants = new std::map<std::string, std::stack<Ant*>*>; 
+	} 
 
 /**  
 * Constructor method for `Tile`; it contains an anthill.  
@@ -23,7 +25,9 @@ Tile::Tile(int x_tile, int y_tile, bool containsFood)
 Tile::Tile(int x_tile, int y_tile, std::string anthillName) 
 	: x(x_tile), y(y_tile), isAnthill(true), anthillName(anthillName), 
 	isFood(false), pheromone(1e-19) 
- 	{} 
+ 	{
+		ants = new std::map<std::string, std::stack<Ant*>*>; 
+	} 
 
 /**  
 * Insert an ant in the array `ants`; we should be carefull to 
@@ -38,10 +42,11 @@ void Tile::insertAnt(Ant * ant) {
 
 	// Check whether there is already an key correspoding to the 
 	// colony with name `colony` 
-	if (ants.find(colony) == ants.end()) { 
-		ants[colony] = new std::stack<Ant*>;  
+	if (ants->find(colony) == ants->end()) { 
+		ants->insert({colony, new std::stack<Ant*>});  
+		ants->find(colony)->second->push(ant); 
 	} else { 
-		ants[colony]->push(ant); 
+		ants->find(colony)->second->push(ant); 
 	} 
 } 
 		
@@ -75,11 +80,11 @@ Ant * Tile::extractAnt(Ant * ant) {
 	std::string colony = ant->getAnthill()->getName(); 
 			
 	// Check whether the colony still contains insects 
-	if (ants[colony]->size() < 1) 
-		delete ants[colony]; 
+	if (ants->find(colony)->second->size() < 1) 
+		ants->erase(colony); 
 
-	Ant * currAnt = ants[colony]->top(); 
-	ants[colony]->pop(); 
+	Ant * currAnt = ants->find(colony)->second->top(); 
+	ants->find(colony)->second->pop(); 
 	return currAnt; 
 } 		
 
@@ -91,13 +96,13 @@ std::map<std::string, int> Tile::numAnts() {
 	std::map<std::string, int> nAnts; 
 			
 	// Iterate across each colony in the current tile 
-	for (std::map<std::string, std::stack<Ant*>*>::iterator iter = ants.begin(); 
-			iter != ants.end(); ++iter) { 
+	for (std::map<std::string, std::stack<Ant*>*>::iterator iter = ants->begin(); 
+			iter != ants->end(); ++iter) { 
 		std::string colony = iter->first; 
 		// Compute the quantity of ants 
 		int currAnts = (iter->second)->size(); 
 
-		nAnts[colony] = currAnts; 
+		nAnts.insert({colony, currAnts}); 
 	} 
 	// Compute the map 			
 	return nAnts; 
