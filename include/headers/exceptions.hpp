@@ -1,5 +1,5 @@
 #include <iostream> 
-#include <exceptions> 
+#include <exception>  
 
 class AntNotFound: public std::exception { 
 	private: 
@@ -15,7 +15,7 @@ class AntNotFound: public std::exception {
 		/**  
 		* Assert that an ant was not found in the circumstances. 
 		*/  
-		virtual const char * what() const throw() { 
+		virtual const char * what() const noexcept override { 
 			return msg.c_str(); 
 		} 
-} 
+}; 

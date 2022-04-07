@@ -2,9 +2,10 @@
 #include <vector> 
 #include <string> 
 #include <stdio.h> 
-
+#include <stack> 
 // #include "tiles.cpp" 
 #include "headers/objects.hpp" 
+#include "headers/exceptions.hpp"
 
 /**  
 * Constructor method for Map.  
@@ -177,11 +178,11 @@ Ant * Map::getAntInTile(int x, int y, std::string colony) {
 	// Capture the appropriate tile 
 	Tile * tile = getTile(x, y); 
 	// and an ant from it 
-	std::stack<Ant*>* tileAnts = tile->ants;  
+	std::map<std::string, std::stack<Ant*>*> * tileAnts = tile->ants;  
 
 	// Check whether there are ants from this colony in the map 
 	if (tileAnts->find(colony) != tileAnts->end()) { 
-		Ant * colonyAnts = tileAnts[colony]; 
+		std::stack<Ant*> * colonyAnts = tileAnts->find(colony)->second; 
 		return colonyAnts->top(); 
 	} 
 	
