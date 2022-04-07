@@ -79,6 +79,7 @@ class Ant {
 		Tile * hasFoodNear();
 		bool moveToFood();
 		Anthill * getAnthill(); 
+		void moveRandomly(); 
 };
 
 class Tile {

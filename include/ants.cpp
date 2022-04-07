@@ -165,3 +165,26 @@ bool Ant::moveToFood() {
 Anthill * Ant::getAnthill() { 
 	return antHill; 
 } 
+
+/**  
+* Move randomly across the map; a square is choosen with probability proportional to the 
+* quantity of pheromones in it. 
+*/  
+void Ant::moveRandomly() { 
+	// Capture the ant's neighbors 
+	std::vector<Tile*> thisNeighbors = map->neighbors(x_pos, y_pos); 
+	int nNeighbors = thisNeighbors.size(); 
+	
+	// Instantiate an array with the tile's neighbors pheromones 
+	int pheromones[nNeighbors]; 
+
+	for (int i = 0; i < nNeighbors; i++) { 
+		pheromones = thisNeighbors[i]->pheromone + 1; 
+	} 
+	
+	int randomTile = computeRandomTile(pheromones); 
+
+	// Compute the tile's coordinates 
+	Tile * currTile = thisNeighbors[randomTile]; 
+	move(currTile->getX(), currTile->getY()); 
+} 
