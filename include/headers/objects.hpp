@@ -106,6 +106,7 @@ class Tile {
 		std::string print();
 		int getX(); 
 		int getY(); 
+		Ant * getAnt(); 
 };
 
 class Map {

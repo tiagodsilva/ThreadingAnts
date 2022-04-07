@@ -7,6 +7,7 @@
 // Tile ** tiles; 
 
 #include "headers/objects.hpp" 
+#include "headers/exceptions.hpp" 
 /**  
 * Constructor method for `Tile`.  
 * @param int x_tile, y_tile the tile's coordinates 
@@ -173,3 +174,21 @@ int Tile::getY() {
 bool operator!=(Tile tile_l, Tile tile_r) { 
 	return tile_l.getX() != tile_r.getX() || tile_l.getY() != tile_r.getY(); 
 } 
+
+/**  
+* Cativates, from any colony, an ant.  
+*/  
+Ant * Tile::getAnt() { 
+	// Identify the ants in this tile 
+	std::map<std::string, std::stack<Ant*>*>::iterator iter; 
+	for (iter = ants->begin(); iter != ants->end(); ++iter) { 
+		std::stack<Ant*> * currAnts = iter->second(); 
+		return currAnts->top(); 
+	} 
+	// Inform, in this scenario, that there are no ants in this tile 
+	throw AntNotFound("There are no ants in the tile (" + 
+			std::to_string(x) + "," + std::to_string(y) + "!"); 
+} 
+
+
+
