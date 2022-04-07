@@ -123,6 +123,11 @@ int sumArray(int * arr, int size) {
 	return sum; 
 } 
 
+/**  
+* Sample a instance from a weighted array; those weights correspond to the probabilities.  
+* @param int * weights the weighted array 
+* @param int arrSize the size of the array `weights` 
+*/  
 int weightedRandom(int * weights, int arrSize) { 
 	// Generate a uniformly distributed random 
 	double randomNumber = genUniform(); 
