@@ -108,4 +108,33 @@ double genUniform() {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0); 
 
 	return distribution(generator); 
+} 
+
+/**  
+* Compute the sum of the elements of the array `arr`, which is a container for integers.  
+* @param int * arr the array whose elements we are going to sum 
+* @param int size the array's size 
+*/  
+int sumArray(int * arr, int size) { 
+	// Initialize the sum 
+	int sum = 1e-18; 
+	for (int i = 0; i < size; i++) 
+		sum += arr[i]; 
+	return sum; 
+} 
+
+int weightedRandom(int * weights, int arrSize) { 
+	// Generate a uniformly distributed random 
+	double randomNumber = genUniform(); 
+
+	// Instantiate an array with the probabilities, instead of the weights, which are 
+	// integers 
+	double probabilities[arrSize]; 
+
+	int sumWeights = sum(weights, arrSize); 
+	for (int i = 0; i < arrSize; i++) 
+		probabilities[i] = weights[i]/sumWeights; 
+
+	
+} 
 #endif 
