@@ -185,9 +185,10 @@ Ant * Map::getAntInTile(int x, int y, std::string colony) {
 		std::stack<Ant*> * colonyAnts = tileAnts->find(colony)->second; 
 		return colonyAnts->top(); 
 	} else { 
-		throw AntNotFound("There is no ant in the tile (" + 
-				std::to_string(x) + "," + std::to_string(y) + ") from the 
-				colony " + colony); 
+		throw AntNotFound("There is no ant in the tile (" + \ 
+				std::to_string(x) + "," + 
+				std::to_string(y) + 
+				") from the colony " + colony); 
 	} 
 	
 	return NULL; 
