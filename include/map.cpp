@@ -107,8 +107,7 @@ void Map::insertAnthill(int x, int y, std::string anthillName, int nAnts) {
 	tiles[i] = new Tile(x, y, anthillName); 
 	
 	anthillMap[anthillName]->instantiateAnts(nAnts, fov); 
-	
-	std::cout << tiles[i]->ants->find(anthillName)->second << std::endl; 
+
 	// and allocate the RAM 
 	delete currTile; 
 } 
@@ -167,4 +166,24 @@ std::vector<Food*> Map::getFoods() {
 	} 
 
 	return foodsVector; 
+} 
+
+/**  
+* Identify an ant in the tile, in this map, with coordinates `x` and `y`.  
+* @param int x, int y the tile's coordinates 
+* @param std::string colony the colony's name 
+*/  
+Ant * Map::getAntInTile(int x, int y, std::string colony) { 
+	// Capture the appropriate tile 
+	Tile * tile = getTile(x, y); 
+	// and an ant from it 
+	std::stack<Ant*>* tileAnts = tile->ants;  
+
+	// Check whether there are ants from this colony in the map 
+	if (tileAnts->find(colony) != tileAnts->end()) { 
+		Ant * colonyAnts = tileAnts[colony]; 
+		return colonyAnts->top(); 
+	} 
+	
+	return NULL; 
 } 

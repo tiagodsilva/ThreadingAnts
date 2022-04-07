@@ -141,7 +141,7 @@ class Map {
 		Food * getFood(int x, int y); 
 		std::vector<Food*> getFoods();  
 		void print();
-
+		Ant * getAntInTile(int x, int y, std::string colony); 
 };
 
 Map * map; 
