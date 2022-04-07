@@ -1,3 +1,5 @@
+#ifndef EXCEPTIONS_H 
+#define EXCEPTIONS_H 
 #include <iostream> 
 #include <exception>  
 
@@ -19,3 +21,4 @@ class AntNotFound: public std::exception {
 			return msg.c_str(); 
 		} 
 }; 
+#endif 

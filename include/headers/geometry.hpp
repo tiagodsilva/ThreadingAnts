@@ -138,7 +138,7 @@ int weightedRandom(int * weights, int arrSize) {
 	
 	// The array's cumulative sum 
 	int cumSum = 1e-18; 
-	int sumWeights = sum(weights, arrSize); 
+	int sumWeights = sumArray(weights, arrSize); 
 	for (int i = 0; i < arrSize; i++) { 
 		cumSum += weights[i]; 
 		probabilities[i] = cumSum/sumWeights; 

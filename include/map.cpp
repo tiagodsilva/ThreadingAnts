@@ -198,7 +198,7 @@ Ant * Map::getAntInTile(int x, int y, std::string colony) {
 * Contemplate, from any colony, an ant in the tile with coordinates `x` and `y`. 
 * @param int x, int y the tiles' coordinates 
 */  
-Ant * Map::getAntAnt(int x, int y) { 
+Ant * Map::getAnyAnt(int x, int y) { 
 	// Identify the correspondent tile 
 	Tile * tile = getTile(x, y); 
 	// and capture an ant 

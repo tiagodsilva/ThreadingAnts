@@ -182,7 +182,7 @@ Ant * Tile::getAnt() {
 	// Identify the ants in this tile 
 	std::map<std::string, std::stack<Ant*>*>::iterator iter; 
 	for (iter = ants->begin(); iter != ants->end(); ++iter) { 
-		std::stack<Ant*> * currAnts = iter->second(); 
+		std::stack<Ant*> * currAnts = iter->second; 
 		return currAnts->top(); 
 	} 
 	// Inform, in this scenario, that there are no ants in this tile 

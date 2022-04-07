@@ -179,7 +179,7 @@ void Ant::moveRandomly() {
 	int pheromones[nNeighbors]; 
 
 	for (int i = 0; i < nNeighbors; i++) { 
-		pheromones = thisNeighbors[i]->pheromone + 1; 
+		pheromones[i] = thisNeighbors[i]->pheromone + 1; 
 	} 
 	
 	int randomTile = weightedRandom(pheromones, nNeighbors); 
