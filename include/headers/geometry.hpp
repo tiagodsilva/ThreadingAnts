@@ -130,11 +130,18 @@ int weightedRandom(int * weights, int arrSize) {
 	// Instantiate an array with the probabilities, instead of the weights, which are 
 	// integers 
 	double probabilities[arrSize]; 
-
-	int sumWeights = sum(weights, arrSize); 
-	for (int i = 0; i < arrSize; i++) 
-		probabilities[i] = weights[i]/sumWeights; 
-
 	
+	// The array's cumulative sum 
+	int cumSum = 1e-18; 
+	int sumWeights = sum(weights, arrSize); 
+	for (int i = 0; i < arrSize; i++) { 
+		cumSum += weights[i]; 
+		probabilities[i] = cumSum/sumWeights; 
+		// Check the random number consistency with the cumulative sum 
+		if (randomNumber <= probabilities[i]) 
+			return i; 
+	} 
+
+	return arrSize - 1; 
 } 
 #endif 
