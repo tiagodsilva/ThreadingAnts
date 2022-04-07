@@ -34,5 +34,8 @@ int main() {
 
 	// Assert tile's methods 
 	Tile * tile = map->getTile(1, 3); 
+
+	// Capture an ant 
+	Ant * ant = map->getAnyAnt(1, 3); 
 	
 } 
