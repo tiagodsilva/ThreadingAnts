@@ -2,6 +2,7 @@
 #define GEOMETRY_H 
 #include <iostream> 
 #include <math.h> 
+#include <random> 
 
 /**  
 * A vector in C++; it simulates the pointwise operations in NumPy, for instance.  
@@ -97,4 +98,14 @@ float distanceToSegment(Vec v, Vec w, Vec p) {
 	const Vec projection = v + alpha * (w - v); 
 	return distance(p, projection); 
 } 
+
+/**  
+* Generate a random number uniformly distributed in the unitary interval in the real line.  
+*/  
+double genUniform() { 
+	// Random number generator 
+	std::default_random_engine generator; 
+	std::uniform_real_distribution<double> distribution(0.0, 1.0); 
+
+	return distribution(generator); 
 #endif 
