@@ -119,7 +119,7 @@ void restore(); // modifica o volume atual para o volume inicial
 int getVolume(); // computa o volume atual de comida no tile 
 ``` 
 
-## Ant 
+### Ant 
 
 Este é o objeto mais enfático; ele enforma as formigas. 
 
@@ -163,4 +163,54 @@ void moveRandomly(); // executa um movimento aleatório no mapa;
 		// à quantidade de feromônio inserida nele 
 ``` 
 
+### Tile 
+
+Existe, no tabuleiro, um conjunto de quadrados; esta é a classe que os caracteriza. Eles contemplam, enfaticamente, as características mais essenciais da simulação -- a pilha com as formigas. 
+
++ Atributos 
+
+```cpp 
+private: 
+	int x, y; // as coordenadas do tile 
+public: 
+	std::map<std::string, std::stack<Ant*> * ants; // mapeia 
+		// cada colônia para uma pilha com as formigas 
+		// instanciadas por ela 
+	bool isAnthill; // se há um formigueiro neste tile; 
+		// precisamos controlar os movimentos aleatórios a eles 
+	std::string anthillName; // se houver um formigueiro, este é seu nome 
+	bool isFood; // se há comida; precisamos, também, controlar 
+		// o movimento aleatório de formigas a este tile 
+	int pheromone; // a intensidade de feromônio, que são 
+		// liberados pelas formigas 
+``` 
+
++ Métodos 
+
+```cpp 
+Tile(int x_tile, int y_tile, bool containsFood); 
+TIle(int x_tile, int y_tile, std::string anthillName); 
+Tile(); // constructores apropriados para os cenários em que há alimento, em que
+		// há formigueiros -- ou para tiles canônicos 
+void insertAnt(Ant * ant); // insere uma formiga na pilha que aponta para sua 
+		// colônia 
+void killAnt(Ant * ant); // extrai e aplica o método `die` da formiga `ant` 
+Ant * extractAnt(Ant * ant); // quando uma formiga se movimenta, ela precisa 
+		// ser extraída da pilha de seu tile atual; este método executa, 
+		// importantemente, esta tarefa 
+std::map<std::string, int> numAnts(); // computa a quantidade de formigas, 
+		// por colônia, neste tile 
+void incrementPheromone(); // incrementa a quantidade de feromônio neste tile; 
+		// este é o método que a ant->releasePheromone() executa, 
+		// convenientemente 
+std::string print(); // computa uma string para imprimir as informações do tile 
+		// no terminal 
+int getX(); // computa as coordenadas horizontais no tile 
+int getY(); // e as verticais 
+Ant * getAnt(); // captura alguma formiga (de qualquer colônia) 
+``` 
+
+
+
+	
 
