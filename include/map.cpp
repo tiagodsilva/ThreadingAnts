@@ -204,3 +204,15 @@ Ant * Map::getAnyAnt(int x, int y) {
 	// and capture an ant 
 	return tile->getAnt(); 
 } 
+
+/**  
+* Restore all Food `objects` in the map; their volume is restored to the initial value.  
+*/  
+void Map::restoreFoods() { 
+	// capture the foods in the game 
+	std::vector<Food*> foods = getFoods(); 
+	
+	// and restore them 
+	for (int i = 0; i < foods->size(); i++) 
+		foods[i]->restore(); 
+} 

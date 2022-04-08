@@ -145,6 +145,7 @@ class Map {
 		void print();
 		Ant * getAntInTile(int x, int y, std::string colony); 
 		Ant * getAnyAnt(int x, int y); 
+		void restoreFoods(); 
 };
 
 Map * map; 
