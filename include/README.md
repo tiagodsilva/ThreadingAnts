@@ -210,7 +210,48 @@ int getY(); // e as verticais
 Ant * getAnt(); // captura alguma formiga (de qualquer colônia) 
 ``` 
 
+### Map 
 
+A simulação é empreendida em um tabuleiro; nós o chamamos de `Map`. 
 
-	
++ Atributos 
+
+```cpp 
+private: 
+	int width, height; // as dimensões do mapa 
+	std::vector<Tile*> tiles; // lista com os tiles subjacentes ao tabuleiro 
+	std::map<std::string, Anthill*> anthillMap; // identifica o formigueiro 
+		// por seu nome 
+	std::map<std::pair<int, int>, Food*> foods; // mapeia uma coordenada 
+			// ao ponteiro para o objeto alimento; podemos 
+			// inserir uma lista global com as suas coordenadas 
+	int fov; // todas as formigas gozam do mesmo campo de visão; a discriminação, 
+		// neste universo, é inapropriada 
+```
+
++ Métodos 
+
+```cpp 
+Map(int mapWidth, int mapHeight, int fov);  
+Map(); // constructores 
+Tile * getTile(int x, int y); // computa um tile (da lista `tiles`) com as 
+		// suas coordenadas, `x` e `y` 
+std::vector<Tile*> neighbors(int x, int y, 
+	int yLeftOffset, int yBottomOffset, int xRightOffset, int yTopOffset); // computa, 
+		// no tabuleiro, os tiles vizinhos ao tile com coordenadas `x` e `y` 
+void inertAnthill(int x, int y, std::string anthillName, 
+		int nAnts); // insere (e inicializa) um formigueiro nas coordenadas `x` e `y` 
+void insertFood(int x, int y, int initialVolume); // insere um volume igual a `initialVolume` 
+		// com alimentos nas coordenadas `x` e `y` 
+Anthill * getAnthill(std::string anthillName); // captura o formigueiro com nome `anthillName` 
+Food * getFood(int x, int y); // identifica o alimento em (x, y); computa o ponteiro 
+std::vector<Food*> getFoods(); // identifica as comidas no mapa 
+void print(); // imprime o mapa no terminal 
+Ant * getAntInTile(int x, int y, std::string colony); // identifica 
+		// alguma formiga no tile (x, y); computa, também, um ponteiro 
+Ant * getAnyAnt(int x, int y); // captura uma formiga de qualquer colônia 
+```
+
+Em seguida, instanciamos um objeto global `map`, que, no início do programa, será inicializado com os atributos apropriados. 
+
 
