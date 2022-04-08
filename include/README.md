@@ -119,4 +119,48 @@ void restore(); // modifica o volume atual para o volume inicial
 int getVolume(); // computa o volume atual de comida no tile 
 ``` 
 
+## Ant 
+
+Este é o objeto mais enfático; ele enforma as formigas. 
+
++ Atributos 
+
+```cpp 
+private: 
+	int x_pos, y_pos; // as coordenadas da formiga no tabuleiro 
+	
+	Anthill * antHill; // ponteiro para o formigueiro em que a formiga 
+		// foi instanciada 
+	int fov; // o campo de visão da formiga 
+public: 
+	bool hasFood; // identifica se a formiga goza de alimento; 
+		// neste caso, seus movimentos serão direcionados ao formigueiro 
+```
+
++ Métodos 
+
+```cpp 
+Ant(int x, int y, Anthill* colony, int fieldOfView); // constructor 
+void move(int x, int y); // direciona à formiga ao tile x_pos + x, y_pos + y 
+void die(); // deveria, com efeito, ser implementado como um destrutor 
+void eat(Food * food); // tenta capturar uma unidade de volume do alimento `food`; 
+		// no cenário positivo, declara `hasFood = true` 
+int getX(); // captura as coordenadas horizontais da formiga 
+int getY(); // e as verticais 
+
+void releasePheromone(); // incrementa a quantidade de feromônios no tile 
+	// em que a formiga está 
+void moveToColony(); // direciona a formiga ao tile em que `antHill` está 
+void moveInSegment(Vec v, Vec w, std::vector<Tile *> neighbors); // direciona 
+	// a formiga em um movimento no segmento subjacente aos vetores `v` e `w` 
+TIle * hasFoodNear(); // identifica se existe alimento no campo de visão; 
+	// se sim, computa o ponteiro de sua localização 
+bool moveToFood(); // se houver alimentos próximos (`hasFoodNear`), executa um movimento 
+	// a ele 
+Anthill * getAnthill(); // captura o atributo privado `antHill` 
+void moveRandomly(); // executa um movimento aleatório no mapa; 
+		// a probabilidade de algum tile ser escolhido é proporcional 
+		// à quantidade de feromônio inserida nele 
+``` 
+
 
