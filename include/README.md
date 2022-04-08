@@ -254,4 +254,25 @@ Ant * getAnyAnt(int x, int y); // captura uma formiga de qualquer colônia
 
 Em seguida, instanciamos um objeto global `map`, que, no início do programa, será inicializado com os atributos apropriados. 
 
+### Region 
+
+Podemos, em nossa simulação, utilizar semáforos para cada região. 
+
++ Atributos 
+
+```cpp 
+private: 
+	std::vector<Tile*> tiles; // lista com os tiles nesta região 
+	int x, y; // as coordenadas (bottom-left) da região 
+	int xOffset, yOffset; // as dimensões -- altura e largura -- da região 
+	// possibly a mutex 
+``` 
+
++ Métodos 
+
+```cpp 
+Region(int xRegion, int yRegion, 
+	int xOffsetRegion, int yOffsetRegion); 
+``` 
+
 
