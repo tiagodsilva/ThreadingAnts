@@ -58,5 +58,65 @@ Verificamos, enfaticamente, que o movimento da formiga é condicional à sua con
 
 Mais tarde, vou continuar a descrição. 
 
-  
+## Classes 
+
+Contemplamos, nesta seção, os atributos e os métodos disponíveis em cada objeto que caracteriza a simulação. 
+
+### Anthill 
+
+Classe equivalente ao formigueiro; almejamos, com ela, iniciar a jornada das formigas. 
+
++ Atributos  
+
+```cpp 
+private: 
+	std::string name; // o nome (identificador) do formigueiro 
+	int x_pos, y_pos; // as suas coordenadas   
+
+	bool isInitialized; // se o formigueiro foi inicializado; isto é, se 
+			// as formigas foram instanciadas 
+public: 
+	int initialAnts; // a quantidade inicial de formigas 
+	int foodStorage; // a quantidade de alimento que as formigas trouxeram 
+```
+
++ Métodos 
+
+```cpp 
+Anthill(int x, int y, std::string colonyName); // construtor 
+void instantiateAnts(int numAnts, int fov); // instancia formigas 
+	// no tile com coordenadas `x_pos` e `y_pos`; elas 
+	// gozam de um campo de visão igual a `fov` 
+void incrementFood(); // insere comida no formigueiro; incrementa `foodStorage` 
+
+int getX(); // captura a coordenada horizontal do formigueiro 
+int getY(); // e a vertical 
+
+std::string getName(); // propicia o acesso ao atributo privado `name`, 
+		// com o nome do formigueiro 
+```
+
+### Food 
+
+Classe contemplando o alimento, para o qual as formigas se deslocam. 
+
++ Atributos 
+
+```cpp 
+private: 
+	int x_pos, int y_pos; // as coordenadas da comida 
+	int volume; // o volume da alimento disponível 
+	
+	int initialVolume; // o volume inicial inserido no jogo 
+``` 
+
+```cpp 
+Food(int x, int y, int initVolume); // constructor 
+bool consume(); // tenta capturar uma unidade de volume de alimento; 
+	// se a operação for executada, o método computa `True` 
+	// (se não houver volume de alimento, por exemplo, ele computa `False`) 
+void restore(); // modifica o volume atual para o volume inicial 
+int getVolume(); // computa o volume atual de comida no tile 
+``` 
+
 
