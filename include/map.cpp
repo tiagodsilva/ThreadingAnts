@@ -198,11 +198,21 @@ Ant * Map::getAntInTile(int x, int y, std::string colony) {
 * Contemplate, from any colony, an ant in the tile with coordinates `x` and `y`. 
 * @param int x, int y the tiles' coordinates 
 */  
-Ant * Map::getAnyAnt(int x, int y) { 
-	// Identify the correspondent tile 
-	Tile * tile = getTile(x, y); 
+Ant * Map::getAnyAnt() { 
+	// Identify the correspondent tile 	
+	for (Tile * tile : tiles) { 
+		try { 
+			Ant * ant = tile->getAnt(); 
+			return ant; 
+		} catch (AntNotFound& e) { 
+			continue; 
+		} 
+
+	} 
+
+	throw AntNotFound("There are no ants in the map!"); 
 	// and capture an ant 
-	return tile->getAnt(); 
+	// return tile->getAnt();
 } 
 
 /**  

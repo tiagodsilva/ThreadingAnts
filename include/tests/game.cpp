@@ -39,6 +39,7 @@ int main() {
 
 	while (true) { 
 		std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
+		Ant * ant = map->getAnyAnt(x, y);  
 		map->print(); 
 		std::cout << LINES << std::endl; 
 	} 
