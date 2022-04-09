@@ -75,16 +75,10 @@ void Tile::killAnt(Ant * ant) {
 * @param Ant * ant the ant that is going to be extracted from this tile 
 */  
 Ant * Tile::extractAnt(Ant * ant) { 
-	if (isFood || isAnthill) 
-		return NULL; 
-
 	// Identify the ant's colony; ants from the same colony are indistinguishable 
 	std::string colony = ant->getAnthill()->getName(); 
-			
-	// Check whether the colony still contains insects 
-	if (ants->find(colony)->second->size() < 1) 
-		ants->erase(colony); 
-
+	
+	// Compute an ant 
 	Ant * currAnt = ants->find(colony)->second->top(); 
 	ants->find(colony)->second->pop(); 
 	return currAnt; 
@@ -184,7 +178,11 @@ Ant * Tile::getAnt() {
 	std::map<std::string, std::stack<Ant*>*>::iterator iter; 
 	for (iter = ants->begin(); iter != ants->end(); ++iter) { 
 		std::stack<Ant*> * currAnts = iter->second; 
-		return currAnts->top(); 
+
+		if (!currAnts->empty()) 
+			return currAnts->top(); 
+		else 
+			continue;  
 	} 
 	// Inform, in this scenario, that there are no ants in this tile 
 	throw AntNotFound("There are no ants in the tile (" + 

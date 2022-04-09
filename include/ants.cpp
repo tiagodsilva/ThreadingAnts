@@ -186,6 +186,6 @@ void Ant::moveRandomly() {
 	int randomTile = weightedRandom(pheromones, nNeighbors); 
 	
 	// Compute the tile's coordinates 
-	Tile * currTile = thisNeighbors[randomTile]; 
+	Tile * currTile = thisNeighbors[randomTile];
 	move(currTile->getX() - x_pos, currTile->getY() - y_pos); 
 } 

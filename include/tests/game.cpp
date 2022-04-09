@@ -27,10 +27,31 @@ const std::string LINES = "++++++++++++++++++++++++++++++++";
 */  
 void initializeGame(Map * map) { 
 	// Initialize a pair of anthills 	
-	map->insertAnthill(1, 1, "Spartans", 99); 
-	map->insertAnthill(WIDTH - 1, 1, "Covenant", 45); 
+	map->insertAnthill(1, 1, "Spartans", 9); 
+	map->insertAnthill(WIDTH - 1, 1, "Covenant", 4); 
 
 	map->insertFood(WIDTH - 1, HEIGHT - 1, 32); 
+} 
+
+/**  
+* Move all ants in the map; the movement is random.  
+*/  
+void moveAnts() { 
+	std::pair<std::vector<Ant*>::iterator, 
+		std::vector<Ant*>::iterator> ants = map->getAllAnts(); 
+
+	for (; ants.first != ants.second; ++ants.first) { 
+		Ant * ant = *(ants.first); 
+		ant->moveRandomly(); 
+	} 
+} 
+
+/**  
+* Execute a movement for a ant.  
+*/  
+void moveAnt() { 
+	Ant * ant = map->getAnyAnt(); 
+	ant->moveRandomly(); 
 } 
 
 int main() { 
@@ -38,13 +59,10 @@ int main() {
 	initializeGame(map); 	
 
 	while (true) { 
+		// To update the display 
 		std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
-		std::pair<std::vector<Ant*>::iterator, 
-			std::vector<Ant*>::iterator> ants = map->getAllAnts(); 
-		for (; ants.first != ants.second; ++ants.first) { 
-			Ant * ant = *(ants.first); 
-			ant->moveRandomly(); 
-		} 
+		// moveAnts(); 
+		moveAnt(); 
 		map->print(); 
 		std::cout << LINES << std::endl; 
 	} 

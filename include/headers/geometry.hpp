@@ -4,6 +4,8 @@
 #include <math.h> 
 #include <random> 
 
+std::default_random_engine generator; 
+
 /**  
 * A vector in C++; it simulates the pointwise operations in NumPy, for instance.  
 */  
@@ -104,10 +106,7 @@ float distanceToSegment(Vec v, Vec w, Vec p) {
 */  
 double genUniform() { 
 	// Random number generator 
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count(); 
-	static std::default_random_engine generator(seed); 
-	std::uniform_real_distribution<double> distribution(0.0, 1.0); 
-
+	std::uniform_real_distribution<double> distribution(0.0, 1.0); 	
 	return distribution(generator); 
 } 
 
