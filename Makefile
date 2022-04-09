@@ -12,12 +12,12 @@ HEADERS=${INCLUDES}/headers.h
 .PHONY: ${COMPILED} 
 all: ${COMPILED} 
 	./${COMPILED} 
-${COMPILED}: ${INCLUDES}/*.cpp   
+${COMPILED}: ${INCLUDES}/*.cpp ${INCLUDES}/*/*.hpp   
 	# Identify header files 
 	echo "#ifndef __HEADERS__" > ${HEADERS} ; \
 	echo "#define __HEADERS__" >> ${HEADERS} ; \
 	for filename in $^; do \
-		echo '#include "'$${$(basename filename##*/)}'"' >> ${HEADERS} ; \
+		echo '#include "'$${$(basename filename#${INCLUDE}/)}'"' >> ${HEADERS} ; \
 	done ; \
 	echo "#endif" >> ${HEADERS} ; \
 	${GCC} ${LDFLAGS} ${FILENAME} ${CFLAGS} ${COMPILED} 

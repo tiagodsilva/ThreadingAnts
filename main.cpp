@@ -67,4 +67,6 @@ int main() {
 		map->print(); 
 		std::cout << LINES << std::endl; 
 	} 
+
+	return EXIT_SUCCESS; 
 } 
