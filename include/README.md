@@ -1,6 +1,6 @@
 # Simulation's objects 
 
-We should implement, still, the class `Food`. It will be okay.  
+We should implement, still, the class `Food`. It is okay; it will be okay. 
 
 ## Contemplação dos objetos  
 
