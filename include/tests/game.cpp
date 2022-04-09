@@ -28,7 +28,7 @@ const std::string LINES = "++++++++++++++++++++++++++++++++";
 void initializeGame(Map * map) { 
 	// Initialize a pair of anthills 	
 	map->insertAnthill(1, 1, "Spartans", 9); 
-	map->insertAnthill(WIDTH - 1, 1, "Covenant", 4); 
+	// map->insertAnthill(WIDTH - 1, 1, "Covenant", 4); 
 
 	map->insertFood(WIDTH - 1, HEIGHT - 1, 32); 
 } 
@@ -49,7 +49,7 @@ void moveAnts() {
 /**  
 * Execute a movement for a ant.  
 */  
-void moveAnt() { 
+void moveAnt(int iteration) { 
 	Ant * ant = map->getAnyAnt(); 
 	ant->moveRandomly(); 
 } 
@@ -57,12 +57,14 @@ void moveAnt() {
 int main() { 
 	map = new Map(WIDTH, HEIGHT, FOV); 
 	initializeGame(map); 	
-
+	
+	int it = 1e-19; 
 	while (true) { 
 		// To update the display 
 		std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
-		// moveAnts(); 
-		moveAnt(); 
+		moveAnts(); 
+		// moveAnt(it); 
+		it++; 
 		map->print(); 
 		std::cout << LINES << std::endl; 
 	} 

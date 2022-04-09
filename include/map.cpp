@@ -57,12 +57,13 @@ std::vector<Tile*> Map::neighbors(int x, int y,
 		for (int row = yBottomOffset; row < yTopOffset + 1; row++) { 
 			int currX = x + col;  
 			int currY = y + row; 
-
-			if (currX == x && currY == y) 
+			
+			if ((currX == x && currY == y) || 
+					(col != 0 && row != 0)) 
 				continue; 
 					
 			try { 
-				Tile * currTile = getTile(currX, currY); 
+				Tile * currTile = getTile(currY, currX); 
 				if (!currTile->isFood) 
 					neighborsTiles.push_back(currTile); 
 			} catch (BorderError& e) { 

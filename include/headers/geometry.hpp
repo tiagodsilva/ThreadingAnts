@@ -4,8 +4,6 @@
 #include <math.h> 
 #include <random> 
 
-std::default_random_engine generator; 
-
 /**  
 * A vector in C++; it simulates the pointwise operations in NumPy, for instance.  
 */  
@@ -106,7 +104,10 @@ float distanceToSegment(Vec v, Vec w, Vec p) {
 */  
 double genUniform() { 
 	// Random number generator 
+	std::random_device r; 
+	std::default_random_engine generator(r()); 
 	std::uniform_real_distribution<double> distribution(0.0, 1.0); 	
+
 	return distribution(generator); 
 } 
 
@@ -141,7 +142,8 @@ int weightedRandom(int * weights, int arrSize) {
 	int sumWeights = sumArray(weights, arrSize); 
 	for (int i = 0; i < arrSize; i++) { 
 		cumSum += weights[i]; 
-		probabilities[i] = cumSum/sumWeights; 
+		// Cast integers to float 
+		probabilities[i] = static_cast<double>(cumSum)/static_cast<double>(sumWeights); 
 		// Check the random number consistency with the cumulative sum 
 		if (randomNumber <= probabilities[i]) 
 			return i; 
