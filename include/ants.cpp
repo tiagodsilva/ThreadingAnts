@@ -189,3 +189,23 @@ void Ant::moveRandomly() {
 	Tile * currTile = thisNeighbors[randomTile];
 	move(currTile->getX() - x_pos, currTile->getY() - y_pos); 
 } 
+
+/**  
+* Execute a game stage for this ant; it either moves to a specific object or randomly.  
+*/  
+void Ant::stage() { 
+	// A triplet of actions is available 
+	// in each game stage: move randomly, 
+	// move to the colony or capture the food 
+	
+	// In the scenario in which the ant has food, move to the colony 
+	if (hasFood) 
+		moveToColony(); 
+
+	// Check whether there is food near 
+	bool foodInFOV = moveToFood(); 
+	
+	// If there is no food near, move randomly 
+	if (!foodInFOV) 
+		moveRandomy(); 
+} 
