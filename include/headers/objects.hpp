@@ -87,6 +87,8 @@ class Tile {
 		// Tile's coordinates
 		int x;
 		int y;
+
+		void traverseStack(std::stack<Ant*>* st, std::vector<Ant*>* vt); 
 	public:
 		// Array with the ants in this tile for each colony
 		std::map<std::string, std::stack<Ant*>*> * ants;
