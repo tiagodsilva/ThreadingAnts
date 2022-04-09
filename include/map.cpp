@@ -61,11 +61,14 @@ std::vector<Tile*> Map::neighbors(int x, int y,
 			if (currX == x && currY == y) 
 				continue; 
 					
-			Tile * currTile = getTile(currX, currY); 
-			if (!currTile) 
+			try { 
+				Tile * currTile = getTile(currX, currY); 
+				neighborsTiles.push_back(currTile); 
+			} catch (BorderError& e) { 
 				continue; 
+			} 
 					
-			neighborsTiles.push_back(currTile); 
+			// neighborsTiles.push_back(currTile); 
 		} 
 	} 
 			
