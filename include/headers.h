@@ -9,4 +9,5 @@
 #include "headers/geometry.hpp"
 #include "headers/exceptions.hpp"
 #include "headers/objects.hpp"
+#include "headers/parser.hpp"
 #endif

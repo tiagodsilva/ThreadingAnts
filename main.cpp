@@ -53,11 +53,13 @@ std::string concatStrings(const std::string string, int concats) {
 	return concatElement; 
 } 
 
-int main() { 
+
+int main(int argc, char *argv[]) { 
+	// Instantiate a parser to parse the command line 
+	InputParser * parser = new InputParser(argc, argv); 
 	// This instance, `map`, is global 
 	map = new Map(WIDTH, HEIGHT, FOV); 
 	initializeGame(map); 
-
 	const std::string LINES = concatStrings(std::string("+"), WIDTH); 
 
 	while (true) { 
