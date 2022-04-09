@@ -135,11 +135,7 @@ class Map {
 		Map(int mapWidth, int mapHeight, int fov);
 		Map(); 
 		Tile * getTile(int x, int y);
-		std::vector<Tile*> neighbors(int x, int y,
-				int xLeftOffset = -1,
-				int yBottomOffset = -1,
-				int xRightOffset = 1,
-				int yTopOffset = 1);
+		std::vector<Tile*> neighbors(int x, int y);
 		void insertAnthill(int x, int y, std::string anthillName, 
 				int nAnts); 
 		void insertFood(int x, int y, int initialVolume); 
@@ -152,6 +148,7 @@ class Map {
 		void restoreFoods(); 
 		std::pair<std::vector<Ant*>::iterator, 
 			std::vector<Ant*>::iterator> getAllAnts(); 
+		Tile * captureFoodNear(int x, int y); 
 };
 
 Map * map; 

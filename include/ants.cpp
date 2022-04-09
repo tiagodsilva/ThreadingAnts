@@ -124,7 +124,8 @@ void Ant::moveInSegment(Vec v, Vec w, std::vector<Tile*> neighbors) {
 */  
 Tile * Ant::hasFoodNear() { 
 	// Instantiate the neighbors in the field of view 
-	std::vector<Tile*> neighbors = map->neighbors(x_pos, y_pos); 
+	std::vector<Tile*> neighbors = map->neighbors(x_pos, y_pos, 
+			-fov, -fov, fov, fov); 
 			
 	for (Tile * neighbor : neighbors) { 
 		if (neighbor->isFood) 
@@ -140,9 +141,19 @@ Tile * Ant::hasFoodNear() {
 bool Ant::moveToFood() { 
 	// Verify if there is food near 
 	Tile * neighbor = hasFoodNear(); 
+
+	int xNeighbor = neighbor->getX(); 
+	int yNeighbor = neighbor->getY(); 
+
+	// If the taxicab distance between the ant and the food is unitary, then 
+	// it is edible 
+	if (abs<int>(xNeighbor - x_pos) == 1 || abs<int>(yNeighbor - y_pos) == 1) { 
+		eat(map->getFood(xNeighbor, yNeighbor)); 
+		return true; 
+	} 
+
 	Tile * currTile = map->getTile(x_pos, y_pos); 
-	if (neighbor->getX() != currTile->getX() || 
-			neighbor->getY() != currTile->getY()) { 
+	if (neighbor != currTile) { 
 		int x = neighbor->getX(); 
 		int y = neighbor->getY(); 
 		Vec antVec = Vec(x_pos, y_pos); 
@@ -210,5 +221,6 @@ void Ant::stage() {
 	// If there is not, move randomly 
 	if (!foodInFOV) { 
 		moveRandomly(); 
+		return; 
 	} 
 } 

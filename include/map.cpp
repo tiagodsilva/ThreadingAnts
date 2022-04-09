@@ -43,27 +43,28 @@ Tile * Map::getTile(int x, int y) {
 	return tiles[i]; 
 } 
 
-std::vector<Tile*> Map::neighbors(int x, int y, 
-		int xLeftOffset, 
-		int yBottomOffset, 
-		int xRightOffset, 
-		int yTopOffset) { 
+/**  
+* Compute the neighboring tiles; verify, in particular, that the movement to the foods' tiles 
+* is controled by the map.  
+* @param int x, int y the coordinates of the tile whose neighbors we are going to compute 
+*/  
+std::vector<Tile*> Map::neighbors(int x, int y) { 
 	// Vector to consolidate the neighborhood tiles 
 	std::vector<Tile*> neighborsTiles; 
 			
 	// Iterate across the tile's neighbors 
-	for (int col = xLeftOffset; col < xRightOffset + 1; col++) { 
+	for (int col = -1; col < 2; col++) { 
 		// Compute the actual neighbor 
-		for (int row = yBottomOffset; row < yTopOffset + 1; row++) { 
+		for (int row = -1; row < 2; row++) { 
 			int currX = x + col;  
 			int currY = y + row; 
 			
-			if ((currX == x && currY == y) || 
+			if ((currX == x && currY == y) ||
 					(col != 0 && row != 0)) 
 				continue; 
 					
 			try { 
-				Tile * currTile = getTile(currY, currX); 
+				Tile * currTile = getTile(currX, currY); 
 				if (!currTile->isFood) 
 					neighborsTiles.push_back(currTile); 
 			} catch (BorderError& e) { 
@@ -76,6 +77,7 @@ std::vector<Tile*> Map::neighbors(int x, int y,
 			
 	return neighborsTiles; 
 } 
+
 
 /**  
 * Print, in the terminal, the map's state as a text.  
