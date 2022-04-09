@@ -190,5 +190,19 @@ Ant * Tile::getAnt() {
 			std::to_string(x) + "," + std::to_string(y) + "!"); 
 } 
 
+/** 
+* Identify all ants in the current tile; we should traverse a stack. 
+*/  
+std::vector<Ant*> Tile::getAnts() { 
+	// Instantiate a continer for the ants 
+	std::vector<Ant*> * thisAnts = new std::vector<Ant*>; 		
+	
+	// and iterate across the map `ants` 
+	std::map<std::string, std::stack<Ant*>*>::iterator iter; 
+	for (iter = ants.begin(); iter != ants.end(); ++iter) { 
+		std::stack<Ant*>* currAnts = iter->second; 
+		traverseStack(currAnts, thisAnts); 
+	} 
 
-
+	return thisAnts; 
+} 
