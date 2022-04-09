@@ -168,7 +168,7 @@ std::vector<Food*> Map::getFoods() {
 	for (iterator = foods.begin(); iterator != foods.end(); 
 			++iterator) { 
 		// food's coordinates 
-		std::pair<int, int> coords = iterator->first; 
+		// std::pair<int, int> coords = iterator->first; 
 		// and the actual instance 
 		Food * food = iterator->second; 
 		foodsVector.push_back(food); 
@@ -193,7 +193,7 @@ Ant * Map::getAntInTile(int x, int y, std::string colony) {
 		std::stack<Ant*> * colonyAnts = tileAnts->find(colony)->second; 
 		return colonyAnts->top(); 
 	} else { 
-		throw AntNotFound("There is no ant in the tile (" + \ 
+		throw AntNotFound("There is no ant in the tile (" + // \ 
 				std::to_string(x) + "," + 
 				std::to_string(y) + 
 				") from the colony " + colony); 
@@ -231,7 +231,7 @@ void Map::restoreFoods() {
 	std::vector<Food*> foods = getFoods(); 
 
 	// and restore them 
-	for (int i = 0; i < foods.size(); i++) 
+	for (unsigned int i = 0; i < foods.size(); i++) 
 		foods[i]->restore(); 
 } 
 

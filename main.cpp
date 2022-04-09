@@ -8,8 +8,8 @@
 
 #include "include/headers.h" 
 
-#define HEIGHT 14 
-#define WIDTH 14 
+#define HEIGHT 5 
+#define WIDTH 5 
 #define FOV 2 
 
 /**  
@@ -18,7 +18,7 @@
 */  
 void initializeGame(Map * map) { 
 	// Initialize the anthills 
-	map->insertAnthill(1, 1, "Spartans", 5); 
+	map->insertAnthill(1, 1, "Spartans", 1); 
 	
 	// and the foods 
 	map->insertFood(WIDTH - 1, 1, 32); 

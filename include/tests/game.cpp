@@ -15,8 +15,8 @@
 #include "../regions.cpp" 
 #include "../tiles.cpp" 
 
-#define HEIGHT 13   
-#define WIDTH 13 
+#define HEIGHT 14    
+#define WIDTH 14 
 #define FOV 1 
 
 #define MAXIT 9 
