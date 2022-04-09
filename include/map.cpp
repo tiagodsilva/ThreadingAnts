@@ -231,3 +231,19 @@ void Map::restoreFoods() {
 		foods[i]->restore(); 
 } 
 
+/**  
+* Identify all the ants in the game; it is suitable to execute a stage, in which all ants should act. 
+*/  
+std::pair<std::vector<Ant*>::iterator, 
+	std::vector<Ant*>::iterator> getAllAnts() { 
+		// Iterate across the tiles in the game 
+		std::vector<Ant*> * antsInGame = new std::vector<Ant*>; 
+		for (Tile * tile : tiles) { 
+			// Identify the ants in the current tile 
+			std::vector<Ant*> ants = tile->getAnts(); 
+			for (ant : ants) 
+				antsInGame->push_back(ant); 
+		} 
+
+		return std::make_pair(antsInGame->begin(), antsInGame->end()); 
+} 
