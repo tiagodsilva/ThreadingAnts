@@ -74,12 +74,9 @@ void Ant::releasePheromone() {
 
 void Ant::moveToColony() { 
 	// Identify the ant's colony 
-	int colonyX = antHill->getX(); 
-	int colonyY = antHill->getY(); 
-	Tile * colonyTile = map->getTile(colonyX, colonyY); 
 	// and its coordinates 
-	const int xColony = colonyTile->getX(); 
-	const int yColony = colonyTile->getY(); 
+	const int xColony = antHill->getX(); 
+	const int yColony = antHill->getY(); 
 	// Compute, then, the ant's tile's neighbors 
 	std::vector<Tile*> neighbors = map->neighbors(x_pos, y_pos); 
 			
@@ -88,6 +85,13 @@ void Ant::moveToColony() {
 	Vec colonyVec = Vec(xColony, yColony); 
 			
 	moveInSegment(antVec, colonyVec, neighbors); 
+
+	// If the current tile is, now, equal to the colony's tile and the ant 
+	// has food, then deposit it 
+	if (x_pos == xColony && y_pos == yColony && hasFood) { 
+		antHill->incrementFood(); 
+		hasFood = false; 
+	} 
 } 
 
 /**  
