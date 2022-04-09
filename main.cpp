@@ -8,6 +8,7 @@
 
 #include "include/headers.h" 
 
+// command line; these are their standard values 
 #define NTHREADS std::string("9") 
 
 #define HEIGHT std::string("5")  
@@ -18,6 +19,9 @@
 
 #define PSURVIVAL std::string("12") 
 #define UFOOD std::string("12") 
+#define VFOOD std::string("32") 
+
+#define CFOOD std::string("99") 
 
 /**  
 * Initialize the objects, anthills and food, in the game.  
@@ -87,6 +91,9 @@ int main(int argc, char *argv[]) {
 	// the food's restoration rate 
 	const int ufood = std::atoi(parser->parse("--ufood", UFOOD).c_str()); 
 
+	// the food's volume 
+	const int vfood = std::atoi(parser->parse("--vfood", VFOOD).c_str()); 
+
 	// This instance, `map`, is global 
 	map = new Map(width, height, fov); 
 	initializeGame(map, width, height); 
@@ -99,6 +106,9 @@ int main(int argc, char *argv[]) {
 		// To update the display, we should control the iterations 
 		std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
 		stage(); 
+
+		if (it % ufood == 1) 
+			map->restoreFoods(); 
 		it++; 
 		map->print(); 
 		std::cout << LINES << std::endl; 
