@@ -19,6 +19,8 @@
 #define WIDTH 5 
 #define FOV 1 
 
+#define MAXIT 9 
+
 const std::string LINES = "++++++++++++++++++++++++++++++++"; 
 
 /**  
@@ -27,7 +29,7 @@ const std::string LINES = "++++++++++++++++++++++++++++++++";
 */  
 void initializeGame(Map * map) { 
 	// Initialize a pair of anthills 	
-	map->insertAnthill(1, 1, "Spartans", 9); 
+	map->insertAnthill(1, 1, "Spartans", 1); 
 	// map->insertAnthill(WIDTH - 1, 1, "Covenant", 4); 
 
 	map->insertFood(WIDTH - 1, HEIGHT - 1, 32); 
@@ -42,7 +44,7 @@ void moveAnts() {
 
 	for (; ants.first != ants.second; ++ants.first) { 
 		Ant * ant = *(ants.first); 
-		ant->moveRandomly(); 
+		ant->stage(); 
 	} 
 } 
 
