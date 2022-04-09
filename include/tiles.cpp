@@ -195,16 +195,16 @@ Ant * Tile::getAnt() {
 */  
 std::vector<Ant*> Tile::getAnts() { 
 	// Instantiate a continer for the ants 
-	std::vector<Ant*> * thisAnts = new std::vector<Ant*>; 		
+	std::vector<Ant*> * vecAnts = new std::vector<Ant*>; 		
 	
 	// and iterate across the map `ants` 
 	std::map<std::string, std::stack<Ant*>*>::iterator iter; 
-	for (iter = ants.begin(); iter != ants.end(); ++iter) { 
-		std::stack<Ant*>* currAnts = iter->second; 
-		traverseStack(currAnts, thisAnts); 
+	for (iter = ants->begin(); iter != ants->end(); ++iter) { 
+		std::stack<Ant*>* stackAnts = iter->second; 
+		traverseStack(stackAnts, vecAnts); 
 	} 
 
-	return thisAnts; 
+	return *vecAnts; 
 } 
 
 /**  
@@ -213,13 +213,13 @@ std::vector<Ant*> Tile::getAnts() {
 * @param std::stack<Ant*>* the stack we aim to traverse 
 * @param std::vector<Ant*>* the vector in which we are going to place the stack's components 
 */  
-void traverseStack(std::stack<Ant*>* st, std::vector<Ant*>* vt) { 
+void Tile::traverseStack(std::stack<Ant*>* st, std::vector<Ant*>* vt) { 
 	// Check the initial condition 
-	if (st.empty()) 
+	if (st->empty()) 
 		return; 
 	
 	Ant * ant = st->top(); 
-	vt->push(ant); 
-	traverseStack(st); 
+	vt->push_back(ant); 
+	traverseStack(st, vt); 
 	st->push(ant); 
 } 
