@@ -130,7 +130,7 @@ std::string Tile::print() {
 		Anthill * currAnthill = map->getAnthill(anthillName); 
 		int foodStorage = currAnthill->foodStorage; 
 		return "|" + std::string(anthillName) + "," + 
-			std::to_string(pheromone) + "|"; 
+			std::to_string(foodStorage) + "|"; 
 	} 
 
 	// Check the tile's status 
