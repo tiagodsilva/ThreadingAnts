@@ -80,6 +80,7 @@ class Ant {
 		bool moveToFood();
 		Anthill * getAnthill(); 
 		void moveRandomly(); 
+		void stage(); 
 };
 
 class Tile {
