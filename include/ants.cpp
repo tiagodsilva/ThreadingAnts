@@ -186,5 +186,5 @@ void Ant::moveRandomly() {
 
 	// Compute the tile's coordinates 
 	Tile * currTile = thisNeighbors[randomTile]; 
-	move(currTile->getX(), currTile->getY()); 
+	move(currTile->getX() - x_pos, currTile->getY() - y_pos); 
 } 

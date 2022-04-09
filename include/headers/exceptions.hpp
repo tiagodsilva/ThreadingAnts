@@ -39,5 +39,5 @@ class BorderError: public std::exception {
 		virtual const char * what() const noexcept override { 
 			return msg.c_str(); 
 		} 
-} 
+}; 
 #endif 

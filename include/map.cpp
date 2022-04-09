@@ -35,9 +35,10 @@ Map::Map(int mapWidth, int mapHeight, int fov)
 */  
 Tile * Map::getTile(int x, int y) { 
 	// Compute the tile's instance from coordinates x and y 
-	if (x >= width || y >= height || x <= -1 || y <= -1) 
-		return NULL; 
-
+	if (x >= width || y >= height || x <= -1 || y <= -1) { 
+		throw BorderError("The coordinates (" + std::to_string(x) + " ," 
+				+ std::to_string(y) + ") are inappropriate!"); 
+	} 
 	const int i = y * width + x; 
 	return tiles[i]; 
 } 
