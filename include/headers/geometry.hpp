@@ -151,4 +151,15 @@ int weightedRandom(int * weights, int arrSize) {
 
 	return arrSize - 1; 
 } 
+
+/**  
+* Compute the absolute value of a quantity x; it is possibly an int, a float or a double. 
+*/  
+<template T> 
+T abs(T x) { 
+	if (x < int(1e-18)) 
+		return -x; 
+	else 
+		return x; 
+} 
 #endif 
