@@ -108,6 +108,7 @@ class Tile {
 		int getX(); 
 		int getY(); 
 		Ant * getAnt(); 
+		std::vector<Ant*> getAnts(); 
 };
 
 class Map {
