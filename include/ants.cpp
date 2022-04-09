@@ -124,15 +124,9 @@ void Ant::moveInSegment(Vec v, Vec w, std::vector<Tile*> neighbors) {
 */  
 Tile * Ant::hasFoodNear() { 
 	// Instantiate the neighbors in the field of view 
-	std::vector<Tile*> neighbors = map->neighbors(x_pos, y_pos, 
-			-fov, -fov, fov, fov); 
-			
-	for (Tile * neighbor : neighbors) { 
-		if (neighbor->isFood) 
-			return neighbor; 
-	} 
-	// Use the actual tile 
-	return map->getTile(x_pos, y_pos); 		
+	Tile * neighbor = map->captureFoodNear(x_pos, y_pos); 
+	// Provide a pointer to this tile 
+	return neighbor; 		
 } 
 
 /**  
