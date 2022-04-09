@@ -206,3 +206,20 @@ std::vector<Ant*> Tile::getAnts() {
 
 	return thisAnts; 
 } 
+
+/**  
+* Traverse a stack; it is convenient when the quantity of stack operations (top, push) 
+* is in effect larger than the quantity of vector operations (push), as in our scenario.  
+* @param std::stack<Ant*>* the stack we aim to traverse 
+* @param std::vector<Ant*>* the vector in which we are going to place the stack's components 
+*/  
+void traverseStack(std::stack<Ant*>* st, std::vector<Ant*>* vt) { 
+	// Check the initial condition 
+	if (st.empty()) 
+		return; 
+	
+	Ant * ant = st->top(); 
+	vt->push(ant); 
+	traverseStack(st); 
+	st->push(ant); 
+} 
