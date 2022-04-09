@@ -146,6 +146,8 @@ class Map {
 		Ant * getAntInTile(int x, int y, std::string colony); 
 		Ant * getAnyAnt(); 
 		void restoreFoods(); 
+		std::pair<std::vector<Ant*>::iterator, 
+			std::vector<Ant*>::iterator> getAllAnts(); 
 };
 
 Map * map; 
