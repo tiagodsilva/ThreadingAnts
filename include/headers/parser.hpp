@@ -27,9 +27,11 @@ class InputParser {
 		* Parse the option `option`; it could be, for instance, `nAnts` for 
 		* the quantity of ants in the game  
 		* @param const std::string &option the option we aim to parse 
+		* @param const std::string defValue the default value for the option 
 		* @return std::string value the value correspondent to the parsed option 
 		*/  
-		const std::string& parse(const std::string &option) const { 
+		const std::string parse(const std::string &option, 
+				const std::string defValue) const { 
 			std::vector<std::string>::const_iterator itr; 
 			// From "algorithm"  
 			itr = std::find(tokens->begin(), tokens->end(), option); 
@@ -38,9 +40,9 @@ class InputParser {
 				return *itr; 
 			} 
 			
-			// Assert that there parsing option, `option`, is inappropriate 
-			static const std::string str(""); 
-			return str; 
+			// Assert that there parsing option, `option`, is inappropriate; 
+			// in this case, use the default 
+			return defValue; 
 		} 
 
 		/**  
