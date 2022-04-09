@@ -251,3 +251,33 @@ std::pair<std::vector<Ant*>::iterator,
 	
 		return std::make_pair(antsInGame->begin(), antsInGame->end()); 
 } 
+
+/**  
+* Verify whether there is food; it contemplates the tiles in the field of view.  
+* @param int x, int y the current tile's coordinates 
+*/  
+Tile * Map::captureFoodNear(int x, int y) { 
+	// Iterate across the viewable neighbors 
+	for (int col = -fov; col < fov + 1; col++) { 
+		for (int row = -fov; row < fov + 1; row++) { 
+			// Compute the current neighbor 
+			int currX = x + col; 
+			int currY = y + row; 
+
+			// Check if we are in the ant's tile 
+			if (currX == x && currY == y) 
+				continue; 
+
+			try { 
+				Tile * possibleFood = getTile(currX, currY); 
+				if (possibleFood->isFood) 
+					return possibleFood; 
+			} catch (BorderError& e) { // Assert that the borders are consistent 
+				continue; 
+			} 
+		} 
+	} 
+
+	// If the food is not viewable, compute the current tile 
+	return getTile(x, y); 
+} 
