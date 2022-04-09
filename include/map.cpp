@@ -77,7 +77,7 @@ std::vector<Tile*> Map::neighbors(int x, int y,
 */   
 void Map::print() { 
 	// Print each tile in row major sequence 
-	for (int row = 0; row < height; row++) { 
+	for (int row = height - 1; row > -1; row--) { 
 		for (int col = 0; col < width; col++) { 
 			Tile * currTile = getTile(col, row); 
 			std::string tileString = currTile->print(); 

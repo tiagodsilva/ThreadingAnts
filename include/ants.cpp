@@ -27,6 +27,7 @@ void Ant::move(int x, int y) {
 	tile->extractAnt(this); 
 	x_pos += x; 
 	y_pos += y; 
+	
 	// Insert the ant in the other tile 
 	Tile * nextTile = map->getTile(x_pos, y_pos); 
 	nextTile->insertAnt(this); 
@@ -183,7 +184,7 @@ void Ant::moveRandomly() {
 	} 
 	
 	int randomTile = weightedRandom(pheromones, nNeighbors); 
-
+	
 	// Compute the tile's coordinates 
 	Tile * currTile = thisNeighbors[randomTile]; 
 	move(currTile->getX() - x_pos, currTile->getY() - y_pos); 
