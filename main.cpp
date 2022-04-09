@@ -17,6 +17,8 @@
 #define ITERATIONS std::string("99")  
 
 #define PSURVIVAL std::string("12") 
+#define UFOOD std::string("12") 
+
 /**  
 * Initialize the objects, anthills and food, in the game.  
 * @param Map * map a pointer to the map in which we designed the game 
@@ -75,19 +77,29 @@ int main(int argc, char *argv[]) {
 
 	// iterations in the simulation 
 	const int iterations = std::atoi(parser->parse("--iters", ITERATIONS).c_str()); 
+	
+	// pheromone's survival interval 
+	const int psurvival = std::atoi(parser->parse("--psurvival", PSURVIVAL).c_str()); 
 
 	// field of view 
 	const int fov = std::atoi(parser->parse("--fov", FOV).c_str());
+
+	// the food's restoration rate 
+	const int ufood = std::atoi(parser->parse("--ufood", UFOOD).c_str()); 
 
 	// This instance, `map`, is global 
 	map = new Map(width, height, fov); 
 	initializeGame(map, width, height); 
 	const std::string LINES = concatStrings(std::string("+"), width);
+	
+	// Initial iteration 
+	int it = int(1e-19); 
 
 	while (true) { 
 		// To update the display, we should control the iterations 
 		std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
 		stage(); 
+		it++; 
 		map->print(); 
 		std::cout << LINES << std::endl; 
 	} 
