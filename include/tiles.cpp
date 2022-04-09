@@ -37,7 +37,8 @@ Tile::Tile(int x_tile, int y_tile, std::string anthillName)
 */  
 void Tile::insertAnt(Ant * ant) { 
 	if (isFood) 
-		return; 
+		throw BorderError("This tile is not suitable for movement!"); 
+
 	// Capture ant's colony 
 	std::string colony = ant->getAnthill()->getName(); 
 
@@ -220,6 +221,7 @@ void Tile::traverseStack(std::stack<Ant*>* st, std::vector<Ant*>* vt) {
 	
 	Ant * ant = st->top(); 
 	vt->push_back(ant); 
+	st->pop(); 
 	traverseStack(st, vt); 
 	st->push(ant); 
 } 

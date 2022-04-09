@@ -63,7 +63,8 @@ std::vector<Tile*> Map::neighbors(int x, int y,
 					
 			try { 
 				Tile * currTile = getTile(currX, currY); 
-				neighborsTiles.push_back(currTile); 
+				if (!currTile->isFood) 
+					neighborsTiles.push_back(currTile); 
 			} catch (BorderError& e) { 
 				continue; 
 			} 
@@ -244,6 +245,6 @@ std::pair<std::vector<Ant*>::iterator,
 			for (Ant * ant : ants) 
 				antsInGame->push_back(ant); 
 		} 
-
+	
 		return std::make_pair(antsInGame->begin(), antsInGame->end()); 
 } 

@@ -39,8 +39,12 @@ int main() {
 
 	while (true) { 
 		std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
-		Ant * ant = map->getAnyAnt();  
-		ant->moveRandomly(); 
+		std::pair<std::vector<Ant*>::iterator, 
+			std::vector<Ant*>::iterator> ants = map->getAllAnts(); 
+		for (; ants.first != ants.second; ++ants.first) { 
+			Ant * ant = *(ants.first); 
+			ant->moveRandomly(); 
+		} 
 		map->print(); 
 		std::cout << LINES << std::endl; 
 	} 

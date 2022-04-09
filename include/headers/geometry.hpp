@@ -104,7 +104,8 @@ float distanceToSegment(Vec v, Vec w, Vec p) {
 */  
 double genUniform() { 
 	// Random number generator 
-	std::default_random_engine generator; 
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count(); 
+	static std::default_random_engine generator(seed); 
 	std::uniform_real_distribution<double> distribution(0.0, 1.0); 
 
 	return distribution(generator); 
@@ -131,7 +132,7 @@ int sumArray(int * arr, int size) {
 int weightedRandom(int * weights, int arrSize) { 
 	// Generate a uniformly distributed random 
 	double randomNumber = genUniform(); 
-
+	
 	// Instantiate an array with the probabilities, instead of the weights, which are 
 	// integers 
 	double probabilities[arrSize]; 
