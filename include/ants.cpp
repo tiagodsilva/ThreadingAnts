@@ -141,7 +141,8 @@ bool Ant::moveToFood() {
 
 	// If the taxicab distance between the ant and the food is unitary, then 
 	// it is edible 
-	if (abs<int>(xNeighbor - x_pos) == 1 || abs<int>(yNeighbor - y_pos) == 1) { 
+	int distanceToFood = abs<int>(xNeighbor - x_pos) + abs<int>(yNeighbor - y_pos); 
+	if (distanceToFood == 1) { 
 		eat(map->getFood(xNeighbor, yNeighbor)); 
 		return true; 
 	} 
@@ -160,7 +161,7 @@ bool Ant::moveToFood() {
 		moveInSegment(antVec, foodVec, neighbors); 
 		return true; 
 	} 
-			
+		
 	// Notify that no movement was executed; this is convenient to move randomly 
 	return false; 
 } 
