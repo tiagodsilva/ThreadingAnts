@@ -6,6 +6,7 @@ LDFLAGS=-pthread
 FILENAME?=game.cpp
 COMPILED=main 
 
+.PHONY: ${COMPILED} 
 all: ${COMPILED} 
 	./${COMPILED}; \
 	rm ${COMPILED} 
