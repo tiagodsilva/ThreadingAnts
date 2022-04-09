@@ -17,8 +17,7 @@ ${COMPILED}: ${INCLUDES}/*.cpp
 	echo "#ifndef __HEADERS__" > ${HEADERS} ; \
 	echo "#define __HEADERS__" >> ${HEADERS} ; \
 	for filename in $^; do \
-		# The line $${filename##*/} capture the file's basename
-		echo "#include <"$(basename $${filename##*/})">" >> ${HEADERS} ; \
+		echo '#include "'$${$(basename filename##*/)}'"' >> ${HEADERS} ; \
 	done ; \
 	echo "#endif" >> ${HEADERS} ; \
-	${GCC} ${FILENAME} ${CFLAGS} ${LDFLAGS} ${COMPILED} 	
+	${GCC} ${LDFLAGS} ${FILENAME} ${CFLAGS} ${COMPILED} 
