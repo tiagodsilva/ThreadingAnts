@@ -15,8 +15,8 @@
 #include "../regions.cpp" 
 #include "../tiles.cpp" 
 
-#define HEIGHT 9 
-#define WIDTH 9 
+#define HEIGHT 5 
+#define WIDTH 5 
 #define FOV 1 
 
 const std::string LINES = "++++++++++++++++++++++++++++++++"; 
@@ -27,10 +27,10 @@ const std::string LINES = "++++++++++++++++++++++++++++++++";
 */  
 void initializeGame(Map * map) { 
 	// Initialize a pair of anthills 	
-	map->insertAnthill(1, 2, "Spartans", 99); 
-	map->insertAnthill(8, 1, "Covenant", 45); 
+	map->insertAnthill(1, 1, "Spartans", 99); 
+	map->insertAnthill(WIDTH - 1, 1, "Covenant", 45); 
 
-	map->insertFood(4, 8, 32); 
+	map->insertFood(WIDTH - 1, HEIGHT - 1, 32); 
 } 
 
 int main() { 

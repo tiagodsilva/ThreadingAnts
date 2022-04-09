@@ -52,9 +52,9 @@ std::vector<Tile*> Map::neighbors(int x, int y,
 	std::vector<Tile*> neighborsTiles; 
 			
 	// Iterate across the tile's neighbors 
-	for (int col = xLeftOffset; col < xRightOffset; col++) { 
+	for (int col = xLeftOffset; col < xRightOffset + 1; col++) { 
 		// Compute the actual neighbor 
-		for (int row = yBottomOffset; row < yTopOffset; row++) { 
+		for (int row = yBottomOffset; row < yTopOffset + 1; row++) { 
 			int currX = x + col;  
 			int currY = y + row; 
 

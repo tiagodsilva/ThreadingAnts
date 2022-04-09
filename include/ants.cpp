@@ -176,6 +176,10 @@ void Ant::moveRandomly() {
 	std::vector<Tile*> thisNeighbors = map->neighbors(x_pos, y_pos); 
 	int nNeighbors = thisNeighbors.size(); 
 	
+	if (nNeighbors < 1) { 
+		std::cout << x_pos << " a " << y_pos << std::endl; 
+		throw "Exception!"; 
+	} 
 	// Instantiate an array with the tile's neighbors pheromones 
 	int pheromones[nNeighbors]; 
 
