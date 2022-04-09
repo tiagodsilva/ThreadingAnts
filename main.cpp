@@ -8,21 +8,27 @@
 
 #include "include/headers.h" 
 
-#define HEIGHT 5 
-#define WIDTH 5 
-#define FOV 2 
+#define NTHREADS std::string("9") 
 
+#define HEIGHT std::string("5")  
+#define WIDTH std::string("5")  
+#define FOV std::string("2")  
+
+#define ITERATIONS std::string("99")  
+
+#define PSURVIVAL std::string("12") 
 /**  
 * Initialize the objects, anthills and food, in the game.  
 * @param Map * map a pointer to the map in which we designed the game 
+* @param int width, int height the map's dimensions 
 */  
-void initializeGame(Map * map) { 
+void initializeGame(Map * map, int width, int height) { 
 	// Initialize the anthills 
 	map->insertAnthill(1, 1, "Spartans", 1); 
 	
 	// and the foods 
-	map->insertFood(WIDTH - 1, 1, 32); 
-	map->insertFood(1, HEIGHT - 1, 32); 
+	map->insertFood(width - 1, 1, 32); 
+	map->insertFood(1, height - 1, 32); 
 } 
 
 /**  
@@ -57,10 +63,26 @@ std::string concatStrings(const std::string string, int concats) {
 int main(int argc, char *argv[]) { 
 	// Instantiate a parser to parse the command line 
 	InputParser * parser = new InputParser(argc, argv); 
+
+	// Parse command line 
+	
+	// number of threads 
+	const int nThreads = std::atoi(parser->parse("--nthreads", NTHREADS).c_str()); 
+
+	// map's dimensions 
+	const int width = std::atoi(parser->parse("--width", WIDTH).c_str()); 
+	const int height = std::atoi(parser->parse("--height", HEIGHT).c_str()); 
+
+	// iterations in the simulation 
+	const int iterations = std::atoi(parser->parse("--iters", ITERATIONS).c_str()); 
+
+	// field of view 
+	const int fov = std::atoi(parser->parse("--fov", FOV).c_str());
+
 	// This instance, `map`, is global 
-	map = new Map(WIDTH, HEIGHT, FOV); 
-	initializeGame(map); 
-	const std::string LINES = concatStrings(std::string("+"), WIDTH); 
+	map = new Map(width, height, fov); 
+	initializeGame(map, width, height); 
+	const std::string LINES = concatStrings(std::string("+"), width);
 
 	while (true) { 
 		// To update the display, we should control the iterations 
