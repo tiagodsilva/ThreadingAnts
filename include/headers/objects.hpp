@@ -115,7 +115,7 @@ class Tile {
 		int y;
 
 		void traverseStack(std::stack<Ant*>* st, std::vector<Ant*>* vt); 
-		std::list<Pheromone> pheromones; 
+		std::list<Pheromone*> pheromones; // the pheromones in this tile 
 	public:
 		// Array with the ants in this tile for each colony
 		std::map<std::string, std::stack<Ant*>*> * ants;
@@ -123,7 +123,6 @@ class Tile {
 		bool isAnthill; 
 		std::string anthillName; 
 		bool isFood; 
-		int pheromone; // the intensity of pheromone in these coordinates
 
 		Tile(int x_tile, int y_tile, bool containsFood);
 		Tile(int x_tile, int y_tile, std::string anthillName); 
