@@ -17,16 +17,22 @@
 #define ITERATIONS std::string("99") // quantity of iterations in the game 
 #define PSURVIVAL std::string("12") // pheromone's lifetime 
 #define UFOOD std::string("45") // food's update rate 
-#define VFOOD std::string("32") // food's initial volume 
 #define CFOOD std::string("99") // quantity of ants that eat the food conveniently 
 
 // Integer quantities 
 int nThreads, width, height, 
     iterations, psurvival, fov, 
-    ufood, vfood; 
+    ufood; 
 
 // Introduce, for the colonies, the quantities (x, y, nAnts); for the foods, 
 // (x, y, volume), as those are parametrizable  
+
+const std::string COLONIES = std::to_string(std::atoi(WIDTH.c_str()) - 1) + "," + 
+	std::to_string(std::atoi(HEIGHT.c_str()) - 1) + "," + std::to_string(32); 
+const std::string FOODS = std::to_string(1) + "," + std::to_string(1) + "," + 
+	std::to_string(32) + ";" + std::to_string(std::atoi(WIDTH.c_str()) - 1) + "," + 
+	std::to_string(1) + "," + std::to_string(45); 
+
 std::vector<std::tuple<int, int, int>> colonies, foods; 
 
 std::tuple<int, int, int> parseTuple(std::string csv) { 
@@ -36,13 +42,23 @@ std::tuple<int, int, int> parseTuple(std::string csv) {
 
 	std::vector<int> parseVec; 
 	std::string delimiter = ","; 
+	
+	// Check whether the string `csv` equals `delimiter` 
+	std::string eof = std::to_string(csv.at(csv.length() - 1)); 
+	if (eof != delimiter) 
+		csv += delimiter; 
 
-	while ((pos = csv.find(delimiter) != std::string::npos)) { 
+	pos = csv.find(delimiter); 
+	while ((pos != std::string::npos)) { 
 		token = csv.substr(0, pos); 
 		parseVec.push_back(std::atoi(token.c_str())); 
 		csv = csv.erase(0, pos + delimiter.length()); 
+		pos = csv.find(delimiter); 
 	} 
 	
+	if (parseVec.size() < 3) 
+		throw "Inappropriate parsing!"; 
+
 	std::tuple<int, int, int> parsedTuple = std::make_tuple( 
 			parseVec[0], parseVec[1], parseVec[2] 
 		); 
@@ -63,10 +79,17 @@ std::vector<std::tuple<int, int, int>> parseVector(std::string csv) {
 	std::vector<std::tuple<int, int, int>> parsedTuple; 
 
 	std::string delimiter = ";"; 
-	while ((pos = csv.find(delimiter) != std::string::npos)) { 
+	// Check whether the character with index `csv.length() - 1` equals the delimiter 
+	std::string eof = std::to_string(csv.at(csv.length() - 1)); 
+	if (eof != delimiter) 
+		csv += delimiter; 
+
+	pos = csv.find(delimiter); 
+	while ((pos != std::string::npos)) { 
 		token = csv.substr(0, pos); 
 		parsedTuple.push_back(parseTuple(token)); 
 		csv.erase(0, pos + delimiter.length()); 
+		pos = csv.find(delimiter); 
 	} 
 
 	return parsedTuple; 
@@ -86,7 +109,8 @@ void parse(InputParser * parser) {
 	psurvival = std::atoi(parser->parse("--psurvival", PSURVIVAL).c_str()); 
 	fov = std::atoi(parser->parse("--fov", FOV).c_str()); 
 	ufood = std::atoi(parser->parse("--ufood", UFOOD).c_str()); 
-	vfood = std::atoi(parser->parse("--vfood", VFOOD).c_str()); 
+	colonies = parseVector(parser->parse("--colonies", COLONIES)); 
+	// foods = parseVector(parser->parse("--foods", FOODS)); 
 } 
 
 /**  
@@ -99,8 +123,8 @@ void initializeGame(Map * map, int width, int height) {
 	map->insertAnthill(1, 1, "Spartans", 1); 
 	
 	// and the foods 
-	map->insertFood(width - 1, 1, vfood); 
-	map->insertFood(1, height - 1, vfood); 
+	map->insertFood(width - 1, 1, 32); 
+	map->insertFood(1, height - 1, 32); 
 } 
 
 /**  
