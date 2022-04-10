@@ -174,6 +174,12 @@ int main(int argc, char *argv[]) {
 	
 	parse(parser); 
 
+	// Instantiate threads 
+	std::vector<std::thread*> threadList; 
+
+	for (int i = 0; i < nThreads; i++) 
+		threadList.push_back(new std::thread); 
+
 	// This instance, `map`, is global 
 	map = new Map(width, height, fov, psurvival); 
 	initializeGame(map, width, height); 
