@@ -109,7 +109,7 @@ std::map<std::string, int> Tile::numAnts() {
 * Increment the pheromone's density in this tile. 
 */  
 void Tile::incrementPheromone() { 
-	pheromones.push_back(new Pheromone(map->psurvival, GAME_ITERATION)); 
+	pheromones->push_back(new Pheromone(map->getPSurvival(), GAME_ITERATION)); 
 } 	
 
 std::string Tile::print() { 

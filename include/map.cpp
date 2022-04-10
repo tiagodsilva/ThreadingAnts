@@ -287,3 +287,10 @@ Tile * Map::captureFoodNear(int x, int y) {
 	// If the food is not viewable, compute the current tile 
 	return getTile(x, y); 
 } 
+
+/**  
+* Compute the pheromone's lifetime; it is convenient to instante this struct. 
+*/  
+int Map::getPSurvival() { 
+	return psurvival; 
+} 
