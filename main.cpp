@@ -102,7 +102,7 @@ std::vector<std::tuple<int, int, int>> parseVector(std::string csv) {
 * @param InputParser * parser the command line parser 
 */  
 void parse(InputParser * parser) { 
-	// Check the preamble to describe the variable's name 
+	// Check the preamble to describe the variable's names 
 	nThreads = std::atoi(parser->parse("--nthreads", NTHREADS).c_str()); 
 	width = std::atoi(parser->parse("--width", WIDTH).c_str()); 
 	height = std::atoi(parser->parse("--height", HEIGHT).c_str()); 
