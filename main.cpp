@@ -37,8 +37,9 @@ const std::string FOODS = std::to_string(1) + "," + std::to_string(1) + ","
 
 std::vector<std::tuple<int, int, int>> colonies, foods; 
 
-// Iterator for the vector of ants 
-std::vector<Ant*>::iterator antsIterator; 
+// Iterators for the vector of ants 
+std::vector<Ant*>::iterator lAntsIterator; 
+std::vector<Ant*>::iterator rAntsIterator; 
 
 // The mutex for the ants' iterator in the map 
 std::mutex iteratorMutex; 
@@ -146,7 +147,8 @@ void initializeGame(Map * map, int width, int height) {
 	} 
 
 	// Compute the iterator for the vector that contemplates the ants 
-	antsIterator = map->getAllAnts().fist; 
+	lAntsIterator = map->getAllAnts().first; 
+	rAntsIterator = map->getAllAnts().second; 
 } 
 
 /**  
@@ -179,13 +181,50 @@ std::string concatStrings(const std::string string, int concats) {
 
 /**  
 * Compute the next ant; it will execute actions.  
-* @return Ant * ant the next ant 
+* @return std::vector<Ant*>::iterator the next ant 
 */  
-Ant * computeNextAnt() { 
+std::vector<Ant*>::iterator computeNextAnt() { 
 	const std::lock_guard<std::mutex> lock(iteratorMutex); 
-	Ant * currAnt = *antsIterator;
-	++antsIterator; 
-	return currAnt; 
+	std::vector<Ant*>::iterator currIterator = lAntsIterator; 
+	if (currIterator != rAntsIterator) 
+		++lAntsIterator; 
+	return currIterator; 
+} 
+
+/**  
+* Play a multithread game; it sequentially captures the next ant.  
+*/  
+void multithreadStage() { 
+	// Identify the next ant 
+	std::vector<Ant*>::iterator antsIterator; 
+
+	while ((antsIterator = computeNextAnt()) != rAntsIterator) { 
+		Ant * ant = *antsIterator; 
+		ant->stage(); 
+	} 
+} 
+
+/**  
+* Play the game sequentially; the map should be initialized for the consistency of this 
+* iterative procedure. 
+*/  
+void sequentialGame() { 
+	// While the current iteration is plausible, play the game 
+	const std::string LINES = concatStrings("+", width); 
+
+	while (GAME_ITERATION < iterations) { 
+		std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
+		stage(); 
+		GAME_ITERATION++; 
+		
+		// The foods should be restored sporadically 
+		if (GAME_ITERATION % ufood == 1) 
+			map->restoreFoods(); 
+
+		map->checkPheromones(); 
+		map->print(); 
+		std::cout << LINES << std::endl; 
+	} 
 } 
 
 int main(int argc, char *argv[]) { 
@@ -198,35 +237,10 @@ int main(int argc, char *argv[]) {
 	std::vector<std::thread*> threadList; 
 
 	for (int i = 0; i < nThreads; i++) 
-		threadList.push_back(new std::thread); 
+		threadList.push_back(new std::thread(multithreadStage)); 
 
 	// This instance, `map`, is global 
 	map = new Map(width, height, fov, psurvival); 
 	initializeGame(map, width, height); 
-
-
-	const std::string LINES = concatStrings(std::string("+"), width);
-	
-	// Initial iteration 
-	int it = int(1e-19); 
-
-	while (true) { 
-		// To update the display, we should control the iterations 
-		std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
-		stage(); 
-
-		if (it % ufood == 1) 
-			map->restoreFoods(); 
-		it++; 
-		GAME_ITERATION++; 
-
-		// Assert the quantity of iterations 
-		if (GAME_ITERATION > iterations) 
-			return EXIT_SUCCESS; 
-		map->checkPheromones(); 
-		map->print(); 
-		std::cout << LINES << std::endl; 
-	} 
-
 	return EXIT_SUCCESS; 
 } 
