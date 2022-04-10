@@ -190,7 +190,7 @@ std::string concatStrings(const std::string string, int concats) {
 * @return std::vector<Ant*>::iterator the next ant 
 */  
 std::vector<Ant*>::iterator computeNextAnt() { 
-	// const std::lock_guard<std::mutex> lock(iteratorMutex); 
+	const std::unique_lock<std::mutex> lock(iteratorMutex); 
 	std::vector<Ant*>::iterator currIterator = lAntsIterator; 
 	if (lAntsIterator != rAntsIterator) 
 		++lAntsIterator; 
@@ -201,15 +201,14 @@ std::vector<Ant*>::iterator computeNextAnt() {
 * Play a multithread game; it sequentially captures the next ant.  
 */  
 void multithreadStage() { 
-	// Identify the next ant 
+	// Identify the next ant
+
 	std::vector<Ant*>::iterator antsIterator; 
 
 	while (GAME_ITERATION < iterations) { 
 		while (!gameSemaphore); 
 
-		iteratorMutex.lock(); 
 		antsIterator = computeNextAnt(); 
-		iteratorMutex.unlock(); 
 
 		if(antsIterator != rAntsIterator) { 
 			Ant * ant = *antsIterator; 
