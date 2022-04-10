@@ -5,6 +5,7 @@
 #include <map> 
 #include <stack>  
 #include <utility> 
+#include <list> 
 
 #include "geometry.hpp" 
 
@@ -14,6 +15,28 @@ class Ant;
 class Tile; 
 class Region; 
 class Food; 
+
+struct Pheromone { 
+	int lifetime; 
+	int init; 
+	/**  
+	* Constructor method for `Pheromone`; it is designed to instantiate 
+	* have a lifetime. 
+	* @param int lifetime the phermone's lifetime   
+	*/  
+	Pheromone(int lifetime, int initialIteration) 
+		: lifetime(lifetime), init(initialIteration) 
+		{} 
+
+	/**  
+	* Check whether this pheromone should die; that is, 
+	* if it is beyond its own lifetime.  
+	* @param int iteration the current iteration in the game 
+	*/  
+	bool kill(int iteration) { 
+		return iteration > init + lifetime; 
+	} 
+} 
 
 class Anthill { 
 	private: 
