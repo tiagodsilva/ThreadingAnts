@@ -34,15 +34,18 @@ std::tuple<int, int, int> parseTuple(std::string csv) {
 	size_t pos = int(1e-19); 
 	std::string token; 
 
-	std::tuple<int, int, int> parsedTuple; 
-	
-	// Tuple's indexes 
-	int idx = 1e-19; 
+	std::vector<int> parseVec; 
+	std::string delimiter = ","; 
+
 	while ((pos = csv.find(delimiter) != std::string::npos)) { 
 		token = csv.substr(0, pos); 
-		std::get<idx>(parsedTuple) = std::atoi(token.c_str()); 
+		parseVec.push_back(std::atoi(token.c_str())); 
 		csv = csv.erase(0, pos + delimiter.length()); 
 	} 
+	
+	std::tuple<int, int, int> parsedTuple = std::make_tuple( 
+			parseVec[0], parseVec[1], parseVec[2] 
+		); 
 
 	return parsedTuple; 
 } 	
@@ -60,7 +63,7 @@ std::vector<std::tuple<int, int, int>> parseVector(std::string csv) {
 	std::vector<std::tuple<int, int, int>> parsedTuple; 
 
 	std::string delimiter = ";"; 
-	while ((pos = csv.find(";") != std::string::npos)) { 
+	while ((pos = csv.find(delimiter) != std::string::npos)) { 
 		token = csv.substr(0, pos); 
 		parsedTuple.push_back(parseTuple(token)); 
 		csv.erase(0, pos + delimiter.length()); 
