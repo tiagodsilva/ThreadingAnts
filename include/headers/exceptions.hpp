@@ -40,4 +40,23 @@ class BorderError: public std::exception {
 			return msg.c_str(); 
 		} 
 }; 
+
+class ParseError: public std::exception { 
+	private: 
+		std::string msg; 
+	public: 
+		/**  
+		* Constructor method for `ParseError`.  
+		*/  
+		ParseError(std::string raiseMsg) 
+			: msg(raiseMsg) 
+			{} 
+
+		/**  
+		* Check the command line consistency.  
+		*/  
+		virtual const char * what() const noexcept override { 
+			return msg.c_str(); 
+		} 
+}; 	
 #endif 
