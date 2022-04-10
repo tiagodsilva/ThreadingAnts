@@ -3,6 +3,7 @@
 
 #include <chrono> 
 #include <thread> 
+#include <mutex> 
 
 #include <string> 
 #include <tuple> 
@@ -35,6 +36,12 @@ const std::string FOODS = std::to_string(1) + "," + std::to_string(1) + ","
 	+ std::to_string(1) + "," + std::to_string(45); 
 
 std::vector<std::tuple<int, int, int>> colonies, foods; 
+
+// Iterator for the vector of ants 
+std::vector<Ant*>::iterator antsIterator; 
+
+// The mutex for the ants' iterator in the map 
+std::mutex iteratorMutex; 
 
 std::tuple<int, int, int> parseTuple(std::string csv) { 
 	// Parse a CSV as a tuple 
@@ -137,6 +144,9 @@ void initializeGame(Map * map, int width, int height) {
 		int volume = std::get<2>(food); 
 		map->insertFood(x, y, volume); 
 	} 
+
+	// Compute the iterator for the vector that contemplates the ants 
+	antsIterator = map->getAllAnts().fist; 
 } 
 
 /**  
@@ -167,6 +177,16 @@ std::string concatStrings(const std::string string, int concats) {
 	return concatElement; 
 } 
 
+/**  
+* Compute the next ant; it will execute actions.  
+* @return Ant * ant the next ant 
+*/  
+Ant * computeNextAnt() { 
+	const std::lock_guard<std::mutex> lock(iteratorMutex); 
+	Ant * currAnt = *antsIterator;
+	++antsIterator; 
+	return currAnt; 
+} 
 
 int main(int argc, char *argv[]) { 
 	// Instantiate a parser to parse the command line 
@@ -183,6 +203,8 @@ int main(int argc, char *argv[]) {
 	// This instance, `map`, is global 
 	map = new Map(width, height, fov, psurvival); 
 	initializeGame(map, width, height); 
+
+
 	const std::string LINES = concatStrings(std::string("+"), width);
 	
 	// Initial iteration 
