@@ -20,6 +20,10 @@
 #define UFOOD std::string("45") // food's update rate 
 #define CFOOD std::string("99") // quantity of ants that eat the food conveniently 
 
+using semaphore = int; 
+// Semaphore to control the game's stages 
+semaphore gameSemaphore; 
+
 // Integer quantities 
 int nThreads, width, height, 
     iterations, psurvival, fov, 
@@ -186,9 +190,9 @@ std::string concatStrings(const std::string string, int concats) {
 * @return std::vector<Ant*>::iterator the next ant 
 */  
 std::vector<Ant*>::iterator computeNextAnt() { 
-	const std::lock_guard<std::mutex> lock(iteratorMutex); 
+	// const std::lock_guard<std::mutex> lock(iteratorMutex); 
 	std::vector<Ant*>::iterator currIterator = lAntsIterator; 
-	if (currIterator != rAntsIterator) 
+	if (lAntsIterator != rAntsIterator) 
 		++lAntsIterator; 
 	return currIterator; 
 } 
@@ -200,8 +204,14 @@ void multithreadStage() {
 	// Identify the next ant 
 	std::vector<Ant*>::iterator antsIterator; 
 
-	while (GAME_ITERATIONS < iterations) { 
-		while ((antsIterator = computeNextAnt()) != rAntsIterator && gameSemaphore) { 
+	while (GAME_ITERATION < iterations) { 
+		while (!gameSemaphore); 
+
+		iteratorMutex.lock(); 
+		antsIterator = computeNextAnt(); 
+		iteratorMutex.unlock(); 
+
+		if(antsIterator != rAntsIterator) { 
 			Ant * ant = *antsIterator; 
 			ant->stage(); 
 		} 
@@ -242,13 +252,22 @@ void multithreadGame() {
 	for (int i = 0; i < nThreads; i++) 
 		threadList.push_back(new std::thread(multithreadStage)); 
 		
+	gameSemaphore = 1; 
 	while (GAME_ITERATION < iterations) { 
 		if (lAntsIterator == rAntsIterator) { 
+			gameSemaphore = 0; 
 			std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
-			lAntsIterator = map->getAllAnts().first; 
+
+			std::pair<std::vector<Ant*>::iterator, 
+				std::vector<Ant*>::iterator> antsVec = map->getAllAnts(); 
+			
+			lAntsIterator = antsVec.first; 
+			rAntsIterator = antsVec.second; 
+
 			map->checkPheromones(); 
 			map->print(); 
 			GAME_ITERATION++; 
+			gameSemaphore = 1; 
 		} 
 	} 
 } 
