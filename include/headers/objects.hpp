@@ -124,6 +124,8 @@ class Tile {
 		std::string anthillName; 
 		bool isFood; 
 
+		int pheromone; // the pheromone's intensity in this tile 
+
 		Tile(int x_tile, int y_tile, bool containsFood);
 		Tile(int x_tile, int y_tile, std::string anthillName); 
 		Tile(); 
