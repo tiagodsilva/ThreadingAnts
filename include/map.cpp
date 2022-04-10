@@ -296,11 +296,11 @@ int Map::getPSurvival() {
 } 
 
 /**  
-* Identify dead pheromones; it contemplates all tiles and uses `GAME_ITERATION`, 
+* Identify dead pheromones; it contemplates all the tiles and uses `GAME_ITERATION`, 
 * a global variable.  
 */  
 void Map::checkPheromones() { 
-	// Iterate across the tiles and check each pheromone 
+	// Iterate acroos the tiles and check each list of pheromones 
 	for (Tile * tile : tiles) 
 		tile->checkPheromones(); 
 } 
