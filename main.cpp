@@ -57,8 +57,8 @@ std::tuple<int, int, int> parseTuple(std::string csv) {
 		pos = csv.find(delimiter); 
 	} 
 	
-	if (parseVec.size() < 3) 
-		throw "Inappropriate parsing!"; 
+	if (parseVec.size() != 3) 
+		throw ParseError("Inappropriate command line; the parser was disrupted with the inputs!"); 
 
 	std::tuple<int, int, int> parsedTuple = std::make_tuple( 
 			parseVec[0], parseVec[1], parseVec[2] 
