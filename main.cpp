@@ -15,7 +15,7 @@
 #define FOV std::string("2") // ant's field of view 
 #define ITERATIONS std::string("99") // quantity of iterations in the game 
 #define PSURVIVAL std::string("12") // pheromone's lifetime 
-#define UFOOD std::string("12") // food's update rate 
+#define UFOOD std::string("45") // food's update rate 
 #define VFOOD std::string("32") // food's initial volume 
 #define CFOOD std::string("99") // quantity of ants that eat the food conveniently 
 
@@ -36,8 +36,8 @@ void parse(InputParser * parser) {
 	height = std::atoi(parser->parse("--height", HEIGHT).c_str()); 
 	iterations = std::atoi(parser->parse("--iters", ITERATIONS).c_str()); 
 	psurvival = std::atoi(parser->parse("--psurvival", PSURVIVAL).c_str()); 
-	fov = std::atoi(parser->parse("--ufood", UFOOD).c_str()); 
-	ufood = std::atoi(parser->parse("--fov", FOV).c_str()); 
+	fov = std::atoi(parser->parse("--fov", FOV).c_str()); 
+	ufood = std::atoi(parser->parse("--ufood", UFOOD).c_str()); 
 	vfood = std::atoi(parser->parse("--vfood", VFOOD).c_str()); 
 } 
 
@@ -87,30 +87,8 @@ std::string concatStrings(const std::string string, int concats) {
 int main(int argc, char *argv[]) { 
 	// Instantiate a parser to parse the command line 
 	InputParser * parser = new InputParser(argc, argv); 
-
-	// Parse command line 
 	
-	// number of threads 
-	const int nThreads = std::atoi(parser->parse("--nthreads", NTHREADS).c_str()); 
-
-	// map's dimensions 
-	const int width = std::atoi(parser->parse("--width", WIDTH).c_str()); 
-	const int height = std::atoi(parser->parse("--height", HEIGHT).c_str()); 
-
-	// iterations in the simulation 
-	const int iterations = std::atoi(parser->parse("--iters", ITERATIONS).c_str()); 
-	
-	// pheromone's survival interval 
-	const int psurvival = std::atoi(parser->parse("--psurvival", PSURVIVAL).c_str()); 
-
-	// field of view 
-	const int fov = std::atoi(parser->parse("--fov", FOV).c_str());
-
-	// the food's restoration rate 
-	const int ufood = std::atoi(parser->parse("--ufood", UFOOD).c_str()); 
-
-	// the food's volume 
-	const int vfood = std::atoi(parser->parse("--vfood", VFOOD).c_str()); 
+	parse(parser); 
 
 	// This instance, `map`, is global 
 	map = new Map(width, height, fov, psurvival); 
@@ -129,6 +107,9 @@ int main(int argc, char *argv[]) {
 			map->restoreFoods(); 
 		it++; 
 		GAME_ITERATION++; 
+
+		if (GAME_ITERATION > iterations) 
+			break; 
 		map->checkPheromones(); 
 		map->print(); 
 		std::cout << LINES << std::endl; 
