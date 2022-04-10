@@ -5,6 +5,7 @@
 #include <thread> 
 
 #include <string> 
+#include <tuple> 
 
 #include "include/headers.h" 
 
@@ -19,10 +20,14 @@
 #define VFOOD std::string("32") // food's initial volume 
 #define CFOOD std::string("99") // quantity of ants that eat the food conveniently 
 
-
+// Integer quantities 
 int nThreads, width, height, 
     iterations, psurvival, fov, 
     ufood, vfood; 
+
+// Introduce, for the colonies, the quantities (x, y, nAnts); for the foods, 
+// (x, y, volume), as those are parametrizable  
+std::vector<std::tuple<int, int, int>> colonies, foods; 
 
 /**  
 * Parse the command line sent to the compiled file; it set the values that conform 
@@ -51,8 +56,8 @@ void initializeGame(Map * map, int width, int height) {
 	map->insertAnthill(1, 1, "Spartans", 1); 
 	
 	// and the foods 
-	map->insertFood(width - 1, 1, 32); 
-	map->insertFood(1, height - 1, 32); 
+	map->insertFood(width - 1, 1, vfood); 
+	map->insertFood(1, height - 1, vfood); 
 } 
 
 /**  
