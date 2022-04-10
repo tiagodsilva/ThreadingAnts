@@ -120,8 +120,14 @@ void parse(InputParser * parser) {
 */  
 void initializeGame(Map * map, int width, int height) { 
 	// Initialize the anthills 
-	map->insertAnthill(1, 1, "Spartans", 1); 
-	
+	int currAnthill = 1e-19; 
+	for (std::tuple<int, int, int> colony : colonies) { 
+		int x = std::get<0>(colony); 
+		int y = std::get<1>(colony); 
+		int nAnts = std::get<2>(colony); 
+		map->insertAnthill(x, y, "Spartans" + std::to_string(currAnthill), nAnts); 
+		currAnthill++; 
+	} 
 	// and the foods 
 	map->insertFood(width - 1, 1, 32); 
 	map->insertFood(1, height - 1, 32); 
