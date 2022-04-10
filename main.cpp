@@ -27,11 +27,12 @@ int nThreads, width, height,
 // Introduce, for the colonies, the quantities (x, y, nAnts); for the foods, 
 // (x, y, volume), as those are parametrizable  
 
-const std::string COLONIES = std::to_string(std::atoi(WIDTH.c_str()) - 1) + "," + 
-	std::to_string(std::atoi(HEIGHT.c_str()) - 1) + "," + std::to_string(32); 
-const std::string FOODS = std::to_string(1) + "," + std::to_string(1) + "," + 
-	std::to_string(32) + ";" + std::to_string(std::atoi(WIDTH.c_str()) - 1) + "," + 
-	std::to_string(1) + "," + std::to_string(45); 
+const std::string COLONIES = std::to_string(std::atoi(WIDTH.c_str()) - 1) + "," 
+	+ std::to_string(std::atoi(HEIGHT.c_str()) - 1) + "," + std::to_string(32); 
+
+const std::string FOODS = std::to_string(1) + "," + std::to_string(1) + "," 
+	+ std::to_string(32) + ";" + std::to_string(std::atoi(WIDTH.c_str()) - 1) + "," 
+	+ std::to_string(1) + "," + std::to_string(45); 
 
 std::vector<std::tuple<int, int, int>> colonies, foods; 
 
