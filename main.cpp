@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
 	const int vfood = std::atoi(parser->parse("--vfood", VFOOD).c_str()); 
 
 	// This instance, `map`, is global 
-	map = new Map(width, height, fov); 
+	map = new Map(width, height, fov, psurvival); 
 	initializeGame(map, width, height); 
 	const std::string LINES = concatStrings(std::string("+"), width);
 	
@@ -110,6 +110,8 @@ int main(int argc, char *argv[]) {
 		if (it % ufood == 1) 
 			map->restoreFoods(); 
 		it++; 
+		GAME_ITERATION++; 
+		map->checkPheromones(); 
 		map->print(); 
 		std::cout << LINES << std::endl; 
 	} 

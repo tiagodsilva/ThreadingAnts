@@ -238,9 +238,11 @@ void Tile::checkPheromones() {
 		bool dead = (*it)->kill(GAME_ITERATION); 
 
 		// Assert that the pheromone is within its lifetime 
-		if (dead) 
+		if (dead) { 
 			pheromones->erase(it++); 
-		else 
+			pheromone = pheromones->size();   
+		} else {  
 			++it; 
+		} 
 	} 
 } 
