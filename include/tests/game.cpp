@@ -68,7 +68,7 @@ int main() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
 		moveAnts(); 
 		// moveAnt(it); 
-		it++; 
+		GAME_ITERATION++; 
 		map->print(); 
 		std::cout << LINES << std::endl; 
 	} 
