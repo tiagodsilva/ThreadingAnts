@@ -115,7 +115,7 @@ class Tile {
 		int y;
 
 		void traverseStack(std::stack<Ant*>* st, std::vector<Ant*>* vt); 
-		std::list<Pheromone*> pheromones; // the pheromones in this tile 
+		std::list<Pheromone*> * pheromones; // the pheromones in this tile 
 	public:
 		// Array with the ants in this tile for each colony
 		std::map<std::string, std::stack<Ant*>*> * ants;
@@ -176,6 +176,7 @@ class Map {
 		std::pair<std::vector<Ant*>::iterator, 
 			std::vector<Ant*>::iterator> getAllAnts(); 
 		Tile * captureFoodNear(int x, int y); 
+		int getPSurvival(); 
 };
 
 Map * map; 
