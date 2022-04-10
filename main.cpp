@@ -192,8 +192,9 @@ int main(int argc, char *argv[]) {
 		it++; 
 		GAME_ITERATION++; 
 
+		// Assert the quantity of iterations 
 		if (GAME_ITERATION > iterations) 
-			break; 
+			return EXIT_SUCCESS; 
 		map->checkPheromones(); 
 		map->print(); 
 		std::cout << LINES << std::endl; 
