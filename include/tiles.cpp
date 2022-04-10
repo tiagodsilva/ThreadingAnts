@@ -130,13 +130,6 @@ std::string Tile::print() {
 			std::to_string(foodVolume) + "|"; 
 	} 
 
-	if (isAnthill) { 
-		Anthill * currAnthill = map->getAnthill(anthillName); 
-		int foodStorage = currAnthill->foodStorage; 
-		return "|" + std::string(anthillName) + "," + 
-			std::to_string(foodStorage) + "|"; 
-	} 
-
 	// Check the tile's status 
 	std::map<std::string, int> nAnts = numAnts(); 
 	// Sum the quantity of antos 
@@ -146,7 +139,14 @@ std::string Tile::print() {
 			iter != nAnts.end(); ++iter) { 
 		totalAnts += iter->second; 
 	} 
-			
+	
+	if (isAnthill) { 
+		Anthill * currAnthill = map->getAnthill(anthillName); 
+		int foodStorage = currAnthill->foodStorage; 
+		return "|" + std::string(anthillName) + "," + 
+			std::to_string(foodStorage) + "," + std::to_string(totalAnts) + "|" 
+	} 
+
 	std::string tileString = "|" + std::to_string(totalAnts) + "," + 
 		std::to_string(pheromone) + "|"; 
 

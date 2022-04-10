@@ -11,9 +11,9 @@
 #include "include/headers.h" 
 
 // command line; these are their standard values 
-#define NTHREADS std::string("9") // quantity of threads  
-#define WIDTH std::string("9") // map's width 
-#define HEIGHT std::string("9") // map's height 
+#define NTHREADS std::string("5") // quantity of threads  
+#define WIDTH std::string("5") // map's width 
+#define HEIGHT std::string("5") // map's height 
 #define FOV std::string("2") // ant's field of view 
 #define ITERATIONS std::string("99") // quantity of iterations in the game 
 #define PSURVIVAL std::string("12") // pheromone's lifetime 
@@ -33,7 +33,7 @@ int nThreads, width, height,
 // (x, y, volume), as those are parametrizable  
 
 const std::string COLONIES = std::to_string(std::atoi(WIDTH.c_str()) - 1) + "," 
-	+ std::to_string(std::atoi(HEIGHT.c_str()) - 1) + "," + std::to_string(32); 
+	+ std::to_string(std::atoi(HEIGHT.c_str()) - 1) + "," + std::to_string(2); 
 
 const std::string FOODS = std::to_string(1) + "," + std::to_string(1) + "," 
 	+ std::to_string(32) + ";" + std::to_string(std::atoi(WIDTH.c_str()) - 1) + "," 
@@ -253,6 +253,8 @@ void multithreadGame() {
 		threadList.push_back(new std::thread(multithreadStage)); 
 		
 	gameSemaphore = 1; 
+	const std::string LINES = concatStrings("+", width); 
+
 	while (GAME_ITERATION < iterations) { 
 		if (lAntsIterator == rAntsIterator) { 
 			gameSemaphore = 0; 
@@ -266,6 +268,7 @@ void multithreadGame() {
 
 			map->checkPheromones(); 
 			map->print(); 
+			std::cout << LINES << GAME_ITERATION << std::endl; 
 			GAME_ITERATION++; 
 			gameSemaphore = 1; 
 		} 

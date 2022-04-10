@@ -36,7 +36,9 @@ void Anthill::instantiateAnts(int ants, int fov) {
 * Increment the anthill's food; it should be cautious to simultaneuous access.  
 */  
 void Anthill::incrementFood() { 
+	foodMutex.lock(); 
 	foodStorage++; 
+	foodMutex.unlock(); 
 } 
 
 /**  

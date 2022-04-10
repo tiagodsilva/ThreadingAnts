@@ -18,6 +18,7 @@ Food::Food(int x, int y, int initVolume)
 * in the other scenario, `false` is the variable. 
 */  
 bool Food::consume() { 
+	std::lock_guard<std::mutex> lk(attrMutex); 
 	if (volume >= 1) {  
 		volume--; 
 		return true; 
