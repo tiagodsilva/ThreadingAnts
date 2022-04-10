@@ -119,6 +119,8 @@ class Tile {
 		std::list<Pheromone*> * pheromones; // the pheromones in this tile 
 		// A mutex to control multithreading modification of this tile's attributes 
 		std::mutex tileMutex; 
+		// A mutex to control the access to the phermones 
+		std::mutex pherMutex; 
 	public:
 		// Array with the ants in this tile for each colony
 		std::map<std::string, std::stack<Ant*>*> * ants;
