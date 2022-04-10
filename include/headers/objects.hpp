@@ -50,6 +50,8 @@ class Anthill {
 		
 		// Whether the ants were inserted in the game 
 		bool isInitialized = false; 
+		// Mutex to control the access to the food storage 
+		std::mutex foodMutex; 
 	public: 
 		int initialAnts; 
 		int foodStorage; 
@@ -73,6 +75,8 @@ class Food {
 
 		int initialVolume; // the initial volume of food in this tile; 
 		// it is appropriate to restore the volume 
+		// Mutex to control the access to the food's attributes 
+		std::mutex attrMutex; 
 	public: 
 		// methods 
 		Food(int x, int y, int initVolume); 
