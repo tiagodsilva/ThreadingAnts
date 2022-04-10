@@ -171,6 +171,9 @@ class Map {
 		int fov; 
 		// the pheromone's lifetime 
 		int psurvival; 
+
+		// Mutex to control the map's update 
+		std::mutex mapMutex; 
 	public:
 		Map(int mapWidth, int mapHeight, int fov, int psurvival);
 		Map(); 
