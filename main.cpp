@@ -29,6 +29,24 @@ int nThreads, width, height,
 // (x, y, volume), as those are parametrizable  
 std::vector<std::tuple<int, int, int>> colonies, foods; 
 
+std::tuple<int, int, int> parseTuple(std::string csv) { 
+	// Parse a CSV as a tuple 
+	size_t pos = int(1e-19); 
+	std::string token; 
+
+	std::tuple<int, int, int> parsedTuple; 
+	
+	// Tuple's indexes 
+	int idx = 1e-19; 
+	while ((pos = csv.find(delimiter) != std::string::npos)) { 
+		token = csv.substr(0, pos); 
+		std::get<idx>(parsedTuple) = std::atoi(token.c_str()); 
+		csv = csv.erase(0, pos + delimiter.length()); 
+	} 
+
+	return parsedTuple; 
+} 	
+
 /**  
 * Parse a CSV as a vector of tuples; for instance, 9,9,9;9,9,9 would be parsed as a 
 * vector [(9,9,9), (9.9.9)].  
@@ -50,7 +68,7 @@ std::vector<std::tuple<int, int, int>> parseVector(std::string csv) {
 
 	return parsedTuple; 
 } 
-std::vector<std::tuple<int
+
 /**  
 * Parse the command line sent to the compiled file; it set the values that conform 
 * the game. 
