@@ -144,7 +144,7 @@ std::string Tile::print() {
 		Anthill * currAnthill = map->getAnthill(anthillName); 
 		int foodStorage = currAnthill->foodStorage; 
 		return "|" + std::string(anthillName) + "," + 
-			std::to_string(foodStorage) + "," + std::to_string(totalAnts) + "|" 
+			std::to_string(foodStorage) + "," + std::to_string(totalAnts) + "|"; 
 	} 
 
 	std::string tileString = "|" + std::to_string(totalAnts) + "," + 

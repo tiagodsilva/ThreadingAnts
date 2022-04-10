@@ -258,6 +258,7 @@ void multithreadGame() {
 	while (GAME_ITERATION < iterations) { 
 		if (lAntsIterator == rAntsIterator) { 
 			gameSemaphore = 0; 
+			std::cout << "Start iteration " << GAME_ITERATION << std::endl; 
 			std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
 
 			std::pair<std::vector<Ant*>::iterator, 
@@ -265,7 +266,8 @@ void multithreadGame() {
 			
 			lAntsIterator = antsVec.first; 
 			rAntsIterator = antsVec.second; 
-
+			
+			std::cout << "Ants identified in iteration " << GAME_ITERATION << "!" << std::endl; 
 			map->checkPheromones(); 
 			map->print(); 
 			std::cout << LINES << GAME_ITERATION << std::endl; 
