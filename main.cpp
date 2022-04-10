@@ -11,8 +11,8 @@
 
 // command line; these are their standard values 
 #define NTHREADS std::string("9") // quantity of threads  
-#define WIDTH std::string("5") // map's width 
-#define HEIGHT std::string("5") // map's height 
+#define WIDTH std::string("9") // map's width 
+#define HEIGHT std::string("9") // map's height 
 #define FOV std::string("2") // ant's field of view 
 #define ITERATIONS std::string("99") // quantity of iterations in the game 
 #define PSURVIVAL std::string("12") // pheromone's lifetime 
@@ -110,7 +110,7 @@ void parse(InputParser * parser) {
 	fov = std::atoi(parser->parse("--fov", FOV).c_str()); 
 	ufood = std::atoi(parser->parse("--ufood", UFOOD).c_str()); 
 	colonies = parseVector(parser->parse("--colonies", COLONIES)); 
-	// foods = parseVector(parser->parse("--foods", FOODS)); 
+	foods = parseVector(parser->parse("--foods", FOODS)); 
 } 
 
 /**  
@@ -125,12 +125,17 @@ void initializeGame(Map * map, int width, int height) {
 		int x = std::get<0>(colony); 
 		int y = std::get<1>(colony); 
 		int nAnts = std::get<2>(colony); 
-		map->insertAnthill(x, y, "Spartans" + std::to_string(currAnthill), nAnts); 
+		map->insertAnthill(x, y, "Spartans" + std::to_string(currAnthill + 1), nAnts); 
 		currAnthill++; 
 	} 
 	// and the foods 
-	map->insertFood(width - 1, 1, 32); 
-	map->insertFood(1, height - 1, 32); 
+	
+	for (std::tuple<int, int, int> food : foods) { 
+		int x = std::get<0>(food); 
+		int y = std::get<1>(food); 
+		int volume = std::get<2>(food); 
+		map->insertFood(x, y, volume); 
+	} 
 } 
 
 /**  
