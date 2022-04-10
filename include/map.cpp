@@ -294,3 +294,13 @@ Tile * Map::captureFoodNear(int x, int y) {
 int Map::getPSurvival() { 
 	return psurvival; 
 } 
+
+/**  
+* Identify dead pheromones; it contemplates all tiles and uses `GAME_ITERATION`, 
+* a global variable.  
+*/  
+void Map::checkPheromones() { 
+	// Iterate across the tiles and check each pheromone 
+	for (Tile * tile : tiles) 
+		tile->checkPheromones(); 
+} 
