@@ -147,8 +147,10 @@ void initializeGame(Map * map, int width, int height) {
 	} 
 
 	// Compute the iterator for the vector that contemplates the ants 
-	lAntsIterator = map->getAllAnts().first; 
-	rAntsIterator = map->getAllAnts().second; 
+	std::pair<std::vector<Ant*>::iterator, 
+		std::vector<Ant*>::iterator> antsVector = map->getAllAnts(); 
+	lAntsIterator = antsVector.first; 
+	rAntsIterator = antsVector.second; 
 } 
 
 /**  
@@ -227,18 +229,32 @@ void sequentialGame() {
 	} 
 } 
 
+/**  
+* Play the game with multiple threads; the map should, also, be initialized to start the procedures. 
+*/  
+void multithreadGame() { 
+	// Play the game with multiple threads 
+	std::vector<std::thread*> threadList; 
+
+	// Instantiate the threads 
+	for (int i = 0; i < nThreads; i++) 
+		threadList.push_back(new std::thread(multithreadStage)); 
+		
+	while (GAME_ITERATION < iterations) { 
+		if (lAntsIterator == rAntsIterator) { 
+			lAntsIterator = map->getAllAnts().first; 
+			map->checkPheromones(); 
+			map->print(); 
+			GAME_ITERATION++; 
+		} 
+	} 
+} 
+
 int main(int argc, char *argv[]) { 
 	// Instantiate a parser to parse the command line 
 	InputParser * parser = new InputParser(argc, argv); 
 	
 	parse(parser); 
-
-	// Instantiate threads 
-	std::vector<std::thread*> threadList; 
-
-	for (int i = 0; i < nThreads; i++) 
-		threadList.push_back(new std::thread(multithreadStage)); 
-
 	// This instance, `map`, is global 
 	map = new Map(width, height, fov, psurvival); 
 	initializeGame(map, width, height); 
