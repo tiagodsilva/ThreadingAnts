@@ -200,9 +200,11 @@ void multithreadStage() {
 	// Identify the next ant 
 	std::vector<Ant*>::iterator antsIterator; 
 
-	while ((antsIterator = computeNextAnt()) != rAntsIterator) { 
-		Ant * ant = *antsIterator; 
-		ant->stage(); 
+	while (GAME_ITERATIONS < iterations) { 
+		while ((antsIterator = computeNextAnt()) != rAntsIterator && gameSemaphore) { 
+			Ant * ant = *antsIterator; 
+			ant->stage(); 
+		} 
 	} 
 } 
 
@@ -242,6 +244,7 @@ void multithreadGame() {
 		
 	while (GAME_ITERATION < iterations) { 
 		if (lAntsIterator == rAntsIterator) { 
+			std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
 			lAntsIterator = map->getAllAnts().first; 
 			map->checkPheromones(); 
 			map->print(); 
@@ -258,5 +261,8 @@ int main(int argc, char *argv[]) {
 	// This instance, `map`, is global 
 	map = new Map(width, height, fov, psurvival); 
 	initializeGame(map, width, height); 
+
+	multithreadGame(); 
+
 	return EXIT_SUCCESS; 
 } 
