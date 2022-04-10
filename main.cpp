@@ -204,17 +204,9 @@ void multithreadStage() {
 	// Identify the next ant 
 	std::vector<Ant*>::iterator antsIterator; 
 
-	while (GAME_ITERATION < iterations) { 
-		while (!gameSemaphore); 
-
-		iteratorMutex.lock(); 
-		antsIterator = computeNextAnt(); 
-		iteratorMutex.unlock(); 
-
-		if(antsIterator != rAntsIterator) { 
-			Ant * ant = *antsIterator; 
-			ant->stage(); 
-		} 
+	while ((antsIterator = computeNextAnt()) != rAntsIterator) {  
+		Ant * ant = *antsIterator; 
+		ant->stage(); 
 	} 
 } 
 
@@ -260,10 +252,14 @@ void multithreadGame() {
 			gameSemaphore = 0; 
 			std::cout << "Start iteration " << GAME_ITERATION << std::endl; 
 			std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
+			
+			std::cout << "Thread sleep in " << GAME_ITERATION << std::endl; 
 
 			std::pair<std::vector<Ant*>::iterator, 
 				std::vector<Ant*>::iterator> antsVec = map->getAllAnts(); 
 			
+			std::cout << "Identify pointers in " << GAME_ITERATION << std::endl; 
+		
 			lAntsIterator = antsVec.first; 
 			rAntsIterator = antsVec.second; 
 			

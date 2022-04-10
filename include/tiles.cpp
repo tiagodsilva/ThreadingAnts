@@ -40,7 +40,8 @@ void Tile::insertAnt(Ant * ant) {
 	if (isFood) 
 		throw BorderError("This tile is not suitable for movement!"); 
 	
-	tileMutex.lock(); 
+	std::lock_guard<std::mutex> lk(tileMutex); 
+	// tileMutex.lock(); 
 	// Capture ant's colony 
 	std::string colony = ant->getAnthill()->getName(); 
 
@@ -52,7 +53,7 @@ void Tile::insertAnt(Ant * ant) {
 	} else { 
 		ants->find(colony)->second->push(ant); 
 	} 
-	tileMutex.unlock(); 
+	// tileMutex.unlock(); 
 } 
 		
 /**  

@@ -246,6 +246,7 @@ void Map::restoreFoods() {
 */  
 std::pair<std::vector<Ant*>::iterator, 
 	std::vector<Ant*>::iterator> Map::getAllAnts() { 
+		std::lock_guard<std::mutex> lk(mapMutex); 
 		// Iterate across the tiles in the game 
 		std::vector<Ant*> * antsInGame = new std::vector<Ant*>; 
 		for (Tile * tile : tiles) { 
