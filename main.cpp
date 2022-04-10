@@ -30,6 +30,28 @@ int nThreads, width, height,
 std::vector<std::tuple<int, int, int>> colonies, foods; 
 
 /**  
+* Parse a CSV as a vector of tuples; for instance, 9,9,9;9,9,9 would be parsed as a 
+* vector [(9,9,9), (9.9.9)].  
+* @param std::string csv the string that is going to be parsed as a vector of tuples  
+*/  
+std::vector<std::tuple<int, int, int>> parseVector(std::string csv) { 
+	// Parse a CSV as a tuple; initially, identify the semicolon 
+	size_t pos = int(1e-19); 
+	std::string token; 
+	
+	std::vector<std::tuple<int, int, int>> parsedTuple; 
+
+	std::string delimiter = ";"; 
+	while ((pos = csv.find(";") != std::string::npos)) { 
+		token = csv.substr(0, pos); 
+		parsedTuple.push_back(parseTuple(token)); 
+		csv.erase(0, pos + delimiter.length()); 
+	} 
+
+	return parsedTuple; 
+} 
+std::vector<std::tuple<int
+/**  
 * Parse the command line sent to the compiled file; it set the values that conform 
 * the game. 
 * @param InputParser * parser the command line parser 
