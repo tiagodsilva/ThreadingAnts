@@ -230,11 +230,11 @@ void Tile::traverseStack(std::stack<Ant*>* st, std::vector<Ant*>* vt) {
 * Capture the phermones that are beyond their lifetime; they should be extracted from the 
 * list `pheromones`.  
 */  
-void checkPheromones() { 
+void Tile::checkPheromones() { 
 	// Check the pheromones in the current tile 
-	std::list<Pheromone*>::iterator it = pheromones.begin(); 
+	std::list<Pheromone*>::iterator it = pheromones->begin(); 
 
-	while (it != pheromones.end()) { 
+	while (it != pheromones->end()) { 
 		bool dead = (*it)->kill(GAME_ITERATION); 
 
 		// Assert that the pheromone is within its lifetime 
