@@ -6,6 +6,7 @@
 #include <stack>  
 #include <utility> 
 #include <list> 
+#include <mutex> 
 
 #include "geometry.hpp" 
 
@@ -116,6 +117,8 @@ class Tile {
 
 		void traverseStack(std::stack<Ant*>* st, std::vector<Ant*>* vt); 
 		std::list<Pheromone*> * pheromones; // the pheromones in this tile 
+		// A mutex to control multithreading modification of this tile's attributes 
+		std::mutex tileMutex; 
 	public:
 		// Array with the ants in this tile for each colony
 		std::map<std::string, std::stack<Ant*>*> * ants;
