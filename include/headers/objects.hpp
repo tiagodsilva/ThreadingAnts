@@ -165,20 +165,29 @@ class Map {
 		Map(); 
 		Tile * getTile(int x, int y);
 		std::vector<Tile*> neighbors(int x, int y);
+
+		// Initialization methods 
 		void insertAnthill(int x, int y, std::string anthillName, 
 				int nAnts); 
 		void insertFood(int x, int y, int initialVolume); 
+
+		// Compute attributes 
 		Anthill * getAnthill(std::string anthillName); 
 		Food * getFood(int x, int y); 
 		std::vector<Food*> getFoods();  
 		void print();
 		Ant * getAntInTile(int x, int y, std::string colony); 
 		Ant * getAnyAnt(); 
+
+		// Update the map's state 
 		void restoreFoods(); 
+		void checkPheromones(); 
+
 		std::pair<std::vector<Ant*>::iterator, 
 			std::vector<Ant*>::iterator> getAllAnts(); 
 		Tile * captureFoodNear(int x, int y); 
 		int getPSurvival(); 
+
 };
 
 Map * map; 
