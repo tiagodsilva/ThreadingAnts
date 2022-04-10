@@ -39,7 +39,8 @@ Tile::Tile(int x_tile, int y_tile, std::string anthillName)
 void Tile::insertAnt(Ant * ant) { 
 	if (isFood) 
 		throw BorderError("This tile is not suitable for movement!"); 
-
+	
+	tileMutex.lock(); 
 	// Capture ant's colony 
 	std::string colony = ant->getAnthill()->getName(); 
 
@@ -51,6 +52,7 @@ void Tile::insertAnt(Ant * ant) {
 	} else { 
 		ants->find(colony)->second->push(ant); 
 	} 
+	tileMutex.unlock(); 
 } 
 		
 /**  
@@ -62,12 +64,14 @@ void Tile::killAnt(Ant * ant) {
 	if (isFood || isAnthill) 
 		return; 
 
+	tileMutex.lock(); 
 	// Extract the ant from the queue 
 	Ant * thisAnt = extractAnt(ant); 
 	delete thisAnt; 
 	
 	// Kill the ant 
 	delete ant; 
+	tileMutex.unlock(); 
 } 
 		
 // Extracting an ant is correlated to killing it; however, we do not delete the instance 
@@ -76,6 +80,7 @@ void Tile::killAnt(Ant * ant) {
 * @param Ant * ant the ant that is going to be extracted from this tile 
 */  
 Ant * Tile::extractAnt(Ant * ant) { 
+	std::lock_guard<std::mutex> lk(tileMutex); 
 	// Identify the ant's colony; ants from the same colony are indistinguishable 
 	std::string colony = ant->getAnthill()->getName(); 
 	
@@ -89,6 +94,7 @@ Ant * Tile::extractAnt(Ant * ant) {
 * Compute the quantity of ants from each colony in the current tile.  
 */  
 std::map<std::string, int> Tile::numAnts() {  
+	std::lock_guard<std::mutex> lk(tileMutex); 
 	// Instantiate a map with the quantities of ants for each colony 
 	std::map<std::string, int> nAnts; 
 
@@ -109,6 +115,7 @@ std::map<std::string, int> Tile::numAnts() {
 * Increment the pheromone's density in this tile. 
 */  
 void Tile::incrementPheromone() { 
+	std::lock_guard<std::mutex> lk(pherMutex); 
 	pheromones->push_back(new Pheromone(map->getPSurvival(), GAME_ITERATION)); 
 	pheromone = pheromones->size(); 
 } 	
@@ -176,6 +183,7 @@ bool operator!=(Tile tile_l, Tile tile_r) {
 * Cativates, from any colony, an ant.  
 */  
 Ant * Tile::getAnt() { 
+	std::lock_guard<std::mutex> lk(tileMutex); 
 	// Identify the ants in this tile 
 	std::map<std::string, std::stack<Ant*>*>::iterator iter; 
 	for (iter = ants->begin(); iter != ants->end(); ++iter) { 
@@ -195,6 +203,7 @@ Ant * Tile::getAnt() {
 * Identify all ants in the current tile; we should traverse a stack. 
 */  
 std::vector<Ant*> Tile::getAnts() { 
+	std::lock_guard<std::mutex> lk(tileMutex); 
 	// Instantiate a continer for the ants 
 	std::vector<Ant*> * vecAnts = new std::vector<Ant*>; 		
 	
@@ -231,6 +240,7 @@ void Tile::traverseStack(std::stack<Ant*>* st, std::vector<Ant*>* vt) {
 * list `pheromones`.  
 */  
 void Tile::checkPheromones() { 
+	std::lock_guard<std::mutex> lk(pherMutex); 
 	// Check the pheromones in the current tile 
 	std::list<Pheromone*>::iterator it = pheromones->begin(); 
 
