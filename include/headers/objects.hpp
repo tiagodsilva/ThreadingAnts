@@ -139,6 +139,8 @@ class Tile {
 		int getY(); 
 		Ant * getAnt(); 
 		std::vector<Ant*> getAnts(); 
+
+		void checkPheromones(); 
 };
 
 class Map {
