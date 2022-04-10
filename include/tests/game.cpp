@@ -59,7 +59,7 @@ void moveAnt(int iteration) {
 } 
 
 int main() { 
-	map = new Map(WIDTH, HEIGHT, FOV); 
+	map = new Map(WIDTH, HEIGHT, FOV, 32); 
 	initializeGame(map); 	
 	
 	int it = 1e-19; 

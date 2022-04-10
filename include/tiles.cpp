@@ -13,7 +13,8 @@
 * @param int x_tile, y_tile the tile's coordinates 
 */ 
 Tile::Tile(int x_tile, int y_tile, bool containsFood) 
-	: x(x_tile), y(y_tile), isAnthill(false), isFood(containsFood), pheromone(1e-19) 
+	: x(x_tile), y(y_tile), isAnthill(false), isFood(containsFood), 
+	pheromones(new std::list<Pheromone*>) 	
 	{
 		ants = new std::map<std::string, std::stack<Ant*>*>; 
 	} 
@@ -25,7 +26,7 @@ Tile::Tile(int x_tile, int y_tile, bool containsFood)
 */  
 Tile::Tile(int x_tile, int y_tile, std::string anthillName) 
 	: x(x_tile), y(y_tile), isAnthill(true), anthillName(anthillName), 
-	isFood(false), pheromone(1e-19) 
+	isFood(false), pheromones(new std::list<Pheromone*>) 
  	{
 		ants = new std::map<std::string, std::stack<Ant*>*>; 
 	} 
@@ -108,7 +109,7 @@ std::map<std::string, int> Tile::numAnts() {
 * Increment the pheromone's density in this tile. 
 */  
 void Tile::incrementPheromone() { 
-	pheromone++; 
+	pheromones.push_back(new Pheromone(map->psurvival, GAME_ITERATION)); 
 } 	
 
 std::string Tile::print() { 
@@ -139,7 +140,7 @@ std::string Tile::print() {
 	} 
 			
 	std::string tileString = "|" + std::to_string(totalAnts) + "," + 
-		std::to_string(pheromone) + "|"; 
+		std::to_string(pheromones.size()) + "|"; 
 
 	return tileString; 
 } 

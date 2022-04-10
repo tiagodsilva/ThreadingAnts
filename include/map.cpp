@@ -11,8 +11,8 @@
 * Constructor method for Map.  
 * @param mapWidth, mapHeight the map's dimensions 
 */  
-Map::Map(int mapWidth, int mapHeight, int fov) 
-	: width(mapWidth), height(mapHeight), fov(fov) { 
+Map::Map(int mapWidth, int mapHeight, int fov, int psurvival) 
+	: width(mapWidth), height(mapHeight), fov(fov), psurvival(psurvival) { 
 		// Instantiate an array of tiles 
 		int area = mapWidth * mapHeight; 
 		// and insert tiles in it 

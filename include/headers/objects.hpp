@@ -16,6 +16,8 @@ class Tile;
 class Region; 
 class Food; 
 
+int GAME_ITERATION = 1e-19; 
+
 struct Pheromone { 
 	int lifetime; 
 	int init; 
@@ -36,7 +38,7 @@ struct Pheromone {
 	bool kill(int iteration) { 
 		return iteration > init + lifetime; 
 	} 
-} 
+}; 
 
 class Anthill { 
 	private: 
@@ -113,6 +115,7 @@ class Tile {
 		int y;
 
 		void traverseStack(std::stack<Ant*>* st, std::vector<Ant*>* vt); 
+		std::list<Pheromone> pheromones; 
 	public:
 		// Array with the ants in this tile for each colony
 		std::map<std::string, std::stack<Ant*>*> * ants;
@@ -154,8 +157,10 @@ class Map {
 
 		// the ant's field of view 
 		int fov; 
+		// the pheromone's lifetime 
+		int psurvival; 
 	public:
-		Map(int mapWidth, int mapHeight, int fov);
+		Map(int mapWidth, int mapHeight, int fov, int psurvival);
 		Map(); 
 		Tile * getTile(int x, int y);
 		std::vector<Tile*> neighbors(int x, int y);
