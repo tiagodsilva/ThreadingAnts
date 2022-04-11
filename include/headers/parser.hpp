@@ -40,8 +40,8 @@ class InputParser {
 			} 
 			
 			if (parseVec.size() != 3) 
-				throw ParseError("Inappropriate command line; the parser was disrupted with the 
-						input!"); 
+				throw ParseError("Inappropriate command line; the parser "
+					"was disrupted with the input!"); 
 
 			std::tuple<T, T, T> parsedTuple = std::make_tuple( 
 					parseVec[0], parseVec[1], parseVec[2] 
@@ -50,8 +50,37 @@ class InputParser {
 			return parsedTuple; 
 		} 
 
+		/**  
+		* Parse a CSV as a vector of tuples; for instance, 9,9,9:9,9,9 would be parse as the 
+		* vector [(9,9,9), (9,9,9)], a std::vector<std::tuple<T, T, T>>  
+		* @param std::string csv the CSV we aim to parse 
+		*/  
+		template <typename T> 
+		std::vector<std::tuple<T, T, T>> _parseVector(std::string csv) { 
+			// Parse a CSV as a vector of tuples 
+			size_t pos = int(1e-19); 
+			std::string token; 
+
+			std::vector<std::tuple<T, T, T>> parsedTuple; 
+			// The delimiter is declare a priori, in this scenario 
+			std::string delimiter = ":"; 
 			
+			// Check whether the character with index `csv.length() - 1` equals the delimiter 
+			std::string eof = std::to_string(csv.at(csv.length() - 1)); 
+			if (eof != delimiter) 
+				csv += delimiter; // insert the delimiter in the EOF of the CSV 
 			
+			pos = csv.find(delimiter); 
+			while ((pos != std::string::npos)) { 
+				token = csv.substr(0, pos); 
+				parsedTuple.push_back(_parseTuple(token)); 
+				csv.erase(0, pos + delimiter.length()); 
+				pos = csv.find(delimiter); 
+			} 
+			
+			// Compute the vector of tuples 
+			return parsedTuple; 
+		} 
 	public: 
 		/**  
 		* Constructor method for `InputParser`; it is convenient to update 
