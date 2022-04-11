@@ -206,7 +206,8 @@ class Map {
 		// Appropriate for multithreaded programs 
 		void initializeAnts(); 
 		Ant * computeNextAnt(); 
-		
+		void nextIteration(); 
+
 		Tile * captureFoodNear(int x, int y); 
 		int getPSurvival(); 
 
