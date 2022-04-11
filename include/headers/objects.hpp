@@ -178,7 +178,7 @@ class Map {
 		// It is convenient, in a multithread program, to track the 
 		// ants in a list 
 		bool isInitialized; 
-		int currAnt; // A pointer to the current ant 
+		long unsigned int currAnt; // A pointer to the current ant 
 		std::list<Ant*> * allAnts; 
 	public:
 		Map(int mapWidth, int mapHeight, int fov, int psurvival);

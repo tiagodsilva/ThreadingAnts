@@ -13,8 +13,8 @@
 * @param int x_tile, y_tile the tile's coordinates 
 */ 
 Tile::Tile(int x_tile, int y_tile, bool containsFood) 
-	: x(x_tile), y(y_tile), isAnthill(false), isFood(containsFood), 
-	pheromones(new std::list<Pheromone*>), pheromone(1e-19) 
+	: x(x_tile), y(y_tile), pheromones(new std::list<Pheromone*>), 
+	isAnthill(false), isFood(containsFood), pheromone(1e-19) 
 	{
 		ants = new std::map<std::string, std::stack<Ant*>*>; 
 	} 
@@ -25,8 +25,9 @@ Tile::Tile(int x_tile, int y_tile, bool containsFood)
 * @param std::string anthillName the colony's name of the tile's anthill 
 */  
 Tile::Tile(int x_tile, int y_tile, std::string anthillName) 
-	: x(x_tile), y(y_tile), isAnthill(true), anthillName(anthillName), 
-	isFood(false), pheromones(new std::list<Pheromone*>), pheromone(1e-19)  
+	: x(x_tile), y(y_tile),  pheromones(new std::list<Pheromone*>), 
+	isAnthill(true), anthillName(anthillName), isFood(false), 
+	pheromone(1e-19) 
  	{
 		ants = new std::map<std::string, std::stack<Ant*>*>; 
 	} 
