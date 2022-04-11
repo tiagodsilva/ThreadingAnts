@@ -10,6 +10,48 @@ class InputParser {
 		// A vector containing the tokens in the command line 
 		std::vector<std::string> * tokens; 
 
+		/**  
+		* Parse a CSV, with delimiter delimiter, as a tuple; for instance, the 
+		* string 9,9,9 would be parsed as (9,9,9), with std::make_tuple. 
+		* @param std::string csv the string that we are going to parse 
+		* @param std::string the csv's delimiter 
+		*/  
+		template <typename T> 
+		std::tuple<T, T, T> _parseTuple(std::string csv, 
+				std::string delimiter = ",") { 
+			// Parse a CSV as a tuple 
+			size_t pos = int(1e-19); 
+			std::string token; 
+
+			std::vector<T> parseVec; 
+			
+			// Check whether the EOF of `csv` equals `delimiter` 
+			std::string eof = std::to_string(csv.at(csv.length() - 1)); 
+			if (eof != delimiter) 
+				csv += delimiter; 
+
+			pos = csv.find(delimiter); 
+
+			while ((pos != std::string::npos)) { 
+				token = csv.substr(0, pos); 
+				parseVec.push_back((T)(token.c_str())); 
+				csv = csv.erase(0, pos + delimiter.length()); 
+				pos = csv.find(delimiter); 
+			} 
+			
+			if (parseVec.size() != 3) 
+				throw ParseError("Inappropriate command line; the parser was disrupted with the 
+						input!"); 
+
+			std::tuple<T, T, T> parsedTuple = std::make_tuple( 
+					parseVec[0], parseVec[1], parseVec[2] 
+				); 
+
+			return parsedTuple; 
+		} 
+
+			
+			
 	public: 
 		/**  
 		* Constructor method for `InputParser`; it is convenient to update 
