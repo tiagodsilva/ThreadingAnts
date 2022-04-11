@@ -33,8 +33,8 @@ class InputParser {
 			pos = csv.find(delimiter); 
 
 			while ((pos != std::string::npos)) { 
-				token = csv.substr(0, pos); 
-				parseVec.push_back((T)(token.c_str())); 
+				token = csv.substr(0, pos); 				
+				parseVec.push_back((T)(std::stoi(token.c_str()))); 
 				csv = csv.erase(0, pos + delimiter.length()); 
 				pos = csv.find(delimiter); 
 			} 
@@ -73,7 +73,7 @@ class InputParser {
 			pos = csv.find(delimiter); 
 			while ((pos != std::string::npos)) { 
 				token = csv.substr(0, pos); 
-				parsedTuple.push_back(_parseTuple(token)); 
+				parsedTuple.push_back(_parseTuple<T>(token)); 
 				csv.erase(0, pos + delimiter.length()); 
 				pos = csv.find(delimiter); 
 			} 
@@ -150,7 +150,7 @@ class InputParser {
 		*/
 		template <typename T> 
 		const std::vector<std::tuple<T, T, T>> parseVector(const std::string &option, 
-				const std::string defValue) const { 
+				const std::string defValue) { 
 			// Parse the string 
 			const std::string parsedString = parse(option, defValue); 
 

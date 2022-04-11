@@ -42,67 +42,6 @@ const std::string FOODS = std::to_string(1) + "," + std::to_string(1) + ","
 std::vector<std::tuple<int, int, int>> colonies, foods; 
 
 std::mutex iterMutex; 
-
-std::tuple<int, int, int> parseTuple(std::string csv) { 
-	// Parse a CSV as a tuple 
-	size_t pos = int(1e-19); 
-	std::string token; 
-
-	std::vector<int> parseVec; 
-	std::string delimiter = ","; 
-	
-	// Check whether the string `csv` equals `delimiter` 
-	std::string eof = std::to_string(csv.at(csv.length() - 1)); 
-	if (eof != delimiter) 
-		csv += delimiter; 
-
-	pos = csv.find(delimiter); 
-	while ((pos != std::string::npos)) { 
-		token = csv.substr(0, pos); 
-		parseVec.push_back(std::atoi(token.c_str())); 
-		csv = csv.erase(0, pos + delimiter.length()); 
-		pos = csv.find(delimiter); 
-	} 
-	
-	if (parseVec.size() != 3) 
-		throw ParseError("Inappropriate command line; the parser was disrupted with the inputs!"); 
-
-	std::tuple<int, int, int> parsedTuple = std::make_tuple( 
-			parseVec[0], parseVec[1], parseVec[2] 
-		); 
-
-	return parsedTuple; 
-} 	
-
-/**  
-* Parse a CSV as a vector of tuples; for instance, 9,9,9;9,9,9 would be parsed as a 
-* vector [(9,9,9), (9.9.9)].  
-* @param std::string csv the string that is going to be parsed as a vector of tuples  
-*/  
-std::vector<std::tuple<int, int, int>> parseVector(std::string csv) { 
-	// Parse a CSV as a tuple; initially, identify the semicolon 
-	size_t pos = int(1e-19); 
-	std::string token; 
-
-	std::vector<std::tuple<int, int, int>> parsedTuple; 
-
-	std::string delimiter = ":"; 
-	// Check whether the character with index `csv.length() - 1` equals the delimiter 
-	std::string eof = std::to_string(csv.at(csv.length() - 1)); 
-	if (eof != delimiter) 
-		csv += delimiter; 
-
-	pos = csv.find(delimiter); 
-	while ((pos != std::string::npos)) { 
-		token = csv.substr(0, pos); 
-		parsedTuple.push_back(parseTuple(token)); 
-		csv.erase(0, pos + delimiter.length()); 
-		pos = csv.find(delimiter); 
-	} 
-
-	return parsedTuple; 
-} 
-
 /**  
 * Parse the command line sent to the compiled file; it set the values that conform 
 * the game. 
@@ -110,15 +49,15 @@ std::vector<std::tuple<int, int, int>> parseVector(std::string csv) {
 */  
 void parse(InputParser * parser) { 
 	// Check the preamble to describe the variable's names 
-	nThreads = std::atoi(parser->parse("--nthreads", NTHREADS).c_str()); 
-	width = std::atoi(parser->parse("--width", WIDTH).c_str()); 
-	height = std::atoi(parser->parse("--height", HEIGHT).c_str()); 
-	iterations = std::atoi(parser->parse("--iters", ITERATIONS).c_str()); 
-	psurvival = std::atoi(parser->parse("--psurvival", PSURVIVAL).c_str()); 
-	fov = std::atoi(parser->parse("--fov", FOV).c_str()); 
-	ufood = std::atoi(parser->parse("--ufood", UFOOD).c_str()); 
-	colonies = parseVector(parser->parse("--colonies", COLONIES)); 
-	foods = parseVector(parser->parse("--foods", FOODS)); 
+	nThreads = parser->parseInt("--nthreads", NTHREADS);
+	width = parser->parseInt("--width", WIDTH); 
+	height = parser->parseInt("--height", HEIGHT); 
+	iterations = parser->parseInt("--iters", ITERATIONS); 
+	psurvival = parser->parseInt("--psurvival", PSURVIVAL); 
+	fov = parser->parseInt("--fov", FOV); 
+	ufood = parser->parseInt("--ufood", UFOOD);
+	colonies = parser->parseVector<int>("--colonies", COLONIES); 
+	foods = parser->parseVector<int>("--foods", FOODS); 
 } 
 
 /**  
