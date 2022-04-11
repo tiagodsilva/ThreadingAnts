@@ -41,6 +41,8 @@ const std::string FOODS = std::to_string(1) + "," + std::to_string(1) + ","
 
 std::vector<std::tuple<int, int, int>> colonies, foods; 
 
+std::mutex iterMutex; 
+
 std::tuple<int, int, int> parseTuple(std::string csv) { 
 	// Parse a CSV as a tuple 
 	size_t pos = int(1e-19); 
@@ -178,9 +180,9 @@ void multithreadStage() {
 	// Identify the next ant
 
 	std::vector<Ant*>::iterator antsIterator; 
-
 	while (GAME_ITERATION < iterations) { 
-		Ant * ant = map->computeNextAnt(); 
+		Ant * ant = map->computeNextAnt();  
+		ant->stage(); 
 	} 
 } 
 
@@ -221,9 +223,11 @@ void multithreadGame() {
 	const std::string LINES = concatStrings("+", width); 
 
 	while (GAME_ITERATION < iterations) { 
-		if (false) { 
+		if (map->allAntsPlayed()) {
+			std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
 			map->checkPheromones(); 
 			map->print(); 
+			map->prepareNextIter(); 
 			std::cout << LINES << GAME_ITERATION << std::endl; 
 			GAME_ITERATION++; 
 		} 
@@ -239,8 +243,8 @@ int main(int argc, char *argv[]) {
 	map = new Map(width, height, fov, psurvival); 
 	initializeGame(map, width, height); 
 
-	sequentialGame(); 
-	// multithreadGame(); 
+	// sequentialGame(); 
+	multithreadGame(); 
 
 	return EXIT_SUCCESS; 
 } 
