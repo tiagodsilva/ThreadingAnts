@@ -33,10 +33,10 @@ int nThreads, width, height,
 // (x, y, volume), as those are parametrizable  
 
 const std::string COLONIES = std::to_string(std::atoi(WIDTH.c_str()) - 1) + "," 
-	+ std::to_string(std::atoi(HEIGHT.c_str()) - 1) + "," + std::to_string(2); 
+	+ std::to_string(std::atoi(HEIGHT.c_str()) - 1) + "," + std::to_string(32); 
 
 const std::string FOODS = std::to_string(1) + "," + std::to_string(1) + "," 
-	+ std::to_string(32) + ";" + std::to_string(std::atoi(WIDTH.c_str()) - 1) + "," 
+	+ std::to_string(32) + ":" + std::to_string(std::atoi(WIDTH.c_str()) - 1) + "," 
 	+ std::to_string(1) + "," + std::to_string(45); 
 
 std::vector<std::tuple<int, int, int>> colonies, foods; 
@@ -83,10 +83,10 @@ std::vector<std::tuple<int, int, int>> parseVector(std::string csv) {
 	// Parse a CSV as a tuple; initially, identify the semicolon 
 	size_t pos = int(1e-19); 
 	std::string token; 
-	
+
 	std::vector<std::tuple<int, int, int>> parsedTuple; 
 
-	std::string delimiter = ";"; 
+	std::string delimiter = ":"; 
 	// Check whether the character with index `csv.length() - 1` equals the delimiter 
 	std::string eof = std::to_string(csv.at(csv.length() - 1)); 
 	if (eof != delimiter) 
