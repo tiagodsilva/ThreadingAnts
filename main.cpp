@@ -41,13 +41,6 @@ const std::string FOODS = std::to_string(1) + "," + std::to_string(1) + ","
 
 std::vector<std::tuple<int, int, int>> colonies, foods; 
 
-// Iterators for the vector of ants 
-std::vector<Ant*>::iterator lAntsIterator; 
-std::vector<Ant*>::iterator rAntsIterator; 
-
-// The mutex for the ants' iterator in the map 
-std::mutex iteratorMutex; 
-
 std::tuple<int, int, int> parseTuple(std::string csv) { 
 	// Parse a CSV as a tuple 
 	size_t pos = int(1e-19); 
@@ -151,23 +144,16 @@ void initializeGame(Map * map, int width, int height) {
 	} 
 
 	// Compute the iterator for the vector that contemplates the ants 
-	std::pair<std::vector<Ant*>::iterator, 
-		std::vector<Ant*>::iterator> antsVector = map->getAllAnts(); 
-	lAntsIterator = antsVector.first; 
-	rAntsIterator = antsVector.second; 
+	map->initializeAnts(); 
 } 
 
 /**  
 * Play a stage, in the map `map`, of the game.  
 */  
 void stage() { 
-	// Capture pointers to the ants 
-	std::pair<std::vector<Ant*>::iterator, 
-		std::vector<Ant*>::iterator> ants = map->getAllAnts(); 
-	
-	// and lead them to their actions 
-	for (; ants.first != ants.second; ++ants.first) { 
-		Ant * ant = *(ants.first); 
+	// Play the game sequentially 
+	while (!map->allAntsPlayed()) { 
+		Ant * ant = map->computeNextAnt(); 
 		ant->stage(); 
 	} 
 } 
@@ -186,18 +172,6 @@ std::string concatStrings(const std::string string, int concats) {
 } 
 
 /**  
-* Compute the next ant; it will execute actions.  
-* @return std::vector<Ant*>::iterator the next ant 
-*/  
-std::vector<Ant*>::iterator computeNextAnt() { 
-	const std::unique_lock<std::mutex> lock(iteratorMutex); 
-	std::vector<Ant*>::iterator currIterator = lAntsIterator; 
-	if (lAntsIterator != rAntsIterator) 
-		++lAntsIterator; 
-	return currIterator; 
-} 
-
-/**  
 * Play a multithread game; it sequentially captures the next ant.  
 */  
 void multithreadStage() { 
@@ -206,14 +180,7 @@ void multithreadStage() {
 	std::vector<Ant*>::iterator antsIterator; 
 
 	while (GAME_ITERATION < iterations) { 
-		while (!gameSemaphore); 
-
-		antsIterator = computeNextAnt(); 
-
-		if(antsIterator != rAntsIterator) { 
-			Ant * ant = *antsIterator; 
-			ant->stage(); 
-		} 
+		Ant * ant = map->computeNextAnt(); 
 	} 
 } 
 
@@ -229,13 +196,13 @@ void sequentialGame() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
 		stage(); 
 		GAME_ITERATION++; 
-		
 		// The foods should be restored sporadically 
 		if (GAME_ITERATION % ufood == 1) 
 			map->restoreFoods(); 
-
+		
 		map->checkPheromones(); 
 		map->print(); 
+		map->prepareNextIter(); 
 		std::cout << LINES << std::endl; 
 	} 
 } 
@@ -251,27 +218,14 @@ void multithreadGame() {
 	for (int i = 0; i < nThreads; i++) 
 		threadList.push_back(new std::thread(multithreadStage)); 
 		
-	gameSemaphore = 1; 
 	const std::string LINES = concatStrings("+", width); 
 
 	while (GAME_ITERATION < iterations) { 
-		if (lAntsIterator == rAntsIterator) { 
-			gameSemaphore = 0; 
-			std::cout << "Start iteration " << GAME_ITERATION << std::endl; 
-			std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
-
-			std::pair<std::vector<Ant*>::iterator, 
-				std::vector<Ant*>::iterator> antsVec = map->getAllAnts(); 
-			
-			lAntsIterator = antsVec.first; 
-			rAntsIterator = antsVec.second; 
-			
-			std::cout << "Ants identified in iteration " << GAME_ITERATION << "!" << std::endl; 
+		if (false) { 
 			map->checkPheromones(); 
 			map->print(); 
 			std::cout << LINES << GAME_ITERATION << std::endl; 
 			GAME_ITERATION++; 
-			gameSemaphore = 1; 
 		} 
 	} 
 } 
@@ -285,7 +239,8 @@ int main(int argc, char *argv[]) {
 	map = new Map(width, height, fov, psurvival); 
 	initializeGame(map, width, height); 
 
-	multithreadGame(); 
+	sequentialGame(); 
+	// multithreadGame(); 
 
 	return EXIT_SUCCESS; 
 } 

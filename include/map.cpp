@@ -269,7 +269,7 @@ Ant * Map::computeNextAnt() {
 	
 	std::list<Ant*>::iterator it = allAnts->begin(); 
 	// Check whether the current ant is in a plausible interval 
-	while (currAnt >= allAnts.size()); 
+	while (currAnt >= allAnts->size()); 
 	std::advance(it, currAnt); 
 	currAnt++; 
 	return *it; 
@@ -280,7 +280,7 @@ Ant * Map::computeNextAnt() {
 * @return bool whether all ants have played the game 
 */  
 bool Map::allAntsPlayed() { 
-	return currAnt == allAnts.size(); 
+	return currAnt == allAnts->size(); 
 } 
 
 /**  
