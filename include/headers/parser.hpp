@@ -54,5 +54,39 @@ class InputParser {
 			return std::find(tokens->begin(), tokens->end(), option) 
 				!= tokens->end(); 
 		} 
+
+		/**  
+		* Parse a string; it converts the parsed string in `parse` to an integer.  
+		* @param const std::string &option the option to parse 
+		* @param const std::string defValue the options' default value 
+		*/  
+		const int parseInt(const std::string &option, 
+				const std::string defValue) const { 
+			// Parse the string 
+			const std::string parsedString = parse(option, defValue); 
+			// and convert it to an integer 
+			const int parsedInt = std::atoi(parsedString.c_str()); 
+
+			return parsedInt; 
+		} 
+		
+		/**  
+		* Parse a string into a vector of tuples; the string has, for instance, the format x,x,x:x,x,x, 
+		* in which `x` is a number. 
+		* @param const std::string &option the option that we are going to parse 
+		* @param const std::string defValue the default value, in the scenario the option 
+		* 	was not provided by the user. 
+		*/
+		template <typename T> 
+		const std::vector<std::tuple<T, T, T>> parseVector(const std::string &option, 
+				const std::string defValue) const { 
+			// Parse the string 
+			const std::string parsedString = parse(option, defValue); 
+
+			// and use it to instantiate a vector 
+			std::vector<std::tuple<T, T, T>> parsedVector = _parseVector<T>(parsedString); 
+
+			return parsedVector; 
+		} 
 }; 
 #endif 
