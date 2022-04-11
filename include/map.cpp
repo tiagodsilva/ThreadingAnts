@@ -242,24 +242,6 @@ void Map::restoreFoods() {
 } 
 
 /**  
-* Identify all the ants in the game; it is suitable to execute a stage, in which all ants should act. 
-*/  
-std::pair<std::vector<Ant*>::iterator, 
-	std::vector<Ant*>::iterator> Map::getAllAnts() { 
-		std::lock_guard<std::mutex> lk(mapMutex); 
-		// Iterate across the tiles in the game 
-		std::vector<Ant*> * antsInGame = new std::vector<Ant*>; 
-		for (Tile * tile : tiles) { 
-			// Identify the ants in the current tile 
-			std::vector<Ant*> ants = tile->getAnts(); 
-			for (Ant * ant : ants) 
-				antsInGame->push_back(ant); 
-		} 
-	
-		return std::make_pair(antsInGame->begin(), antsInGame->end()); 
-} 
-
-/**  
 * Initializa the ants in the list `allAnts`, a private attribute.  
 */  
 void Map::initializaAnts() { 
@@ -292,6 +274,12 @@ Ant * computeNextAnt() {
 	return *it; 
 } 
 
+/**  
+* Prepare the map for the next iteration; the variable `currAnt` points to the initial ant.  
+*/  
+void Map::nextIteration() { 
+	currAnt = -1; 
+} 
 
 /**  
 * Verify whether there is food; it contemplates the tiles in the field of view.  
