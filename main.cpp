@@ -167,6 +167,10 @@ void multithreadGame() {
 			map->checkPheromones(); 
 			map->print(); 
 			map->prepareNextIter(); 
+
+			if (GAME_ITERATION % ufood == 1) 
+				map->restoreFoods(); 
+
 			std::cout << LINES << GAME_ITERATION << std::endl; 
 			GAME_ITERATION++; 
 		} 
