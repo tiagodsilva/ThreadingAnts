@@ -143,16 +143,18 @@ bool Ant::moveToFood() {
 	int xNeighbor = neighbor->getX(); 
 	int yNeighbor = neighbor->getY(); 
 
+	Food * food = map->getFood(xNeighbor, yNeighbor); 
+
 	// If the taxicab distance between the ant and the food is unitary, then 
 	// it is edible 
 	int distanceToFood = abs<int>(xNeighbor - x_pos) + abs<int>(yNeighbor - y_pos); 
 	if (distanceToFood == 1) { 
-		eat(map->getFood(xNeighbor, yNeighbor)); 
+		eat(food); 
 		return true; 
 	} 
 
 	Tile * currTile = map->getTile(x_pos, y_pos); 
-	if (neighbor != currTile) { 
+	if (neighbor != currTile && food->getVolume() >= 1) { 
 		int x = neighbor->getX(); 
 		int y = neighbor->getY(); 
 		Vec antVec = Vec(x_pos, y_pos); 
