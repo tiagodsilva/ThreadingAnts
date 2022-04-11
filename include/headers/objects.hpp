@@ -174,6 +174,12 @@ class Map {
 
 		// Mutex to control the map's update 
 		std::mutex mapMutex; 
+
+		// It is convenient, in a multithread program, to track the 
+		// ants in a list 
+		bool isInitialized; 
+		int currAnts; // A pointer to the current ant 
+		std::list<Ant*> allAnts; 
 	public:
 		Map(int mapWidth, int mapHeight, int fov, int psurvival);
 		Map(); 
@@ -197,8 +203,10 @@ class Map {
 		void restoreFoods(); 
 		void checkPheromones(); 
 
-		std::pair<std::vector<Ant*>::iterator, 
-			std::vector<Ant*>::iterator> getAllAnts(); 
+		// Appropriate for multithreaded programs 
+		void initializeAnts(); 
+		Ant * computeNextAnt(); 
+		
 		Tile * captureFoodNear(int x, int y); 
 		int getPSurvival(); 
 
