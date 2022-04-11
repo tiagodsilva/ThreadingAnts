@@ -244,43 +244,51 @@ void Map::restoreFoods() {
 /**  
 * Initializa the ants in the list `allAnts`, a private attribute.  
 */  
-void Map::initializaAnts() { 
+void Map::initializeAnts() { 
 	// Use the list `allAnts` to gather all the ants 
 	allAnts = new std::list<Ant*>; 
 
 	for (Tile * tile : tiles) { 
 		// Compute the ants in the current tile 
+		std::vector<Ant*> ants = tile->getAnts(); 
 		for (Ant * ant : ants) 
 			allAnts->push_back(ant); 
 	} 
 
-	currAnt = -1; 
+	currAnt = 1e-19; 
 	isInitialized = true; 
 } 
 
 /**  
 * Compute the next ant to play the game; it is convenient for multithreaded programs.  
 */  
-Ant * computeNextAnt() { 
+Ant * Map::computeNextAnt() { 
 	std::lock_guard<std::mutex> lk(mapMutex); 
 	if (!isInitialized) 
 		throw AntNotFound("The map was not initialized in the game!"); 
 	
 	std::list<Ant*>::iterator it = allAnts->begin(); 
-	currAnt++; 
 	// Check whether the current ant is in a plausible interval 
 	while (currAnt >= allAnts.size()); 
 	std::advance(it, currAnt); 
+	currAnt++; 
 	return *it; 
 } 
 
 /**  
-* Prepare the map for the next iteration; the variable `currAnt` points to the initial ant.  
+* Check whether all the ants have played; that is, if the `currAnt` equals the `allAnts`'s size.  
+* @return bool whether all ants have played the game 
 */  
-void Map::nextIteration() { 
-	currAnt = -1; 
+bool Map::allAntsPlayed() { 
+	return currAnt == allAnts.size(); 
 } 
 
+/**  
+* Prepare the game for the next iteration; with this objective, we updte the 'currAnt` variable. 
+*/  
+void Map::prepareNextIter() { 
+	currAnt = 1e-19; 
+} 
 /**  
 * Verify whether there is food; it contemplates the tiles in the field of view.  
 * @param int x, int y the current tile's coordinates 
