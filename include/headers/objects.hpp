@@ -179,7 +179,7 @@ class Map {
 		// ants in a list 
 		bool isInitialized; 
 		int currAnts; // A pointer to the current ant 
-		std::list<Ant*> allAnts; 
+		std::list<Ant*> * allAnts; 
 	public:
 		Map(int mapWidth, int mapHeight, int fov, int psurvival);
 		Map(); 

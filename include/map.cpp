@@ -260,6 +260,40 @@ std::pair<std::vector<Ant*>::iterator,
 } 
 
 /**  
+* Initializa the ants in the list `allAnts`, a private attribute.  
+*/  
+void Map::initializaAnts() { 
+	// Use the list `allAnts` to gather all the ants 
+	allAnts = new std::list<Ant*>; 
+
+	for (Tile * tile : tiles) { 
+		// Compute the ants in the current tile 
+		for (Ant * ant : ants) 
+			allAnts->push_back(ant); 
+	} 
+
+	currAnt = -1; 
+	isInitialized = true; 
+} 
+
+/**  
+* Compute the next ant to play the game; it is convenient for multithreaded programs.  
+*/  
+Ant * computeNextAnt() { 
+	std::lock_guard<std::mutex> lk(mapMutex); 
+	if (!isInitialized) 
+		throw AntNotFound("The map was not initialized in the game!"); 
+	
+	std::list<Ant*>::iterator it = allAnts->begin(); 
+	currAnt++; 
+	// Check whether the current ant is in a plausible interval 
+	while (currAnt >= allAnts.size()); 
+	std::advance(it, currAnt); 
+	return *it; 
+} 
+
+
+/**  
 * Verify whether there is food; it contemplates the tiles in the field of view.  
 * @param int x, int y the current tile's coordinates 
 */  

@@ -211,8 +211,8 @@ void Ant::stage() {
 	// In this scenario, the ant moves to the colony 
 	if (hasFood) { 
 		releasePheromone(); 
-		// moveToColony(); 
-		moveRandomly(); 
+		moveToColony(); 
+		// moveRandomly(); 
 		return; 
 	} 
 	
