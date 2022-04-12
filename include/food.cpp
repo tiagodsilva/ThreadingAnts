@@ -74,6 +74,10 @@ void Food::test(int i) {
 	} 
 } 
 
+/**  
+* Take the rods; the ants use them to eat the food object.  
+* @param int i the current seat of the ant 
+*/  
 void Food::takeRods(int i) { 
 	attrMutex.lock(); 
 	seats[i].hasFood = false; 
@@ -82,18 +86,27 @@ void Food::takeRods(int i) {
 	s[i].acquire(); 
 } 
 
+/**  
+* Put the rods in the food; it is appropriate for the philosophical methods.  
+* @param int i the current seat of the ant 
+*/  
 void Food::putRods(int i) { 
 	attrMutex.lock(); 
-	seats[i].waiting; 
 	test(LEFT(i)); 
 	test(RIGHT(i)); 
 	attrMutex.unlock(); 
 } 
 
+/**  
+* Eat the food; it checks if the volume is positive.  
+* @param int i the current seat of the ant. 
+*/  
 bool eat(int i) { 
 	takeRods(i); 
-	if (volume >= 1) 
+	if (volume >= 1) { 
+		volume--; 
 		ate = true; 
+	} 
 	putRods(i); 
 	// The ant ate the food object 
 	return ate; 
