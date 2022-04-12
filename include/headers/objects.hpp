@@ -186,8 +186,6 @@ class Map {
 		bool isInitialized; 
 		long unsigned int currAnt; // A pointer to the current ant 
 		std::list<Ant*> * allAnts; 
-
-		_updateTiles(int lTilesIndex, int rTilesIndex); // Update the tiles' attributes 
 	public:
 		Map(int mapWidth, int mapHeight, int fov, int psurvival);
 		Map(); 
@@ -207,10 +205,7 @@ class Map {
 		Ant * getAntInTile(int x, int y, std::string colony); 
 		Ant * getAnyAnt(); 
 
-		// Update the map's state 
-		void restoreFoods(); 
-		void checkPheromones(); 
-
+		void updateTiles(int lTilesIndex, int rTilesIndex); // Updates the tiles' attributes 
 		// Appropriate for multithreaded programs 
 		void initializeAnts(); 
 		Ant * computeNextAnt(); 

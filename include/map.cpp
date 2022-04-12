@@ -284,6 +284,16 @@ bool Map::allAntsPlayed() {
 	return currAnt == allAnts->size(); 
 } 
 
+// A static member to update the tiles 
+/**  
+* Update the tiles' attributes; it contemplates a range of these instances.  
+* @param int linx, int rinx the boundaries in the vector `map->tiles` we aim to investigate 
+*/  
+void staticUpdateTiles(int linx, int rinx) { 
+	// Apply the correspondent method in the Map's intance
+	map->_updateTiles(linx, rinx); 
+} 
+
 /**  
 * Prepare the game for the next iteration; with this objective, we updte the 'currAnt` variable. 
 * @param int nThreads the quantity of threads to use in this step 
@@ -306,7 +316,7 @@ void Map::prepareNextIter(int nThreads) {
 
 		// Execute, in each thread, a method to update the tiles 
 		threadsList.push_back( 
-				new std::thread(_updateTiles, lTileIndex, rTileIndex) 
+				new std::thread(&staticUpdateTiles, lTileIndex, rTileIndex) 
 		) 
 	} 
 
