@@ -34,8 +34,8 @@ bool Food::consume() {
 	if (currAnts >= maxAnts || (volume < 1)) 
 		return false;   
 	
-	eat(currAnts); 
-	return true; 
+	eat(currAnts); // Eat the food consistently with the rods embracing 
+	return true; // The food was eaten 
 } 
 
 /**  
@@ -63,6 +63,11 @@ void Food::allowAnts() {
 		seats[i] = FREE; 
 } 
 
+/**  
+* Assert that there are rods available for the ant at a seat; it is an 
+* instance of the dining philosophers scenario.  
+* @param int i the seat of the ant that is going to eat the food object 
+*/  
 void Food::test(int i) { 
 	if (seats[i] == HUNGRY && 
 		seats[LEFT(i)] != EATING && 
