@@ -106,6 +106,7 @@ void Food::putRods(int i) {
 * @param int i the current seat of the ant. 
 */  
 bool Food::eat(int i) { 
+	bool ate = false; 
 	takeRods(i); 
 	if (volume >= 1) { 
 		volume--; 
@@ -115,4 +116,20 @@ bool Food::eat(int i) {
 	putRods(i); 
 	// The ant ate the food object 
 	return ate; 
+} 
+
+/**  
+* Compute the ant at the left; they are in a table.  
+* @param int i the current ant 
+*/  
+int Food::LEFT(int i) { 
+	return (i - 1) % maxAnts; 
+} 
+
+/**  
+* Compute the ant at the right; they are in a round table.  
+* @param int i the current ant 
+*/  
+int Food::RIGHT(int i) { 
+	return (i + 1) % maxAnts; 
 } 
