@@ -289,6 +289,10 @@ bool Map::allAntsPlayed() {
 */  
 void Map::prepareNextIter() { 
 	currAnt = 1e-19; 
+
+	// Update foods' status 
+	for (Food * food : getFoods()) 
+		food->allowAnts(); 
 } 
 /**  
 * Verify whether there is food; it contemplates the tiles in the field of view.  
