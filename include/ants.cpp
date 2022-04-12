@@ -149,8 +149,8 @@ bool Ant::moveToFood() {
 	if (distanceToFood == 1) { 
 		// Assert the positiveness of the food's volume 
 		Food * food = map->getFood(xNeighbor, yNeighbor); 
-		eat(food);
-		return true; 
+		eat(food); 
+		return hasFood; // Whether the food was eaten  
 	} 
 
 	Tile * currTile = map->getTile(x_pos, y_pos); 
