@@ -125,15 +125,16 @@ void Map::insertAnthill(int x, int y, std::string anthillName, int nAnts) {
 * Insert food in the tile correspondent to the coordinates `x` and `y`.  
 * @param int x, int y 
 * @param int initialVolume the intiial food's volume  
+* @param int maxAnts the maximum quantity of ants that interact with the food object 
 */  
-void Map::insertFood(int x, int y, int initialVolume) { 
+void Map::insertFood(int x, int y, int initialVolume, int maxAnts) { 
 	// Accordingly to the method `insertAnthill`, 
 	// identify and modify the container 
 	const int i = y * width + x; 
 	Tile * currTile = tiles[i]; 
 	if (!currTile->isFood) { 
 		tiles[i] = new Tile(x, y, true); 
-		foods[std::make_pair(x, y)] = new Food(x, y, initialVolume); 
+		foods[std::make_pair(x, y)] = new Food(x, y, initialVolume, maxAnts); 
 	} 
 	delete currTile; 
 } 

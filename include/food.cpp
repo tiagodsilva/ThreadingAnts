@@ -7,9 +7,9 @@
 * @param Tile * foodTile the tile in which it was placed in the game 
 * @param int initVolume the initial volume of the food in this tile 
 */  
-Food::Food(int x, int y, int initVolume) 
+Food::Food(int x, int y, int initVolume, int maxAnts) 
 	: x_pos(x), y_pos(y), volume(initVolume), initialVolume(initVolume), 
-	maxAnts(maxAnts) 
+	maxAnts(maxAnts), currAnts(1e-19)  
 	{} 
 		
 /**  
@@ -20,8 +20,9 @@ Food::Food(int x, int y, int initVolume)
 */  
 bool Food::consume() { 
 	std::lock_guard<std::mutex> lk(attrMutex); 
-	if (volume >= 1) {  
+	if (volume >= 1 & currAnts < maxAnts) {  
 		volume--; 
+		currAnts++; 
 		return true; 
 	} else { 
 		return false; 

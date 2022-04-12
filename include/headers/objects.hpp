@@ -81,6 +81,7 @@ class Food {
 		// The maximum quantity of ants that would eat this food in a 
 		// stage 
 		int maxAnts; 
+		int currAnts; // identify the quantity of ants eating this object 
 	public: 
 		// methods 
 		Food(int x, int y, int initVolume, int maxAnts); 
