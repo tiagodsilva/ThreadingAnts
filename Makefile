@@ -9,6 +9,9 @@ FILENAME=main.cpp
 INCLUDES=include
 HEADERS=${INCLUDES}/headers.h 
 
+ifeq ($(OS),Windows_NT) 
+	$(info "This simulation is not designed for Windows! Use Linux, please.") 
+else 
 .PHONY: ${COMPILED} 
 all: ${COMPILED} 
 	./${COMPILED} 
@@ -21,3 +24,4 @@ ${COMPILED}: ${INCLUDES}/*.cpp ${INCLUDES}/*/*.hpp
 	done ; \
 	echo "#endif" >> ${HEADERS} ; \
 	${GCC} ${LDFLAGS} ${FILENAME} ${CFLAGS} ${COMPILED} 
+endif 
