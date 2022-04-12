@@ -20,7 +20,12 @@ Food::Food(int x, int y, int initVolume, int maxAnts)
 */  
 bool Food::consume() { 
 	std::lock_guard<std::mutex> lk(attrMutex); 
-	if ((volume >= 1) && (currAnts < maxAnts)) {  
+ 
+	// In this case, the ants continue near the food, instead of moving randomly 
+	if (currAnts >= maxAnts) 
+		return true; 
+
+	if (volume >= 1) {  
 		volume--; 
 		currAnts++; 
 		return true; 
