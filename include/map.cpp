@@ -356,3 +356,28 @@ int Map::getPSurvival() {
 	return psurvival; 
 } 
 
+/**  
+* Update the tiles' attributes in the game; it checks a range of the vector `tiles`, which is 
+* an attribute of this class. 
+* @param int lTilesIndex, int rTilesIndex the boundaries of the tiles' vector we aim to update  
+*/  
+void Map::_updateTiles(int lTilesIndex, int rTilesIndex) { 
+	// Iterate across each tile 
+	for (int i = lTilesIndex; i < rTilesIndex; i++) { 
+		// Assert that the tile correspondent to `i` does exist 
+		if (i >= tiles.size()) 
+			return; 
+
+		// Identify the current tile 
+		Tile * currTile = tiles[i]; 
+
+		// and check whether it is tied to a food object 
+		if (currTile->isFood) { 
+			Food * food = map->getFood(currTile->getX(), currTile->getY()); 
+			food->allowAnts(); 
+		} else { // in this case, it is a tile that contains ants 
+		       currTile->checkPheromones(); 
+	      	} 
+
+	} 
+} 
