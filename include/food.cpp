@@ -15,6 +15,9 @@ Food::Food(int x, int y, int initVolume, int maxAnts)
 	{ 
 		eatSemaphores = new sem_t[maxAnts]; 
 		seats = new int[maxAnts]; 
+
+		for (int i = 0; i < maxAnts; i++) 
+			seats[i] = FREE; 
 	} 
 		
 /**  
