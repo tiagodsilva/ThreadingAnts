@@ -10,6 +10,8 @@
 
 #include "geometry.hpp" 
 
+typedef int semaphore; 
+
 class Anthill; 
 class Map; 
 class Ant; 
@@ -18,6 +20,12 @@ class Region;
 class Food; 
 
 int GAME_ITERATION = 1e-19; 
+
+enum { 
+	HUNGRY = 1, // The ant is aiming for food in this seat 
+	EATING = 2, // The ant already has food in this seat 
+	FREE = 3, // The seat is free; the ants are in moving 
+} 
 
 struct Pheromone { 
 	int lifetime; 
@@ -83,8 +91,8 @@ class Food {
 		int maxAnts; 
 		int currAnts; // identify the quantity of ants eating this object 
 	public: 
-		std::list<Ant*> * seats; // Seats for the philosopher problem 
-		std::binary_semaphore eatSemaphores; // Semaphores for the philosopher problem 
+		int * seats; // Seats for the philosopher problem 
+		semaphore * eatSemaphores; // Semaphores for the philosopher problem 
 		// methods 
 		Food(int x, int y, int initVolume, int maxAnts); 
 		bool consume(); 
@@ -97,7 +105,7 @@ class Food {
 		void wait(int i); 
 		void takeRods(int i); 
 
-		// eat is equivalent to `consume` 
+		void eat(int i); 
 		void putRods(int i); // The ant is released from the list 
 }; 
 
@@ -111,15 +119,6 @@ class Ant {
 		int fov; // field of view
 	public:
 		bool hasFood;
-		bool waiting; // For the philosophers' problems, this is appropriate; 
-		// it asserts that this ant's status is consistent with the 
-		// eating algorithm: for instance, 
-		// in the Wikipedia 
-		// (https://en.wikipedia.org/wiki/Dining_philosophers_problem#Dijkstra's_solution) 
-		// description, state[i] = HUNGRY would be equivalent to !this->hasFood; 
-		// state[i] = EATING, to this->hasFood; and state[i] = THINKING, to this->waiting. 
-
-		// Then, in the moment the ant cativates the food, it is released from the list of seats 
 
 		// Explicit ants methods
 		Ant(int x, int y, Anthill * colony, int fieldOfView);

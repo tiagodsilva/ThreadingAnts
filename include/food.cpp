@@ -1,6 +1,6 @@
 #include <iostream> 
 #include <vector> 
-#include <semaphore> 
+#include <thread> 
 
 #include "headers/objects.hpp" 
 /**  
@@ -10,11 +10,14 @@
 */  
 Food::Food(int x, int y, int initVolume, int maxAnts) 
 	: x_pos(x), y_pos(y), volume(initVolume), initialVolume(initVolume), 
-	maxAnts(maxAnts), currAnts(1e-19), seats(new std::list<Ant*>)   
+	maxAnts(maxAnts), currAnts(1e-19) 
 	{ 
 		std::binary_semaphore eatSemaphores[maxAnts]; 
+		eatSemaphores = new int[maxAnts]; 
 		for (i = 0; i < eatSemaphores; i++) 
-			eatSemaphore[i] = 0; 
+			eatSemaphores[i] = 0; 
+
+		seats = new int[maxAnts]; 
 	} 
 		
 /**  
@@ -23,16 +26,16 @@ Food::Food(int x, int y, int initVolume, int maxAnts)
 * @return true if there was food to be consumed; 
 * in the other scenario, `false` is the variable. 
 */  
-bool Food::consume(Ant * ant) { 
+bool Food::consume() { 
 	std::lock_guard<std::mutex> lk(attrMutex); 
  
 	// In this case, the ants continue near the food, instead of moving randomly 
 	int freeSeat = getFreeSeat(); 
 	if ((freeSeat == -1) || (volume < 1)) 
-		return false; 
+		return false;  
 	
-	seats[freeSeat] = ant; 
-	
+	seats[freeSeat] = HUNGRY; 
+
 	return eat(freeSeat); 
 	/* 
 	if (volume >= 1) { // if there is food and there the next ant should eat 
@@ -67,10 +70,11 @@ void Food::allowAnts() {
 } 
 
 void Food::test(int i) { 
-	if (!seats[i].hasFood && 
-			seats[LEFT(i)].hasFood && seats[RIGHT(i)].hasFood) { 
+	if (seats[i] == HUNGRY && 
+		seats[LEFT(i)] == EATING && 
+		seats[RIGHT(i)] == EATING) { 
 		seats[i].hasFood = true; 
-		s[i].release(); 
+		up(&eatSemaphores[i]); 
 	} 
 } 
 
@@ -80,10 +84,10 @@ void Food::test(int i) {
 */  
 void Food::takeRods(int i) { 
 	attrMutex.lock(); 
-	seats[i].hasFood = false; 
+	seats[i] = EATING; 
 	test(i); 
 	attrMutex.unlock(); 
-	s[i].acquire(); 
+	down(&eatSemaphores[i]); 
 } 
 
 /**  
@@ -106,6 +110,7 @@ bool eat(int i) {
 	if (volume >= 1) { 
 		volume--; 
 		ate = true; 
+		seat[i] = FREE; // The ant already contains a food object 
 	} 
 	putRods(i); 
 	// The ant ate the food object 
