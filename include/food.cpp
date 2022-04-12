@@ -73,7 +73,7 @@ void Food::test(int i) {
 	if (seats[i] == HUNGRY && 
 		seats[LEFT(i)] == EATING && 
 		seats[RIGHT(i)] == EATING) { 
-		seats[i].hasFood = true; 
+		seats[i] = EATING; 
 		sem_post(&eatSemaphores[i]); 
 	} 
 } 
@@ -111,7 +111,7 @@ bool Food::eat(int i) {
 	if (volume >= 1) { 
 		volume--; 
 		ate = true; 
-		seat[i] = FREE; // The ant already contains a food object 
+		seats[i] = FREE; // The ant already contains a food object 
 	} 
 	putRods(i); 
 	// The ant ate the food object 
