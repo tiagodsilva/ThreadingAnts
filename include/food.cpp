@@ -133,3 +133,16 @@ int Food::LEFT(int i) {
 int Food::RIGHT(int i) { 
 	return (i + 1) % maxAnts; 
 } 
+
+/**  
+* Identify free seats in the table; they would be used by the ants.  
+*/  
+int Food::getFreeSeat() { 
+	for (int i = 0; i < maxAnts; i++) { 
+		if (seats[i] == FREE) 
+			return i; 
+	} 
+	
+	// In this case, the seats are absolutely occupied in the table 
+	return -1; 
+} 
