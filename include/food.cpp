@@ -27,7 +27,7 @@ Food::Food(int x, int y, int initVolume, int maxAnts)
 * in the other scenario, `false` is the variable. 
 */  
 bool Food::consume() { 
-	std::lock_guard<std::mutex> lk(attrMutex); 
+	// std::lock_guard<std::mutex> lk(attrMutex); 
  
 	// In this case, the ants continue near the food, instead of moving randomly 
 	int freeSeat = getFreeSeat(); 
@@ -71,8 +71,8 @@ void Food::allowAnts() {
 
 void Food::test(int i) { 
 	if (seats[i] == HUNGRY && 
-		seats[LEFT(i)] == EATING && 
-		seats[RIGHT(i)] == EATING) { 
+		seats[LEFT(i)] != EATING && 
+		seats[RIGHT(i)] != EATING) { 
 		seats[i] = EATING; 
 		sem_post(&eatSemaphores[i]); 
 	} 
@@ -84,7 +84,7 @@ void Food::test(int i) {
 */  
 void Food::takeRods(int i) { 
 	attrMutex.lock(); 
-	seats[i] = EATING; 
+	seats[i] = HUNGRY; 
 	test(i); 
 	attrMutex.unlock(); 
 	sem_wait(&eatSemaphores[i]); 
@@ -138,6 +138,7 @@ int Food::RIGHT(int i) {
 * Identify free seats in the table; they would be used by the ants.  
 */  
 int Food::getFreeSeat() { 
+	std::lock_guard<std::mutex> lk(attrMutex); 
 	for (int i = 0; i < maxAnts; i++) { 
 		if (seats[i] == FREE) 
 			return i; 
