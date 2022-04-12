@@ -138,13 +138,9 @@ void sequentialGame() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
 		stage(); 
 		GAME_ITERATION++; 
-		// The foods should be restored sporadically 
-		if (GAME_ITERATION % ufood == 1) 
-			map->restoreFoods(); 
-		
-		map->checkPheromones(); 
+		// map->checkPheromones(); 
 		map->print(); 
-		map->prepareNextIter(); 
+		map->prepareNextIter(nThreads, ufood); 
 		std::cout << LINES << std::endl; 
 	} 
 } 
@@ -165,12 +161,9 @@ void multithreadGame() {
 	while (GAME_ITERATION < iterations) { 
 		if (map->allAntsPlayed()) {
 			std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
-			map->checkPheromones(); 
+			// map->checkPheromones(); 
 			map->print(); 
-			map->prepareNextIter(); 
-
-			if (GAME_ITERATION % ufood == 1) 
-				map->restoreFoods(); 
+			map->prepareNextIter(nThreads, ufood); 
 
 			std::cout << LINES << GAME_ITERATION << std::endl; 
 			GAME_ITERATION++; 
