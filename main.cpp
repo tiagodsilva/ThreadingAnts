@@ -27,7 +27,7 @@ semaphore gameSemaphore;
 // Integer quantities 
 int nThreads, width, height, 
     iterations, psurvival, fov, 
-    ufood; 
+    ufood, cfood; 
 
 // Introduce, for the colonies, the quantities (x, y, nAnts); for the foods, 
 // (x, y, volume), as those are parametrizable  
@@ -56,6 +56,7 @@ void parse(InputParser * parser) {
 	psurvival = parser->parseInt("--psurvival", PSURVIVAL); 
 	fov = parser->parseInt("--fov", FOV); 
 	ufood = parser->parseInt("--ufood", UFOOD);
+	cfood = parser->parseInt("--cfood", CFOOD); 
 	colonies = parser->parseVector<int>("--colonies", COLONIES); 
 	foods = parser->parseVector<int>("--foods", FOODS); 
 } 
@@ -81,7 +82,7 @@ void initializeGame(Map * map, int width, int height) {
 		int x = std::get<0>(food); 
 		int y = std::get<1>(food); 
 		int volume = std::get<2>(food); 
-		map->insertFood(x, y, volume); 
+		map->insertFood(x, y, volume, cfood); 
 	} 
 
 	// Compute the iterator for the vector that contemplates the ants 

@@ -20,7 +20,7 @@ Food::Food(int x, int y, int initVolume, int maxAnts)
 */  
 bool Food::consume() { 
 	std::lock_guard<std::mutex> lk(attrMutex); 
-	if (volume >= 1 & currAnts < maxAnts) {  
+	if ((volume >= 1) && (currAnts < maxAnts)) {  
 		volume--; 
 		currAnts++; 
 		return true; 
