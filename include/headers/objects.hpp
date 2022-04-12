@@ -91,6 +91,13 @@ class Food {
 		// stage 
 		int maxAnts; 
 		int currAnts; // identify the quantity of ants eating this object 
+
+		// Compute the indexes in a round table 
+		int LEFT(int i); 
+		int RIGHT(int i); 
+		
+		// Check whether a seat is free in the table 
+		int getFreeSeat(); 
 	public: 
 		int * seats; // Seats for the philosopher problem 
 		sem_t * eatSemaphores; // Semaphores for the philosopher problem 
