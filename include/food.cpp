@@ -30,10 +30,11 @@ bool Food::consume() {
 	// std::lock_guard<std::mutex> lk(attrMutex); 
  
 	// In this case, the ants continue near the food, instead of moving randomly 
+	
 	int freeSeat = getFreeSeat(); 
 	if ((freeSeat == -1) || (volume < 1)) 
 		return false;  
-	
+
 	seats[freeSeat] = HUNGRY; 
 
 	return eat(freeSeat); 
