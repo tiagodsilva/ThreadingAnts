@@ -27,26 +27,15 @@ Food::Food(int x, int y, int initVolume, int maxAnts)
 * in the other scenario, `false` is the variable. 
 */  
 bool Food::consume() { 
-	// std::lock_guard<std::mutex> lk(attrMutex); 
+	// std::lock_guard<std::mutex> lk(seatMutex); 
  
 	// In this case, the ants continue near the food, instead of moving randomly 
-	
 	int freeSeat = getFreeSeat(); 
 	if ((freeSeat == -1) || (volume < 1)) 
-		return false;  
-
-	seats[freeSeat] = HUNGRY; 
-
-	return eat(freeSeat); 
-	/* 
-	if (volume >= 1) { // if there is food and there the next ant should eat 
-		volume--; 
-		currAnts++; 
-		return true; 
-	} else { 
-		return false; // The ant waits 
-	} 
-	*/ 
+		return false;   
+	
+	eat(freeSeat); 
+	return true; 
 } 
 
 /**  
@@ -106,17 +95,15 @@ void Food::putRods(int i) {
 * Eat the food; it checks if the volume is positive.  
 * @param int i the current seat of the ant. 
 */  
-bool Food::eat(int i) { 
-	bool ate = false; 
+void Food::eat(int i) { 
 	takeRods(i); 
 	if (volume >= 1) { 
 		volume--; 
-		ate = true; 
 		seats[i] = FREE; // The ant already contains a food object 
 	} 
 	putRods(i); 
 	// The ant ate the food object 
-	return ate; 
+	// return ate; 
 } 
 
 /**  
@@ -139,10 +126,13 @@ int Food::RIGHT(int i) {
 * Identify free seats in the table; they would be used by the ants.  
 */  
 int Food::getFreeSeat() { 
-	std::lock_guard<std::mutex> lk(attrMutex); 
+	std::lock_guard<std::mutex> lk(seatMutex); 
 	for (int i = 0; i < maxAnts; i++) { 
 		if (seats[i] == FREE) 
+		{ 
+			seats[i] = HUNGRY; 
 			return i; 
+		} 
 	} 
 	
 	// In this case, the seats are absolutely occupied in the table 

@@ -86,6 +86,7 @@ class Food {
 		// it is appropriate to restore the volume 
 		// Mutex to control the access to the food's attributes 
 		std::mutex attrMutex; 
+		std::mutex seatMutex;
 
 		// The maximum quantity of ants that would eat this food in a 
 		// stage 
@@ -113,7 +114,7 @@ class Food {
 		void wait(int i); 
 		void takeRods(int i); 
 
-		bool eat(int i); 
+		void eat(int i); 
 		void putRods(int i); // The ant is released from the list 
 }; 
 
