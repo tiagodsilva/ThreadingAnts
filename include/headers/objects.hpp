@@ -194,7 +194,7 @@ class Map {
 		// Initialization methods 
 		void insertAnthill(int x, int y, std::string anthillName, 
 				int nAnts); 
-		void insertFood(int x, int y, int initialVolume); 
+		void insertFood(int x, int y, int initialVolume, int maxAnts); 
 
 		// Compute attributes 
 		Anthill * getAnthill(std::string anthillName); 
