@@ -149,7 +149,7 @@ bool Ant::moveToFood() {
 	if (distanceToFood == 1) { 
 		// Assert the positiveness of the food's volume 
 		Food * food = map->getFood(xNeighbor, yNeighbor); 
-		eat(map->getFood(xNeighbor, yNeighbor)); 
+		eat(food);
 		return true; 
 	} 
 
