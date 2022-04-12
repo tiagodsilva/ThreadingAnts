@@ -42,3 +42,10 @@ void Food::restore() {
 int Food::getVolume() { 
 	return volume; 
 } 
+
+/**  
+* Allow ants to eat the food; it is executed at each game iteration.  
+*/  
+void Food::allowAnts() { 
+	currAnts = 1e-19; 
+} 

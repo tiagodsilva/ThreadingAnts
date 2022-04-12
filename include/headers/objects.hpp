@@ -88,6 +88,7 @@ class Food {
 		bool consume(); 
 		void restore(); 
 		int getVolume(); 
+		void allowAnts(); 
 }; 
 
 class Ant {
