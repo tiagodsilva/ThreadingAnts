@@ -286,10 +286,37 @@ bool Map::allAntsPlayed() {
 
 /**  
 * Prepare the game for the next iteration; with this objective, we updte the 'currAnt` variable. 
+* @param int nThreads the quantity of threads to use in this step 
 */  
-void Map::prepareNextIter() { 
+void Map::prepareNextIter(int nThreads) { 
 	currAnt = 1e-19; 
 
+	// Compute the quantity of tiles in the game 
+	int nTiles = width * height; 
+
+	// and provide a set of tiles to each thread 
+	int tilesPerThread = (nTiles + nThreads)/nThreads; 
+
+	// Instantiate tiles to update the map's attributes 
+	std::vector<std::thread*> threadsList; 
+
+	for (int i = 0; i < nThreads; i++) { 
+		int lTileIndex = i * tilesPerThread; 
+		int rTileIndex = (i + 1) * tilesPerThread; 
+
+		// Execute, in each thread, a method to update the tiles 
+		threadsList.push_back( 
+				new std::thread(_updateTiles, lTileIndex, rTileIndex) 
+		) 
+	} 
+
+	// Join the threads; this is important to assert the all tiles are checked 
+	for (std::thread * thread : threadsList) { 
+		thread->join(); 
+
+		// Allocate the threads' data to something else 
+		delete thread; 
+	} 
 	// Update foods' status 
 	for (Food * food : getFoods()) 
 		food->allowAnts(); 

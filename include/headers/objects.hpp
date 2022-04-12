@@ -213,7 +213,7 @@ class Map {
 		void initializeAnts(); 
 		Ant * computeNextAnt(); 
 		bool allAntsPlayed(); 
-		void prepareNextIter(); 
+		void prepareNextIter(int nThreads); 
 
 		Tile * captureFoodNear(int x, int y); 
 		int getPSurvival(); 
