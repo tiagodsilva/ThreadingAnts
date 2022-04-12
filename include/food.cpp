@@ -14,9 +14,6 @@ Food::Food(int x, int y, int initVolume, int maxAnts)
 	maxAnts(maxAnts), currAnts(1e-19) 
 	{ 
 		eatSemaphores = new sem_t[maxAnts]; 
-		for (int i = 0; i < maxAnts; i++) 
-			eatSemaphores[i] = 0; 
-
 		seats = new int[maxAnts]; 
 	} 
 		

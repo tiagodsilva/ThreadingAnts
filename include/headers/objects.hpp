@@ -26,7 +26,7 @@ enum {
 	HUNGRY = 1, // The ant is aiming for food in this seat 
 	EATING = 2, // The ant already has food in this seat 
 	FREE = 3, // The seat is free; the ants are in moving 
-} 
+};  
 
 struct Pheromone { 
 	int lifetime; 
