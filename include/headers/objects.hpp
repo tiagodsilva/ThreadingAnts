@@ -186,8 +186,11 @@ class Map {
 		bool isInitialized; 
 		long unsigned int currAnt; // A pointer to the current ant 
 		std::list<Ant*> * allAnts; 
+
+		// The rate with which we  restore the foods in this map 
+		int ufood; 
 	public:
-		Map(int mapWidth, int mapHeight, int fov, int psurvival);
+		Map(int mapWidth, int mapHeight, int fov, int psurvival, int ufood);
 		Map(); 
 		Tile * getTile(int x, int y);
 		std::vector<Tile*> neighbors(int x, int y);
