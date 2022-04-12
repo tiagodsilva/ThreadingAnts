@@ -91,6 +91,14 @@ class Food {
 		void restore(); 
 		int getVolume(); 
 		void allowAnts(); 
+
+		// Methods for the philosophical ants 
+		void test(int i); 
+		void wait(int i); 
+		void takeRods(int i); 
+
+		// eat is equivalent to `consume` 
+		void putRods(int i); // The ant is released from the list 
 }; 
 
 class Ant {
