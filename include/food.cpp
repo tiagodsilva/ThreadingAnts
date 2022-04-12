@@ -1,6 +1,7 @@
 #include <iostream> 
 #include <vector> 
 #include <thread> 
+#include <semaphore.h> 
 
 #include "headers/objects.hpp" 
 /**  
@@ -12,9 +13,8 @@ Food::Food(int x, int y, int initVolume, int maxAnts)
 	: x_pos(x), y_pos(y), volume(initVolume), initialVolume(initVolume), 
 	maxAnts(maxAnts), currAnts(1e-19) 
 	{ 
-		std::binary_semaphore eatSemaphores[maxAnts]; 
-		eatSemaphores = new int[maxAnts]; 
-		for (i = 0; i < eatSemaphores; i++) 
+		eatSemaphores = new sem_t[maxAnts]; 
+		for (int i = 0; i < maxAnts; i++) 
 			eatSemaphores[i] = 0; 
 
 		seats = new int[maxAnts]; 
@@ -74,7 +74,7 @@ void Food::test(int i) {
 		seats[LEFT(i)] == EATING && 
 		seats[RIGHT(i)] == EATING) { 
 		seats[i].hasFood = true; 
-		up(&eatSemaphores[i]); 
+		sem_post(&eatSemaphores[i]); 
 	} 
 } 
 
@@ -87,7 +87,7 @@ void Food::takeRods(int i) {
 	seats[i] = EATING; 
 	test(i); 
 	attrMutex.unlock(); 
-	down(&eatSemaphores[i]); 
+	sem_wait(&eatSemaphores[i]); 
 } 
 
 /**  
@@ -105,7 +105,7 @@ void Food::putRods(int i) {
 * Eat the food; it checks if the volume is positive.  
 * @param int i the current seat of the ant. 
 */  
-bool eat(int i) { 
+bool Food::eat(int i) { 
 	takeRods(i); 
 	if (volume >= 1) { 
 		volume--; 

@@ -7,6 +7,7 @@
 #include <utility> 
 #include <list> 
 #include <mutex> 
+#include <semaphore.h> 
 
 #include "geometry.hpp" 
 
@@ -92,7 +93,7 @@ class Food {
 		int currAnts; // identify the quantity of ants eating this object 
 	public: 
 		int * seats; // Seats for the philosopher problem 
-		semaphore * eatSemaphores; // Semaphores for the philosopher problem 
+		sem_t * eatSemaphores; // Semaphores for the philosopher problem 
 		// methods 
 		Food(int x, int y, int initVolume, int maxAnts); 
 		bool consume(); 
@@ -105,7 +106,7 @@ class Food {
 		void wait(int i); 
 		void takeRods(int i); 
 
-		void eat(int i); 
+		bool eat(int i); 
 		void putRods(int i); // The ant is released from the list 
 }; 
 
