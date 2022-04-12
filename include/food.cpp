@@ -23,9 +23,9 @@ bool Food::consume() {
  
 	// In this case, the ants continue near the food, instead of moving randomly 
 	if ((currAnts >= maxAnts) && (volume >= 1)) 
-		return true; 
+		return false; 
 
-	if (volume >= 1) {  
+	if (volume >= 1) { // if there is food and there the next ant should eat 
 		volume--; 
 		currAnts++; 
 		return true; 
