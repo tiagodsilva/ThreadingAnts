@@ -11,8 +11,8 @@
 * Constructor method for Map.  
 * @param mapWidth, mapHeight the map's dimensions 
 */  
-Map::Map(int mapWidth, int mapHeight, int fov, int psurvival) 
-	: width(mapWidth), height(mapHeight), fov(fov), psurvival(psurvival) { 
+Map::Map(int mapWidth, int mapHeight, int fov, int psurvival, int ufood)
+	: width(mapWidth), height(mapHeight), fov(fov), psurvival(psurvival), ufood(ufood) { 
 		// Instantiate an array of tiles 
 		int area = mapWidth * mapHeight; 
 		// and insert tiles in it 
@@ -385,6 +385,11 @@ void Map::_updateTiles(int lTilesIndex, int rTilesIndex) {
 		if (currTile->isFood) { 
 			Food * food = map->getFood(currTile->getX(), currTile->getY()); 
 			food->allowAnts(); 
+
+			// The variable `GAME_ITERATION` is global
+			if (GAME_ITERATION % ufood == 1) 
+				food->restore(); 
+
 		} else { // in this case, it is a tile that contains ants 
 		       currTile->checkPheromones(); 
 	      	} 
