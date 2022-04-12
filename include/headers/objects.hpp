@@ -208,7 +208,8 @@ class Map {
 		Ant * getAntInTile(int x, int y, std::string colony); 
 		Ant * getAnyAnt(); 
 
-		void updateTiles(int lTilesIndex, int rTilesIndex); // Updates the tiles' attributes 
+		void updateTiles(long unsigned int lTilesIndex, 
+				long unsigned int rTilesIndex); // Updates the tiles' attributes 
 		// Appropriate for multithreaded programs 
 		void initializeAnts(); 
 		Ant * computeNextAnt(); 

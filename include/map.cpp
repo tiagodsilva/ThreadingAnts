@@ -359,9 +359,9 @@ int Map::getPSurvival() {
 * an attribute of this class. 
 * @param int lTilesIndex, int rTilesIndex the boundaries of the tiles' vector we aim to update  
 */  
-void Map::updateTiles(int lTilesIndex, int rTilesIndex) { 
+void Map::updateTiles(long unsigned int lTilesIndex, long unsigned int rTilesIndex) { 
 	// Iterate across each tile 
-	for (int i = lTilesIndex; i < rTilesIndex; i++) { 
+	for (long unsigned int i = lTilesIndex; i < rTilesIndex; i++) { 
 		// Assert that the tile correspondent to `i` does exist 
 		if (i >= tiles.size()) 
 			return; 
