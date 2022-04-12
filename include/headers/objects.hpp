@@ -98,7 +98,7 @@ class Food {
 		int RIGHT(int i); 
 		
 		// Check whether a seat is free in the table 
-		int getFreeSeat(); 
+		void getFreeSeat(); 
 	public: 
 		int * seats; // Seats for the philosopher problem 
 		sem_t * eatSemaphores; // Semaphores for the philosopher problem 

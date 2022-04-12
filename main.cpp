@@ -18,7 +18,7 @@
 #define ITERATIONS std::string("99") // quantity of iterations in the game 
 #define PSURVIVAL std::string("12") // pheromone's lifetime 
 #define UFOOD std::string("45") // food's update rate 
-#define CFOOD std::string("99") // quantity of ants that eat the food conveniently 
+#define CFOOD std::string("3") // quantity of ants that eat the food conveniently 
 
 using semaphore = int; 
 // Semaphore to control the game's stages 
