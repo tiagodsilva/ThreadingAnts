@@ -101,6 +101,13 @@ class Ant {
 		int fov; // field of view
 	public:
 		bool hasFood;
+		bool waiting; // For the philosophers' problems, this is appropriate; 
+				// it asserts that this ant's status is consistent with the 
+				// eating algorithm: for instance, 
+		// in the Wikipedia 
+		// (https://en.wikipedia.org/wiki/Dining_philosophers_problem#Dijkstra's_solution) 
+		// description, state[i] = HUNGRY would be equivalent to !this->hasFood; 
+		// state[i] = EATING, to this->hasFood; and state[i] = THINKING, to this->waiting. 
 
 		// Explicit ants methods
 		Ant(int x, int y, Anthill * colony, int fieldOfView);
