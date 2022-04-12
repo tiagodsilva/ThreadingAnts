@@ -317,10 +317,8 @@ void Map::prepareNextIter(int nThreads) {
 		// Allocate the threads' data to something else 
 		delete thread; 
 	} 
-	// Update foods' status 
-	for (Food * food : getFoods()) 
-		food->allowAnts(); 
 } 
+
 /**  
 * Verify whether there is food; it contemplates the tiles in the field of view.  
 * @param int x, int y the current tile's coordinates 
@@ -358,12 +356,3 @@ int Map::getPSurvival() {
 	return psurvival; 
 } 
 
-/**  
-* Identify dead pheromones; it contemplates all the tiles and uses `GAME_ITERATION`, 
-* a global variable.  
-*/  
-void Map::checkPheromones() { 
-	// Iterate acroos the tiles and check each list of pheromones 
-	for (Tile * tile : tiles) 
-		tile->checkPheromones(); 
-} 
