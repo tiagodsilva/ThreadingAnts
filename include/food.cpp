@@ -23,20 +23,26 @@ Food::Food(int x, int y, int initVolume, int maxAnts)
 * @return true if there was food to be consumed; 
 * in the other scenario, `false` is the variable. 
 */  
-bool Food::consume() { 
+bool Food::consume(Ant * ant) { 
 	std::lock_guard<std::mutex> lk(attrMutex); 
  
 	// In this case, the ants continue near the food, instead of moving randomly 
-	if ((currAnts >= maxAnts) && (volume >= 1)) 
+	int freeSeat = getFreeSeat(); 
+	if ((freeSeat == -1) || (volume < 1)) 
 		return false; 
-
+	
+	seats[freeSeat] = ant; 
+	
+	return eat(freeSeat); 
+	/* 
 	if (volume >= 1) { // if there is food and there the next ant should eat 
 		volume--; 
 		currAnts++; 
 		return true; 
 	} else { 
-		return false; 
+		return false; // The ant waits 
 	} 
+	*/ 
 } 
 
 /**  
@@ -58,4 +64,37 @@ int Food::getVolume() {
 */  
 void Food::allowAnts() { 
 	currAnts = 1e-19; 
+} 
+
+void Food::test(int i) { 
+	if (!seats[i].hasFood && 
+			seats[LEFT(i)].hasFood && seats[RIGHT(i)].hasFood) { 
+		seats[i].hasFood = true; 
+		s[i].release(); 
+	} 
+} 
+
+void Food::takeRods(int i) { 
+	attrMutex.lock(); 
+	seats[i].hasFood = false; 
+	test(i); 
+	attrMutex.unlock(); 
+	s[i].acquire(); 
+} 
+
+void Food::putRods(int i) { 
+	attrMutex.lock(); 
+	seats[i].waiting; 
+	test(LEFT(i)); 
+	test(RIGHT(i)); 
+	attrMutex.unlock(); 
+} 
+
+bool eat(int i) { 
+	takeRods(i); 
+	if (volume >= 1) 
+		ate = true; 
+	putRods(i); 
+	// The ant ate the food object 
+	return ate; 
 } 
