@@ -1,5 +1,6 @@
 #include <iostream> 
 #include <vector> 
+#include <semaphore> 
 
 #include "headers/objects.hpp" 
 /**  
@@ -9,8 +10,12 @@
 */  
 Food::Food(int x, int y, int initVolume, int maxAnts) 
 	: x_pos(x), y_pos(y), volume(initVolume), initialVolume(initVolume), 
-	maxAnts(maxAnts), currAnts(1e-19)  
-	{} 
+	maxAnts(maxAnts), currAnts(1e-19), seats(new std::list<Ant*>)   
+	{ 
+		std::binary_semaphore eatSemaphores[maxAnts]; 
+		for (i = 0; i < eatSemaphores; i++) 
+			eatSemaphore[i] = 0; 
+	} 
 		
 /**  
 * Consume the food; it should be designed as in the Philosophers' dilemma 

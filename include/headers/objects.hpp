@@ -83,8 +83,8 @@ class Food {
 		int maxAnts; 
 		int currAnts; // identify the quantity of ants eating this object 
 	public: 
-		std::list<Ant*> seats; // Seats for the philosopher problem 
-		std::binary_semaphore eatSemaphore; // Semaphores for the philosopher problem 
+		std::list<Ant*> * seats; // Seats for the philosopher problem 
+		std::binary_semaphore eatSemaphores; // Semaphores for the philosopher problem 
 		// methods 
 		Food(int x, int y, int initVolume, int maxAnts); 
 		bool consume(); 
