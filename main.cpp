@@ -140,7 +140,7 @@ void sequentialGame() {
 		GAME_ITERATION++; 
 		// map->checkPheromones(); 
 		map->print(); 
-		map->prepareNextIter(nThreads, ufood); 
+		map->prepareNextIter(nThreads); 
 		std::cout << LINES << std::endl; 
 	} 
 } 
@@ -163,7 +163,7 @@ void multithreadGame() {
 			std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
 			// map->checkPheromones(); 
 			map->print(); 
-			map->prepareNextIter(nThreads, ufood); 
+			map->prepareNextIter(nThreads); 
 
 			std::cout << LINES << GAME_ITERATION << std::endl; 
 			GAME_ITERATION++; 
@@ -177,7 +177,7 @@ int main(int argc, char *argv[]) {
 	
 	parse(parser); 
 	// This instance, `map`, is global 
-	map = new Map(width, height, fov, psurvival); 
+	map = new Map(width, height, fov, psurvival, ufood); 
 	initializeGame(map, width, height); 
 
 	// sequentialGame(); 

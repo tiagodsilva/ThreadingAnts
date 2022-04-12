@@ -231,18 +231,6 @@ Ant * Map::getAnyAnt() {
 } 
 
 /**  
-* Restore all Food `objects` in the map; their volume is restored to the initial value.  
-*/  
-void Map::restoreFoods() { 
-	// Capture the foods in the game 
-	std::vector<Food*> foods = getFoods(); 
-
-	// and restore them 
-	for (unsigned int i = 0; i < foods.size(); i++) 
-		foods[i]->restore(); 
-} 
-
-/**  
 * Initializa the ants in the list `allAnts`, a private attribute.  
 */  
 void Map::initializeAnts() { 
@@ -291,7 +279,7 @@ bool Map::allAntsPlayed() {
 */  
 void staticUpdateTiles(int linx, int rinx) { 
 	// Apply the correspondent method in the Map's intance
-	map->_updateTiles(linx, rinx); 
+	map->updateTiles(linx, rinx);
 } 
 
 /**  
@@ -317,7 +305,7 @@ void Map::prepareNextIter(int nThreads) {
 		// Execute, in each thread, a method to update the tiles 
 		threadsList.push_back( 
 				new std::thread(&staticUpdateTiles, lTileIndex, rTileIndex) 
-		) 
+		); 
 	} 
 
 	// Join the threads; this is important to assert the all tiles are checked 
@@ -371,7 +359,7 @@ int Map::getPSurvival() {
 * an attribute of this class. 
 * @param int lTilesIndex, int rTilesIndex the boundaries of the tiles' vector we aim to update  
 */  
-void Map::_updateTiles(int lTilesIndex, int rTilesIndex) { 
+void Map::updateTiles(int lTilesIndex, int rTilesIndex) { 
 	// Iterate across each tile 
 	for (int i = lTilesIndex; i < rTilesIndex; i++) { 
 		// Assert that the tile correspondent to `i` does exist 
