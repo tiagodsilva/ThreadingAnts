@@ -8,7 +8,8 @@
 * @param int initVolume the initial volume of the food in this tile 
 */  
 Food::Food(int x, int y, int initVolume) 
-	: x_pos(x), y_pos(y), volume(initVolume), initialVolume(initVolume) 	
+	: x_pos(x), y_pos(y), volume(initVolume), initialVolume(initVolume), 
+	maxAnts(maxAnts) 
 	{} 
 		
 /**  
