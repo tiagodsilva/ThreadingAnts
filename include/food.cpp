@@ -95,6 +95,7 @@ void Food::takeRods(int i) {
 */  
 void Food::putRods(int i) { 
 	attrMutex.lock(); 
+	seats[i] = FREE; // The food ate the object 
 	test(LEFT(i)); 
 	test(RIGHT(i)); 
 	attrMutex.unlock(); 
@@ -108,8 +109,6 @@ void Food::eat(int i) {
 	takeRods(i); 
 	if (volume >= 1) { 
 		volume--; 
-		currAnts++;  
-		seats[i] = FREE; // The ant already contains a food object 
 	} 
 	putRods(i); 
 	// The ant ate the food object 
