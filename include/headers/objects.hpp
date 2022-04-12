@@ -77,9 +77,13 @@ class Food {
 		// it is appropriate to restore the volume 
 		// Mutex to control the access to the food's attributes 
 		std::mutex attrMutex; 
+
+		// The maximum quantity of ants that would eat this food in a 
+		// stage 
+		int maxAnts; 
 	public: 
 		// methods 
-		Food(int x, int y, int initVolume); 
+		Food(int x, int y, int initVolume, int maxAnts); 
 		bool consume(); 
 		void restore(); 
 		int getVolume(); 
