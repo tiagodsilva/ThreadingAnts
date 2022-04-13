@@ -292,9 +292,11 @@ bool Ant::fight() {
 	std::string anthillName = it->first; 
 
 	if (anthillName == thisAnthill) { 
-		// die 
+		map->killAnt(this);  
 	} else { 
-		// kill 
+		Tile * currTile = map->getTile(x_pos, y_pos); 
+		// Capture an ant from the deathfull colony 
+		map->killAntFromColony(anthillName, x_pos, y_pos); 
 	} 
 	return true; 
 
