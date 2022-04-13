@@ -31,7 +31,7 @@ bool Food::consume() {
  
 	// In this case, the ants continue near the food, instead of moving randomly 
 	getFreeSeat(); 
-	if (currAnts >= maxAnts || (volume < 1)) 
+	if (currAnts > maxAnts || (volume < 1)) 
 		return false;   
 	
 	eat(currAnts); // Eat the food consistently with the rods embracing 
@@ -138,7 +138,7 @@ void Food::getFreeSeat() {
 	std::lock_guard<std::mutex> lk(seatMutex); 
 	// Check that, in this iteration, the quantity of ants that tried to interact with 
 	// the food object 
-	if (currAnts >= maxAnts) 
+	if (currAnts > maxAnts) 
 		return; 
 	
 	// As we increment the attribute `currAnts`, we assert that the 
