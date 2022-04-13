@@ -163,7 +163,7 @@ bool Ant::moveToFood() {
 		// (presumably) food->getVolume() >= 1; and, in (3), hasFood = false 
 		// and food->getVolume() < 1. Equivalently, this function should 
 		// compute hasFood || food->getVolume() >= 1. 
-		return (hasFood || volume >= 1); 
+		return (!hasFood && volume >= 1); // Should fight deterministically!  
 	} 
 
 	Tile * currTile = map->getTile(x_pos, y_pos); 
@@ -178,10 +178,10 @@ bool Ant::moveToFood() {
 				
 		// Identify and apply the food's direction 
 		moveInSegment(antVec, foodVec, neighbors); 
-		return true; 
+		return false; // Should not fight deterministically!   
 	} 
 		
-	// Notify that no movement was executed; this is convenient to move randomly 
+	// Notify that, as the neighboring tiles are plausible, it should fight stocastically  
 	return false; 
 } 
 
@@ -232,21 +232,21 @@ void Ant::stage() {
 	} 
 	
 
-	bool foodInFOV = moveToFood(); 
+	bool shouldFight = moveToFood(); 
 
 	// Check whether the ant should fight; it is an attribute, which is modified in the `moveToFood` method in 
 	// this class  
 	if (shouldFight) { // In this case, the food's volume is positive, 
 			// and the ant categorically fight 
-		bool fought = fight(); 
+		fight(); 
 		return; 
 	} 
 
 	// Toss a coin to decide whether to fight or to flee 
 	int coin = tossACoin(); 
-
+	bool fought = false; 
 	if (coin == 1) 
-		bool fought = fight(); 
+		fought = fight(); 
 
 	if (!fought) // If it did not fight, there are no enemies for war 
 		moveRandomly(); 
