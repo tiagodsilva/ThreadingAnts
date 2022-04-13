@@ -149,8 +149,21 @@ bool Ant::moveToFood() {
 	if (distanceToFood == 1) { 
 		// Assert the positiveness of the food's volume 
 		Food * food = map->getFood(xNeighbor, yNeighbor); 
+		int volume = food->getVolume(); 
 		eat(food); 
-		return hasFood; // Whether the food was eaten, or it is edible 
+		// If this function points positively to true, then the random 
+		// movement is postponed; in this scenario, we want that either 
+		// (1) the ant ate the food and, so, it awaits for the next iteration
+		// (which implies hasFood = true); 
+		// (2) the ant did not eat the food, as the seats were 
+		// already occupied, and, so, it also awaits for the next iteration; 
+		// (3) or the ant did not eat, as the food's volume equals null, so 
+		// the ant should move randomly. 
+		// In (1), hasFood = true; in (2), hasFood = false, whereas 
+		// (presumably) food->getVolume() >= 1; and, in (3), hasFood = false 
+		// and food->getVolume() < 1. Equivalently, this function should 
+		// compute hasFood || food->getVolume() >= 1. 
+		return (hasFood || volume >= 1); 
 	} 
 
 	Tile * currTile = map->getTile(x_pos, y_pos); 
