@@ -140,9 +140,9 @@ void Food::getFreeSeat() {
 	// the food object 
 	if (currAnts >= maxAnts) 
 		return; 
-
-	seats[currAnts] = HUNGRY; 
 	
+	// As we increment the attribute `currAnts`, we assert that the 
+	// ant is already in the table; therefore, we should not modify 
+	// the `seats` variable 
 	currAnts++; 
-	// In this case, the seats are absolutely occupied in the table 
 } 
