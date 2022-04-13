@@ -253,6 +253,9 @@ class Map {
 		Tile * captureFoodNear(int x, int y); 
 		int getPSurvival(); 
 
+		// Methods to kill an ant 
+		void killAnt(Ant * ant); 
+		void killAntFromColony(std::string colony, int x, int y); 
 };
 
 Map * map; 
