@@ -257,10 +257,6 @@ void Ant::stage() {
 */  
 bool Ant::fight() { 
 	// Toss a coin to decide whether to fight 
-
-	if (!shouldFight) // should not fight 
-		return false; 
-	
 	std::map<std::string, int> enemies = map->getTile(x_pos, y_pos)->numAnts(); 
 	
 	int nColonies = enemies.size(); 
@@ -283,7 +279,7 @@ bool Ant::fight() {
 		       ++it; 	
 	} 
 	
-		// Execute a fight 
+	// Execute a fight 
 	int dead = weightedRandom<double>(nEnemies, nColonies);  
 	
 	// Compute the anthill's name correspondent to the dead ant 

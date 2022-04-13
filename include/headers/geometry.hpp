@@ -176,4 +176,16 @@ int tossACoin() {
 	int face = (int)(randomNumber >= .5); 
 	return face; 
 } 
+
+/**  
+* Compute the minimum between the quantites `x` and `y`; it is appropriate for distances.  
+* @param T x, T y the number whose minimum we aim to compute 
+*/  
+template <typename T> 
+T min (T x, T y) { 
+	if (x <= y) 
+		return x; 
+	else 
+		return y; 
+} 
 #endif 

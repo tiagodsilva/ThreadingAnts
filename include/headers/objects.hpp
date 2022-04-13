@@ -258,6 +258,8 @@ class Map {
 
 		Tile * captureFoodNear(int x, int y); 
 		int getPSurvival(); 
+
+		void reinitializeAnts(); 
 };
 
 Map * map; 

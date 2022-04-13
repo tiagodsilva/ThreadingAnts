@@ -266,8 +266,13 @@ void Tile::checkPheromones() {
 * @param std::string anthill the anthill's name 
 */  
 void Tile::incrementDeaths(std::string anthill) { 
+	std::lock_guard<std::mutex> lk(tileMutex); 
 	// Update the quantity of deaths for this anthill 
-	deaths[anthill] += 1; 
+	if (deaths.find(anthill) == deaths.end()) { 
+		deaths[anthill] = 1; 
+	} else { 
+		deaths[anthill] += 1; 
+	} 
 } 
 
 /**  
@@ -286,11 +291,13 @@ void Tile::killAnts() {
 		// and kill the ants 
 		std::stack<Ant*> * pStack = ants->find(anthillName)->second; 
 
-		for (int death = 0; death < nDeaths; death++) { 
+		for (int death = 0; death < min(nDeaths, pStack->size()); death++) { 
 			Ant * deadAnt = pStack->top(); 
 			pStack->pop(); 
 			delete deadAnt; 
 		} 
+
+		deaths[anthillName] = 1e-19; 
 	} 
 } 
 

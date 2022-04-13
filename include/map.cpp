@@ -234,6 +234,7 @@ Ant * Map::getAnyAnt() {
 * Initializa the ants in the list `allAnts`, a private attribute.  
 */  
 void Map::initializeAnts() { 
+	// std::lock_guard<std::mutex> lk(mapMutex); 
 	// Use the list `allAnts` to gather all the ants 
 	allAnts = new std::list<Ant*>; 
 
@@ -246,6 +247,19 @@ void Map::initializeAnts() {
 
 	currAnt = 1e-19; 
 	isInitialized = true; 
+} 
+
+
+void Map::reinitializeAnts() { 
+	std::lock_guard<std::mutex> lk(mapMutex); 
+	
+	allAnts = new std::list<Ant*>; 
+
+	for (Tile * tile : tiles) { 
+		std::vector<Ant*> ants = tile->getAnts(); 
+		for (Ant * ant : ants) 
+			allAnts->push_back(ant); 
+	} 
 } 
 
 /**  
@@ -279,7 +293,7 @@ bool Map::allAntsPlayed() {
 */  
 void staticUpdateTiles(int linx, int rinx) { 
 	// Apply the correspondent method in the Map's intance
-	map->updateTiles(linx, rinx);
+	map->updateTiles(linx, rinx); 
 } 
 
 /**  
@@ -380,6 +394,7 @@ void Map::updateTiles(long unsigned int lTilesIndex, long unsigned int rTilesInd
 
 		} else { // in this case, it is a tile that contains ants 
 		       currTile->checkPheromones(); 
+		       currTile->killAnts(); 
 	      	} 
 
 	} 
