@@ -234,7 +234,7 @@ void Ant::stage() {
 	// The ant will toss a coin to fight or to flee; if it chooses 
 	// to fight, it will die with a positive probability; if it flee, 
 	// it will either move to the food or randomly 
-	bool fought = fight(); 
+	bool fought = false; // fight(); 
 
 	if (!fought) { 
 		// In contrast, check for food near 

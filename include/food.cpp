@@ -18,6 +18,9 @@ Food::Food(int x, int y, int initVolume, int maxAnts)
 
 		for (int i = 0; i < maxAnts; i++) 
 			seats[i] = FREE; 
+
+		for (int i = 0; i < maxAnts; i++) 
+			sem_init(&eatSemaphores[i], 1, 1); 
 	} 
 		
 /**  

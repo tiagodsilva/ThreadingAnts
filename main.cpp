@@ -150,7 +150,7 @@ void multithreadGame() {
 	// Instantiate the threads 
 	for (int i = 0; i < nThreads; i++) 
 		threadList.push_back(new std::thread(multithreadStage)); 
-		
+	
 	const std::string LINES = concatStrings("+", width); 
 
 	while (GAME_ITERATION < iterations) { 
@@ -174,6 +174,8 @@ int main(int argc, char *argv[]) {
 	// This instance, `map`, is global 
 	map = new Map(width, height, fov, psurvival, ufood); 
 	initializeGame(map, width, height); 
+	
+	map->print(); 
 
 	// sequentialGame(); 
 	multithreadGame(); 
