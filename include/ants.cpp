@@ -231,12 +231,19 @@ void Ant::stage() {
 		return; 
 	} 
 	
-	// In contrast, check for food near 
-	bool foodInFOV = moveToFood(); 
+	// The ant will toss a coin to fight or to flee; if it chooses 
+	// to fight, it will die with a positive probability; if it flee, 
+	// it will either move to the food or randomly 
+	bool fought = fight(); 
 
-	// If there is not, move randomly 
-	if (!foodInFOV) { 
-		moveRandomly(); 
-		return; 
+	if (fought) { 
+		// In contrast, check for food near 
+		bool foodInFOV = moveToFood(); 
+
+		// If there is not, move randomly 
+		if (!foodInFOV) { 
+			moveRandomly(); 
+			return; 
+		} 
 	} 
 } 
