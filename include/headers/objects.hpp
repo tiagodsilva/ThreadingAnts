@@ -116,6 +116,9 @@ class Food {
 
 		void eat(int i); 
 		void putRods(int i); // The ant is released from the list 
+
+		// Choose, randomly, whether to fight, and possibly die 
+		bool fight(); 
 }; 
 
 class Ant {
@@ -144,6 +147,9 @@ class Ant {
 		Anthill * getAnthill(); 
 		void moveRandomly(); 
 		void stage(); 
+
+		// Choose, randomly, whether to fight, and possibly die 
+		bool fight(); 
 };
 
 class Tile {
