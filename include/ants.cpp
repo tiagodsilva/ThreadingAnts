@@ -231,21 +231,26 @@ void Ant::stage() {
 		return; 
 	} 
 	
-	// The ant will toss a coin to fight or to flee; if it chooses 
-	// to fight, it will die with a positive probability; if it flee, 
-	// it will either move to the food or randomly 
-	bool fought = fight(); 
 
-	if (!fought) { 
-		// In contrast, check for food near 
-		bool foodInFOV = moveToFood(); 
+	bool foodInFOV = moveToFood(); 
 
-		// If there is not, move randomly 
-		if (!foodInFOV) { 
-			moveRandomly(); 
-			return; 
-		} 
+	// Check whether the ant should fight; it is an attribute 
+	bool protectFood = shouldFight; 
+
+	if (protectFood) { // In this case, the food's volume is positive, 
+			// and the ant categorically fight 
+		bool fought = fight(); 
+		return; 
 	} 
+
+	// Toss a coin to decide whether to fight or to flee 
+	int coin = tossACoin(); 
+
+	if (coin == 1) 
+		bool fought = fight(); 
+
+	if (!fought) // If it did not fight, there are no enemies for war 
+		moveRandomly(); 
 } 
 
 /**  
@@ -253,11 +258,7 @@ void Ant::stage() {
 */  
 bool Ant::fight() { 
 	// Toss a coin to decide whether to fight 
-	int coin[2] = {2, 2}; 
-	// A Bernoully random variable with parameter p = .5; 
-	// it decides whether the ant should fight 
-	bool shouldFight = weightedRandom(coin, 2) >= .5; 
-	
+
 	if (!shouldFight) // should not fight 
 		return false; 
 	
