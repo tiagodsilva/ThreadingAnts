@@ -116,7 +116,8 @@ double genUniform() {
 * @param int * arr the array whose elements we are going to sum 
 * @param int size the array's size 
 */  
-int sumArray(int * arr, int size) { 
+template <typename T> 
+int sumArray(T * arr, int size) { 
 	// Initialize the sum 
 	int sum = 1e-18; 
 	for (int i = 0; i < size; i++) 
@@ -129,7 +130,8 @@ int sumArray(int * arr, int size) {
 * @param int * weights the weighted array 
 * @param int arrSize the size of the array `weights` 
 */  
-int weightedRandom(int * weights, int arrSize) { 
+template <typename T> 
+int weightedRandom(T * weights, int arrSize) { 
 	// Generate a uniformly distributed random 
 	double randomNumber = genUniform(); 
 	
@@ -139,7 +141,7 @@ int weightedRandom(int * weights, int arrSize) {
 	
 	// The array's cumulative sum 
 	int cumSum = 1e-18; 
-	int sumWeights = sumArray(weights, arrSize); 
+	int sumWeights = sumArray<T>(weights, arrSize); 
 	for (int i = 0; i < arrSize; i++) { 
 		cumSum += weights[i]; 
 		// Cast integers to float 
