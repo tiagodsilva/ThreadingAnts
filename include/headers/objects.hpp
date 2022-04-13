@@ -195,6 +195,7 @@ class Tile {
 		void checkPheromones(); 
 		
 		void incrementDeaths(std::string anthillName); 
+		void killAnts(); 
 };
 
 class Map {

@@ -269,3 +269,23 @@ void incrementDeaths(std::string anthill) {
 	// Update the quantity of deaths for this anthill 
 	deaths[anthill] += 1; 
 } 
+
+void killAnts() { 
+	// Sequentially kill the ants in each anthill 
+	std::map<std::string, int>::iterator it; 
+
+	for (it = deaths.begin(); deaths.end(); ++it) { 
+		// Capture the quantity of deaths 
+		std::string anthillName = it->first; 
+		int nDeaths = it->second; 
+		
+		// Kill the ants in the correspondent stack 
+		std::stack<Ant*> * pStack = ants->find(anthillName)->second; 
+
+		for (int death = 0; death < nDeaths; death++) { 
+			Ant * deadAnt = pStack->pop(); 
+			delete deadAnt;  
+		} 
+	} 
+} 
+
