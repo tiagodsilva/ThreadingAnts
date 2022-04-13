@@ -311,7 +311,7 @@ void Map::prepareNextIter(int nThreads) {
 	// Join the threads; this is important to assert the all tiles are checked 
 	for (std::thread * thread : threadsList) { 
 		thread->join(); 
-
+			
 		// Allocate the threads' data to something else 
 		delete thread; 
 	} 

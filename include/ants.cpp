@@ -234,7 +234,7 @@ void Ant::stage() {
 	// The ant will toss a coin to fight or to flee; if it chooses 
 	// to fight, it will die with a positive probability; if it flee, 
 	// it will either move to the food or randomly 
-	bool fought = false; // fight(); 
+	bool fought = fight(); 
 
 	if (!fought) { 
 		// In contrast, check for food near 
@@ -264,12 +264,12 @@ bool Ant::fight() {
 	std::map<std::string, int> enemies = map->getTile(x_pos, y_pos)->numAnts(); 
 	
 	int nColonies = enemies.size(); 
-
-	std::cout << nColonies << std::endl; 
+	
+	// std::cout << nColonies << std::endl; 
 	if (nColonies == 1) // There are no enemies in this tile 
 		return false; 
 
-	std::map<std::string, int>::iterator it; 
+	std::map<std::string, int>::iterator it = enemies.begin(); 
 
 	// Compute the quantity of enemies 
 	double nEnemies[nColonies]; 
@@ -277,11 +277,13 @@ bool Ant::fight() {
 	std::string thisAnthill = antHill->getName(); 
 
 	for (int i = 0; i < nColonies; i++) { 
-		nEnemies[i] = 1/(it->second + 1); 
-		++it; 
+		nEnemies[i] = 1/(it->second + 1); // The probability of death is inversely proportional to 
+							// the quantity of enemies 
+		if (it != enemies.end()) 
+		       ++it; 	
 	} 
-
-	// Execute a fight 
+	
+		// Execute a fight 
 	int dead = weightedRandom<double>(nEnemies, nColonies);  
 	
 	// Compute the anthill's name correspondent to the dead ant 
