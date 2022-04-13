@@ -301,7 +301,7 @@ void staticUpdateTiles(int linx, int rinx) {
 * @param int nThreads the quantity of threads to use in this step 
 */  
 void Map::prepareNextIter(int nThreads) { 
-	currAnt = 1e-19; 
+	// currAnt = 1e-19; 
 
 	// Compute the quantity of tiles in the game 
 	int nTiles = width * height; 
@@ -329,6 +329,10 @@ void Map::prepareNextIter(int nThreads) {
 		// Allocate the threads' data to something else 
 		delete thread; 
 	} 
+	
+	map->reinitializeAnts(); 
+	currAnt = 1e-19; 
+
 } 
 
 /**  

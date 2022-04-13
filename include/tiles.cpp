@@ -291,7 +291,7 @@ void Tile::killAnts() {
 		// and kill the ants 
 		std::stack<Ant*> * pStack = ants->find(anthillName)->second; 
 
-		for (int death = 0; death < min(nDeaths, pStack->size()); death++) { 
+		for (int death = 0; death < min<int>(nDeaths, pStack->size()); death++) { 
 			Ant * deadAnt = pStack->top(); 
 			pStack->pop(); 
 			delete deadAnt; 
