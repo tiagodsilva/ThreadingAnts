@@ -164,4 +164,16 @@ T abs(T x) {
 	else 
 		return x; 
 } 
+
+/**  
+* Toss a fair coin; it provides heads and tails with equal probability.  
+*/  
+int tossACoin() { 
+	// Draw a random variable uniformly distributed in the unitary interval in the real line 
+	double randomNumber = genUniform(); 
+	
+	// Check the coin's face 
+	int face = (int)(randomNumber >= .5); 
+	return face; 
+} 
 #endif 
