@@ -384,3 +384,19 @@ void Map::updateTiles(long unsigned int lTilesIndex, long unsigned int rTilesInd
 
 	} 
 } 
+
+/**  
+* Kill an ant; it requires, emphatically, a pointer to this instance.  
+* @param Ant * ant a pointer to the ant that we are going to kill 
+*/  
+void killAnt(Ant * ant) { 
+	// Identify the ant's tile 
+	Tile * tile = getTile(ant->getX(), ant->getY()); 
+	// Update attribute that contemplates all ants 
+	mapMutex.lock(); 
+	allAnts->erase(ant); 
+	mapMutex.unlock(); 
+
+	tile->killAnt(ant); 
+
+} 
