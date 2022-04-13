@@ -168,6 +168,9 @@ class Tile {
 	public:
 		// Array with the ants in this tile for each colony
 		std::map<std::string, std::stack<Ant*>*> * ants;
+		// and with the deaths 
+		std::map<std::string, int> deaths; 
+
 		// Ramifications of this tile 
 		bool isAnthill; 
 		std::string anthillName; 
@@ -190,6 +193,8 @@ class Tile {
 		std::vector<Ant*> getAnts(); 
 
 		void checkPheromones(); 
+		
+		void incrementDeaths(std::string anthillName); 
 };
 
 class Map {
@@ -252,10 +257,6 @@ class Map {
 
 		Tile * captureFoodNear(int x, int y); 
 		int getPSurvival(); 
-
-		// Methods to kill an ant 
-		void killAnt(Ant * ant); 
-		void killAntFromColony(std::string colony, int x, int y); 
 };
 
 Map * map; 

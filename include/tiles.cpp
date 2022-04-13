@@ -259,3 +259,8 @@ void Tile::checkPheromones() {
 		} 
 	} 
 } 
+
+void incrementDeaths(std::string anthill) { 
+	// Update the quantity of deaths for this anthill 
+	deaths[anthill] += 1; 
+} 
