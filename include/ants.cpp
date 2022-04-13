@@ -14,7 +14,7 @@
 * @param Map map the map in which the game unfolds; it is, now, a convenient attribute
 */  
 Ant::Ant(int x, int y, Anthill * colony, int fieldOfView) 
-	: x_pos(x), y_pos(y), antHill(colony), fov(fieldOfView) 
+	: x_pos(x), y_pos(y), antHill(colony), fov(fieldOfView), shouldFight(false), hasFood(false)  
 	{} 
 /**  
 * Execute a movement for the current ant.  
@@ -234,10 +234,9 @@ void Ant::stage() {
 
 	bool foodInFOV = moveToFood(); 
 
-	// Check whether the ant should fight; it is an attribute 
-	bool protectFood = shouldFight; 
-
-	if (protectFood) { // In this case, the food's volume is positive, 
+	// Check whether the ant should fight; it is an attribute, which is modified in the `moveToFood` method in 
+	// this class  
+	if (shouldFight) { // In this case, the food's volume is positive, 
 			// and the ant categorically fight 
 		bool fought = fight(); 
 		return; 

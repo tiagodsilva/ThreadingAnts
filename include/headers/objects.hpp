@@ -129,9 +129,10 @@ class Ant {
 
 		Anthill * antHill;
 		int fov; // field of view
+		bool shouldFight; 
 	public:
 		bool hasFood;
-
+		
 		// Explicit ants methods
 		Ant(int x, int y, Anthill * colony, int fieldOfView);
 		void move(int x, int y);
