@@ -208,7 +208,7 @@ void Ant::moveRandomly() {
 		pheromones[i] = thisNeighbors[i]->pheromone + 1; 
 	} 
 	
-	int randomTile = weightedRandom(pheromones, nNeighbors); 
+	int randomTile = weightedRandom<int>(pheromones, nNeighbors); 
 	
 	// Compute the tile's coordinates 
 	Tile * currTile = thisNeighbors[randomTile];
@@ -265,6 +265,7 @@ bool Ant::fight() {
 	
 	int nColonies = enemies.size(); 
 
+	std::cout << nColonies << std::endl; 
 	if (nColonies == 1) // There are no enemies in this tile 
 		return false; 
 
@@ -277,11 +278,11 @@ bool Ant::fight() {
 
 	for (int i = 0; i < nColonies; i++) { 
 		nEnemies[i] = 1/(it->second + 1); 
-		std::advance(it, 1); 
+		++it; 
 	} 
 
 	// Execute a fight 
-	int dead = weightedRandom(nEnemies, nColonies);  
+	int dead = weightedRandom<double>(nEnemies, nColonies);  
 	
 	// Compute the anthill's name correspondent to the dead ant 
 	it = enemies.begin(); 
