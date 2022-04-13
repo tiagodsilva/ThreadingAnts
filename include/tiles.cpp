@@ -260,6 +260,11 @@ void Tile::checkPheromones() {
 	} 
 } 
 
+/**  
+* Increment the quantity of deaths in an anthill; the correspondent stack 
+* is going to be modified in the next game iteration. 
+* @param std::string anthill the anthill's name 
+*/  
 void incrementDeaths(std::string anthill) { 
 	// Update the quantity of deaths for this anthill 
 	deaths[anthill] += 1; 
