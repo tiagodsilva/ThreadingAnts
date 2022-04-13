@@ -1,0 +1,11 @@
+the ant should choose to fight or to eat. this is what we
+have:
+
++ we are notified whether the ant contains food or there i
+s a food with positive volume near, and also if it has foo
+d; so, we have the information about the positiveness of t
+he volume of the near food objects
++ if the volume is positive and the ant does not have food
+, it should fight with probability one; if the volume is n
+onpositive, it should flee with probability one
++ then, instead of moving randomly -- which happens if ther is no food with positive volume near --, it chooses (randomly) whether to fight or to (randomly) move 
