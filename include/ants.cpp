@@ -236,7 +236,7 @@ void Ant::stage() {
 	// it will either move to the food or randomly 
 	bool fought = fight(); 
 
-	if (fought) { 
+	if (!fought) { 
 		// In contrast, check for food near 
 		bool foodInFOV = moveToFood(); 
 
@@ -246,4 +246,21 @@ void Ant::stage() {
 			return; 
 		} 
 	} 
+} 
+
+/**  
+* Execute a fight; it will possibly culminate in death.  
+*/  
+bool Ant::fight() { 
+	// Toss a coin to decide whether to fight 
+	int coin[2] = {2, 2}; 
+	// A Bernoully random variable with parameter p = .5; 
+	// it decides whether the ant should fight 
+	bool shouldFight = weightedRandom(coin, 2) >= .5; 
+	
+	if (!shouldFight) // should not fight 
+		return false; 
+
+	return true; 
+
 } 
