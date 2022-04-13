@@ -261,6 +261,8 @@ bool Ant::fight() {
 	if (!shouldFight) // should not fight 
 		return false; 
 
+	std::map<std::string, int> hasEnemies = map->getTile(x_pos, y_pos)->numAnts(); 
+
 	return true; 
 
 } 
