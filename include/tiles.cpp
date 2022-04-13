@@ -107,7 +107,8 @@ std::map<std::string, int> Tile::numAnts() {
 		// Compute the quantity of ants 
 		int currAnts = (iter->second)->size(); 
 
-		nAnts.insert({colony, currAnts}); 
+		if (currAnts >= 1) 
+			nAnts.insert({colony, currAnts}); 
 	} 
 	// Compute the map 			
 	return nAnts; 
