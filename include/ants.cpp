@@ -260,9 +260,39 @@ bool Ant::fight() {
 	
 	if (!shouldFight) // should not fight 
 		return false; 
+	
+	std::map<std::string, int> enemies = map->getTile(x_pos, y_pos)->numAnts(); 
+	
+	int nColonies = enemies.size(); 
 
-	std::map<std::string, int> hasEnemies = map->getTile(x_pos, y_pos)->numAnts(); 
+	if (nColonies == 1) // There are no enemies in this tile 
+		return false; 
 
+	std::map<std::string, int>::iterator it; 
+
+	// Compute the quantity of enemies 
+	double nEnemies[nColonies]; 
+	
+	std::string thisAnthill = antHill->getName(); 
+
+	for (int i = 0; i < nColonies; i++) { 
+		nEnemies[i] = 1/(it->second + 1); 
+		std::advance(it, 1); 
+	} 
+
+	// Execute a fight 
+	int dead = weightedRandom(nEnemies, nColonies);  
+	
+	// Compute the anthill's name correspondent to the dead ant 
+	it = enemies.begin(); 
+	std::advance(it, dead); 
+	std::string anthillName = it->first; 
+
+	if (anthillName == thisAnthill) { 
+		// die 
+	} else { 
+		// kill 
+	} 
 	return true; 
 
 } 
