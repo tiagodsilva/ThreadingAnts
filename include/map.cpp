@@ -385,7 +385,4 @@ void Map::updateTiles(long unsigned int lTilesIndex, long unsigned int rTilesInd
 	} 
 } 
 
-void incrementDeath(std::string anthill) { 
-	// Update the anthill's death table 
-	deaths[anthill] += 1; 
-}
+

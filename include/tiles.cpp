@@ -265,26 +265,31 @@ void Tile::checkPheromones() {
 * is going to be modified in the next game iteration. 
 * @param std::string anthill the anthill's name 
 */  
-void incrementDeaths(std::string anthill) { 
+void Tile::incrementDeaths(std::string anthill) { 
 	// Update the quantity of deaths for this anthill 
 	deaths[anthill] += 1; 
 } 
 
-void killAnts() { 
+/**  
+* Apply the map `deaths` to iteratively kill ants in this tile.  
+*/  
+void Tile::killAnts() { 
+	std::lock_guard<std::mutex> lk(tileMutex); 
 	// Sequentially kill the ants in each anthill 
 	std::map<std::string, int>::iterator it; 
 
-	for (it = deaths.begin(); deaths.end(); ++it) { 
+	for (it = deaths.begin(); it != deaths.end(); ++it) { 
 		// Capture the quantity of deaths 
 		std::string anthillName = it->first; 
 		int nDeaths = it->second; 
-		
-		// Kill the ants in the correspondent stack 
+
+		// and kill the ants 
 		std::stack<Ant*> * pStack = ants->find(anthillName)->second; 
 
 		for (int death = 0; death < nDeaths; death++) { 
-			Ant * deadAnt = pStack->pop(); 
-			delete deadAnt;  
+			Ant * deadAnt = pStack->top(); 
+			pStack->pop(); 
+			delete deadAnt; 
 		} 
 	} 
 } 

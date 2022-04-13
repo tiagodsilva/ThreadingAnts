@@ -291,13 +291,8 @@ bool Ant::fight() {
 	std::advance(it, dead); 
 	std::string anthillName = it->first; 
 
-	if (anthillName == thisAnthill) { 
-		map->killAnt(this);  
-	} else { 
-		Tile * currTile = map->getTile(x_pos, y_pos); 
-		// Capture an ant from the deathfull colony 
-		map->killAntFromColony(anthillName, x_pos, y_pos); 
-	} 
-	return true; 
+	// Increment the quantity of deaths in the appropriate anthill 
+	map->getTile(x_pos, y_pos)->incrementDeaths(anthillName); 
 
+	return true; 
 } 
