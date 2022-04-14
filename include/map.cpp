@@ -272,13 +272,14 @@ void Map::reinitializeAnts() {
 * Compute the next ant to play the game; it is convenient for multithreaded programs.  
 */  
 Ant * Map::computeNextAnt() { 
-	std::lock_guard<std::mutex> lk(mapMutex); 
+	std::unique_lock<std::mutex> lk(mapMutex); 
 	if (!isInitialized) 
 		throw AntNotFound("The map was not initialized in the game!"); 
 	
 	// std::list<Ant*>::iterator it = allAnts->begin(); 
 	// Check whether the current ant is in a plausible interval 
-	while (currAnt >= allAnts->size()); 
+	// while (currAnt >= allAnts->size()); 
+	cv.wait(lk, []{return currAnt < allAnts->size()); 
 	std::list<Ant*>::iterator it = allAnts->begin(); 
 	std::advance(it, currAnt); 
 	currAnt++; 
@@ -339,6 +340,7 @@ void Map::prepareNextIter(int nThreads) {
 	
 	map->reinitializeAnts(); 
 	currAnt = 1e-19; 
+	cv.notify_all(); 
 
 } 
 
