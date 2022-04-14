@@ -409,4 +409,24 @@ void Map::updateTiles(long unsigned int lTilesIndex, long unsigned int rTilesInd
 	} 
 } 
 
+/**  
+* Print the quantity of ants in each anthill; it also identifies the their food storage. 
+*/  
+void Map::printAnthillsChars() { 
+	// Iterate across the available anthills 
+	std::map<std::string, Anthill*>::iterator it; 
+
+	// Vector to display the quantities 
+	std::vector<std::tuple<std::string, int, int>> anthills; 
+
+	for (it = anthillMap.begin(); it != anthillMap.end(); ++it) { 
+		// Identify the quantity of food storage 
+		int foodStorage = it->foodStorage; 
+		std::string anthillName = it->getName(); 
+
+		anthills.push_back( 
+				std::make_tuple(anthillName, foodStorage, 1e-19) 
+		); 
+	} 
+} 
 
