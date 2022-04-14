@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1649979192 "report.tex" "report.pdf" "report" 1649979193
+["pdflatex"] 1649980749 "report.tex" "report.pdf" "report" 1649980751
   "/etc/texmf/web2c/texmf.cnf" 1630360922 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -26,6 +26,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm" 1136768653 768 1321e9409b4137d6fb428ac9dc956269 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm" 1136768653 772 9a936b7f5e2ff0557fce0f62822f0bbf ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1248133631 36741 fa121aac0049305630cf160b86157ee4 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1248133631 32722 d7379af29a190c3f453aba36302ff5a9 ""
@@ -36,6 +37,7 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1248133631 36118 fad905eba93cff5bce1e185fe980a177 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb" 1248133631 31099 c85edf1dd5b9e826d67c9c7293b6786c ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb" 1248133631 24252 1e4e051947e12dfb50fee0b7f4e26e3a ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/share/texlive/texmf-dist/tex/generic/babel-portuges/portuges.ldf" 1367878976 6605 2bd2937f1ce929b4a1367cc2d320364e ""
   "/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def" 1581719732 87344 ec128793fb5196bbcc1741e5366ddac1 ""
@@ -146,11 +148,11 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1630361151 8259090 5ba46b16273ac456ac11c920026209ec ""
   "image.png" 1649964999 177376 dd6cd2c80714c36234e320fd05ff8020 ""
   "map.png" 1649970583 80693 0c6302351b78977df6820faf57b1b78c ""
-  "report.aux" 1649979193 1306 dab8df6abb50ad466f5ee4330336385c "pdflatex"
-  "report.tex" 1649979191 17444 2727bb03088cfdf50436d427be013a15 ""
-  "report.toc" 1649979193 583 a7a84a6c45d2795b0134d1f0cfe59fb0 "pdflatex"
+  "report.aux" 1649980751 1417 43bb3484a3976e6e04b579831a8408b2 "pdflatex"
+  "report.tex" 1649980748 18833 531a1f80950d566bb89355e0ac91be8c ""
+  "report.toc" 1649980751 653 2fbcda88aef7cc752209528cb6c6f620 "pdflatex"
   (generated)
+  "report.pdf"
   "report.aux"
   "report.toc"
   "report.log"
-  "report.pdf"
