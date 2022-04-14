@@ -279,7 +279,7 @@ void Tile::incrementDeaths(std::string anthill) {
 * Apply the map `deaths` to iteratively kill ants in this tile.  
 */  
 void Tile::killAnts() { 
-	std::lock_guard<std::mutex> lk(tileMutex); 
+	std::lock_guard<std::mutex> lk(deathMutex); 
 	// Sequentially kill the ants in each anthill 
 	std::map<std::string, int>::iterator it; 
 
@@ -293,8 +293,8 @@ void Tile::killAnts() {
 
 		for (int death = 0; death < min<int>(nDeaths, pStack->size()); death++) { 
 			Ant * deadAnt = pStack->top(); 
-			pStack->pop(); 
-			delete deadAnt; 
+			deadAnt->isDead = true; 
+			// pStack->pop();  
 		} 
 
 		deaths[anthillName] = 1e-19; 

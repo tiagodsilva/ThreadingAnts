@@ -14,7 +14,7 @@
 * @param Map map the map in which the game unfolds; it is, now, a convenient attribute
 */  
 Ant::Ant(int x, int y, Anthill * colony, int fieldOfView) 
-	: x_pos(x), y_pos(y), antHill(colony), fov(fieldOfView), shouldFight(false), hasFood(false)  
+	: x_pos(x), y_pos(y), antHill(colony), fov(fieldOfView), shouldFight(false), hasFood(false), isDead(false) 
 	{} 
 /**  
 * Execute a movement for the current ant.  

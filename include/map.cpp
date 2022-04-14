@@ -251,14 +251,16 @@ void Map::initializeAnts() {
 
 
 void Map::reinitializeAnts() { 
-	std::lock_guard<std::mutex> lk(mapMutex); 
-	
-	allAnts = new std::list<Ant*>; 
+	// std::lock_guard<std::mutex> lk(mapMutex); 
+	std::list<Ant*>::iterator it = allAnts->begin(); 
 
-	for (Tile * tile : tiles) { 
-		std::vector<Ant*> ants = tile->getAnts(); 
-		for (Ant * ant : ants) 
-			allAnts->push_back(ant); 
+	while (it != allAnts->end()) { 
+		bool isDead = (*it)->isDead; 
+		if (isDead) { 
+			allAnts->erase(it++); 
+		} else { 
+			++it; 
+		} 
 	} 
 } 
 
@@ -270,9 +272,10 @@ Ant * Map::computeNextAnt() {
 	if (!isInitialized) 
 		throw AntNotFound("The map was not initialized in the game!"); 
 	
-	std::list<Ant*>::iterator it = allAnts->begin(); 
+	// std::list<Ant*>::iterator it = allAnts->begin(); 
 	// Check whether the current ant is in a plausible interval 
 	while (currAnt >= allAnts->size()); 
+	std::list<Ant*>::iterator it = allAnts->begin(); 
 	std::advance(it, currAnt); 
 	currAnt++; 
 	return *it; 

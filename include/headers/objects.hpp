@@ -132,7 +132,8 @@ class Ant {
 		bool shouldFight; 
 	public:
 		bool hasFood;
-		
+		bool isDead; 
+
 		// Explicit ants methods
 		Ant(int x, int y, Anthill * colony, int fieldOfView);
 		void move(int x, int y);
@@ -165,6 +166,8 @@ class Tile {
 		std::mutex tileMutex; 
 		// A mutex to control the access to the phermones 
 		std::mutex pherMutex; 
+		// A mutex to control the death of the ants 
+		std::mutex deathMutex; 
 	public:
 		// Array with the ants in this tile for each colony
 		std::map<std::string, std::stack<Ant*>*> * ants;

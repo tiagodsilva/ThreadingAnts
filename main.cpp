@@ -153,6 +153,7 @@ void multithreadGame() {
 	
 	const std::string LINES = concatStrings("+", width); 
 
+	std::cout << LINES << "Initialization" << std::endl;
 	while (GAME_ITERATION < iterations) { 
 		if (map->allAntsPlayed()) {
 			std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
