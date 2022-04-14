@@ -97,5 +97,10 @@ Em cada iteração, há incisivamente um tripleto de ações que as formigas pod
 
 Em cada iteração da simulação, assim, cada formiga executa um movimento condicional ao seu estado atual: se ela estiver equipada com comida, ela, incondicionalmente ao seu ambiente, ao formigueiro; se não, ela escaneia o ambiente que a entorna e verifica se há alimentos -- se houver, ela se direciona a eles e, se não, ela se movimenta aleatoriamente. Em algumas circunstâncias, ela escolhe lutar; postergamos a descrição desta ação, contudo, para as seções seguintes. Na seção seguinte, caracterizamos o movimento de formigas com comida e a introdução de feromônios. 
 
+\subsection{Liberação de feromônios} 
+
+Quando capturam alimentos, as formigas se direcionam impetuosamente ao seu formigueiro; em cada movimento, contudo, elas liberam feromônios (\texttt{releasePheromone}; este é um dos métodos da classe \texttt{Ant}) com o objetivo de sinalizar a outras formigas (possivelmente, de outros formigueiros) que existe um caminho, nas proximidades, para uma instância de alimento. Estes feromônios, \texttt{struct Pheromone} com o atributo \texttt{lifetime}, devem ser extraídos do mapa a cada intervalo de iterações; assim, cada instância de \texttt{Tile} contém uma lista, \texttt{pheromones}, de feromônios liberados pelas formigas, que é, em cada iteração, percorrida, ensejando a captura de feromônios mortos -- a intensidade de feromônios nesta coordenada, a propósito, é igual ao tamanho desta lista, que, logo, também é modificada em cada iteração. 
+
+
 
 \end{document} 
