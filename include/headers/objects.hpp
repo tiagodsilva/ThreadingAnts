@@ -8,6 +8,7 @@
 #include <list> 
 #include <mutex> 
 #include <semaphore.h> 
+#include <condition_variable> 
 
 #include "geometry.hpp" 
 
@@ -225,6 +226,7 @@ class Map {
 		std::mutex mapMutex; 
 		std::mutex ioMutex; // Mutex to control the access to the IO methods in 
 				// this map 
+		std::condition_variable cv; 
 		// It is convenient, in a multithread program, to track the 
 		// ants in a list 
 		bool isInitialized; 

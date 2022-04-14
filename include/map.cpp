@@ -279,7 +279,7 @@ Ant * Map::computeNextAnt() {
 	// std::list<Ant*>::iterator it = allAnts->begin(); 
 	// Check whether the current ant is in a plausible interval 
 	// while (currAnt >= allAnts->size()); 
-	cv.wait(lk, []{return currAnt < allAnts->size()); 
+	cv.wait(lk, [this]{return currAnt < allAnts->size();}); 
 	std::list<Ant*>::iterator it = allAnts->begin(); 
 	std::advance(it, currAnt); 
 	currAnt++; 
