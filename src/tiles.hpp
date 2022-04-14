@@ -14,7 +14,7 @@
 */ 
 Tile::Tile(int x_tile, int y_tile, bool containsFood) 
 	: x(x_tile), y(y_tile), pheromones(new std::list<Pheromone*>), 
-	isAnthill(false), isFood(containsFood), pheromone(1e-19) 
+	isAnthill(false), isFood(containsFood), pheromone(0) 
 	{
 		ants = new std::map<std::string, std::stack<Ant*>*>; 
 	} 
@@ -27,7 +27,7 @@ Tile::Tile(int x_tile, int y_tile, bool containsFood)
 Tile::Tile(int x_tile, int y_tile, std::string anthillName) 
 	: x(x_tile), y(y_tile),  pheromones(new std::list<Pheromone*>), 
 	isAnthill(true), anthillName(anthillName), isFood(false), 
-	pheromone(1e-19) 
+	pheromone(0) 
  	{
 		ants = new std::map<std::string, std::stack<Ant*>*>; 
 	} 
@@ -151,7 +151,7 @@ std::string Tile::print() {
 	// Check the tile's status 
 	std::map<std::string, int> nAnts = numAnts(); 
 	// Sum the quantity of antos 
-	int totalAnts = 1e-19; 
+	int totalAnts = 0; 
 			
 	for (std::map<std::string, int>::iterator iter = nAnts.begin(); 
 			iter != nAnts.end(); ++iter) { 
@@ -311,7 +311,7 @@ void Tile::killAnts() {
 			deadAnt->isDead = true; 
 		} 
 
-		deaths[anthillName] = 1e-19; 
+		deaths[anthillName] = 0; 
 	} 
 } 
 

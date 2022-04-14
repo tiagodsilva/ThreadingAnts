@@ -21,7 +21,7 @@ class Tile;
 class Region; 
 class Food; 
 
-int GAME_ITERATION = 1e-19; 
+int GAME_ITERATION = 0;  
 
 enum { 
 	HUNGRY = 1, // The ant is aiming for food in this seat 
@@ -68,7 +68,7 @@ class Anthill {
 
 		// Methods 
 		Anthill(int x, int y, std::string colonyName); 
-		void instantiateAnts(int numAnts, int fov); 
+		void instantiateAnts(int numAnts); 
 		void incrementFood(); 
 
 		int getX(); 
@@ -129,14 +129,12 @@ class Ant {
 		int y_pos;
 
 		Anthill * antHill;
-		int fov; // field of view
-		bool shouldFight; 
 	public:
 		bool hasFood;
 		bool isDead; 
 
 		// Explicit ants methods
-		Ant(int x, int y, Anthill * colony, int fieldOfView);
+		Ant(int x, int y, Anthill * colony);
 		void move(int x, int y);
 		void die();
 		void eat(Food * food);

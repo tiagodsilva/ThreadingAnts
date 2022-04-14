@@ -5,7 +5,7 @@
 #include "objects.hpp" 
 #include "geometry.hpp" 
 
-#define MAX_INT 2147483647 
+#define MAX_INT (float)(2147483647) 
 
 /**  
 * Constructor method for `Ant`.  
@@ -13,8 +13,8 @@
 * @param Anthill colony the colony to which the colony's pertains  
 * @param Map map the map in which the game unfolds; it is, now, a convenient attribute
 */  
-Ant::Ant(int x, int y, Anthill * colony, int fieldOfView) 
-	: x_pos(x), y_pos(y), antHill(colony), fov(fieldOfView), shouldFight(false), hasFood(false), isDead(false) 
+Ant::Ant(int x, int y, Anthill * colony) 
+	: x_pos(x), y_pos(y), antHill(colony), hasFood(false), isDead(false) 
 	{} 
 /**  
 * Execute a movement for the current ant.  

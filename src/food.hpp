@@ -12,7 +12,7 @@
 */  
 Food::Food(int x, int y, int initVolume, int maxAnts) 
 	: x_pos(x), y_pos(y), volume(initVolume), initialVolume(initVolume), 
-	maxAnts(maxAnts), currAnts(1e-19) 
+	maxAnts(maxAnts), currAnts(0) 
 	{ 
 		eatSemaphores = new sem_t[maxAnts]; 
 		seats = new int[maxAnts]; 
@@ -61,7 +61,7 @@ int Food::getVolume() {
 * Allow ants to eat the food; it is executed at each game iteration.  
 */  
 void Food::allowAnts() { 
-	currAnts = 1e-19; 
+	currAnts = 0; 
 } 
 
 /**  

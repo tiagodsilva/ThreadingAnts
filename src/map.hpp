@@ -119,7 +119,7 @@ void Map::insertAnthill(int x, int y, std::string anthillName, int nAnts) {
 	// Modify the vector containing the tiles 
 	tiles[i] = new Tile(x, y, anthillName); 
 	
-	anthillMap[anthillName]->instantiateAnts(nAnts, fov); 
+	anthillMap[anthillName]->instantiateAnts(nAnts); 
 
 	// and allocate the RAM 
 	delete currTile; 
@@ -249,7 +249,7 @@ void Map::initializeAnts() {
 			allAnts->push_back(ant); 
 	} 
 
-	currAnt = 1e-19; 
+	currAnt = 0;
 	isInitialized = true; 
 } 
 
@@ -343,7 +343,7 @@ void Map::prepareNextIter(int nThreads) {
 	} 
 	
 	map->reinitializeAnts(); 
-	currAnt = 1e-19; 
+	currAnt = 0; 
 	cv.notify_all(); 
 
 } 

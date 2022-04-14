@@ -119,7 +119,7 @@ double genUniform() {
 template <typename T> 
 T sumArray(T * arr, int size) { 
 	// Initialize the sum 
-	T sum = 1e-18; 
+	T sum = 0; 
 	for (int i = 0; i < size; i++) 
 		sum += arr[i]; 
 	return sum; 
@@ -140,7 +140,7 @@ int weightedRandom(T * weights, int arrSize) {
 	double probabilities[arrSize + 1]; 
 	
 	// The array's cumulative sum 
-	T cumSum = 1e-18; 
+	T cumSum = 0; 
 	T sumWeights = sumArray<T>(weights, arrSize); 
 	for (int i = 0; i < arrSize; i++) { 
 		cumSum += weights[i]; 

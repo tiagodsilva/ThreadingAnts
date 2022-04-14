@@ -1,5 +1,5 @@
 # Makefile to compile the game 
-GCC=clang++-11
+GCC=clang++ 
 CFLAGS=-g -Wall -o
 LDFLAGS=-pthread -Iinclude  
 

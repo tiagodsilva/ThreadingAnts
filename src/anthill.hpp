@@ -18,14 +18,14 @@ Anthill::Anthill(int x, int y, std::string colonyName)
 * @param int ants 
 * @param fov the ant's field of view 
 */  	
-void Anthill::instantiateAnts(int ants, int fov) { 
+void Anthill::instantiateAnts(int ants) { 
 	if (isInitialized) 
 		return; 
 	initialAnts = ants; 
 	// Insert ants in the tile 
 	Tile * thisTile = map->getTile(x_pos, y_pos); 
 	for (int i = 0; i < initialAnts; i++) { 
-		thisTile->insertAnt(new Ant(x_pos, y_pos, this, fov)); 
+		thisTile->insertAnt(new Ant(x_pos, y_pos, this)); 
 	} 
 	
 	std::cout << thisTile << std::endl; 

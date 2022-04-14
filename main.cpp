@@ -61,7 +61,7 @@ void parse(InputParser * parser) {
 */  
 void initializeGame(Map * map, int width, int height) { 
 	// Initialize the anthills 
-	int currAnthill = 1e-19; 
+	int currAnthill = 0; 
 	for (std::tuple<int, int, int> colony : colonies) { 
 		int x = std::get<0>(colony); 
 		int y = std::get<1>(colony); 
@@ -111,8 +111,6 @@ std::string concatStrings(const std::string string, int concats) {
 */  
 void multithreadStage() { 
 	// Identify the next ant
-
-	std::vector<Ant*>::iterator antsIterator; 
 	while (GAME_ITERATION < iterations) { 
 		Ant * ant = map->computeNextAnt();  
 		ant->stage(); 
