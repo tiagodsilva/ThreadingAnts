@@ -56,6 +56,14 @@
 \begin{document}  
 	 
 \maketitle  
-% \tableofcontents 
+\tableofcontents 
+
+\section{Introdução} 
+
+Neste documento, vamos descrever os aspectos que enformaram nossas implementações e caracterizaram as nossas decisões de modelagem; contemplaremos, além disso, situações tremendamente atribuladas que caracterizaram tanto a implementação serial -- em uma thread -- quanto a multithread deste sistema. Na seção seguinte, portanto, introduzimos os atributos gerais de nosso programa, enfatizando como os agentes -- as formigas, os formigueiros, as comidas e os objetos subjacentes, como os mapas e as coordenadas -- foram desenhados, e apontando, também, para a contemplação dos mecanismos que ensejam sua interação. 
+
+Na seção subsequente, vislumbramos os alicereces que culminaram na versão mulithread do programa, explicitando a utilização de variáveis de exclusão mútua, de variáveis de condição e de semáforos com o objetivo de lograr as idiossincrasias inconvenientes das programação paralela, como as condições de corrida e a inanição (\textit{starvation}). 
+
+\section{Desenho dos agentes} 
 
 \end{document} 
