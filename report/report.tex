@@ -111,7 +111,25 @@ Quando, desta maneira, uma formiga decide lutar, ela executa um ataque coordenad
 
 A movimentação das formigas, a liberação de feromônios e os aspectos bélicos foram, logo, particularmente inconvenientes, na medida em que eles culminavam na caracterização de ações bastante entrelaçadas -- as formigas modificam as comidas e, também, modificam a si mesmas; a dinamicidade introduzida pelo surgimento da morte foi, também, aflitivo, porque precisávamos, neste caso, ser mais cautelosos na escolha da formiga seguinte a executar o movimento e interagir com o mapa. A propósito, a introdução de aspectos estocásticos na simulação injetou oscilações no sistema que, em alguns cenários, foram inadequadas. 
 
-Tivemos, aliás, confrontos tétricos com a própria linguagem de programação, \texttt{C++}; procedimentos elementares, como o cômputo da distância entre uma coordenada e um segmento, exigiram tremenda introspecção. 
+Tivemos, aliás, confrontos tétricos com a própria linguagem de programação, \texttt{C++}; procedimentos elementares, como o cômputo da distância entre uma coordenada e um segmento, exigiram tremenda introspecção. A implementação de algoritmos multithread, contudo, conformou o epítome de nossas atribulações; nós a descreveremos nas seções seguintes. 
+
+\section{Impressão do mapa no console} 
+
+Neste ínterim, contudo, descrevemos os procedimentos para imprimir o mapa, e suas características, no console; veja, para isso, a Figura~\ref{fig:map}. Antecipamos, aliás, que introduzimos uma variável condicional que controla as threads responsáveis pelos movimentos das formigas quando todas elas tiverem atuado; em seguida, instanciamos outro conjunto de threads para atualizar os atributos do mapa (por exemplo, extrair os feromônios, repor os alimentos ou identificar formigas mortas em combate) -- estes procedimentos estão consolidados no método \texttt{prepareNextIter}, da classe \texttt{Map}. Assim, no estágio seguinte à atualização do mapa, nós o imprimimos, como na Figura~\ref{fig:map}: inicialmente, informamos, para cada colônia, a quantidade de alimentos depositada e a quantidade de formigas vivas; inserimos, então, as coordenadas de cada mapa, com as informações da intensidade de feromônios e da quantidade de formigas. Em maior detalhe, distinguimos a impressão de cada coordenada em um tripleto de categorias, 
+
+\begin{enumerate} 
+	\item \textit{andarilhos}, \texttt{|a, p|}, que contempla a quantidade de formigas, \texttt{a}, e de feromônios, \texttt{p}, em cada iteração, 
+	\item \textit{formigueuros}, \texttt{|AnthillName, FoodStorage, Ants|}, em que apontamos, sequencialmente, para o nome do formigueiro, a quantidade de alimento armazenado e a quantidade de formigas e 
+	\item \textit{comidas}, \texttt{|Food, Volume|}, no qual inserimos, adjacente ao nome \texttt{Food}, a quantidade, em unidades de volume, de alimento disponível. 
+\end{enumerate} 
+
+
+\begin{figure} 
+	\centering 
+	\includegraphics[width = \textwidth]{map.png} 
+	\caption{Mapa em que a simulação ocorre.} 
+	\label{fig:map} 
+\end{figure} 
 
 
 

@@ -1,7 +1,8 @@
 \babel@toc {portuguese}{}
 \contentsline {section}{\numberline {1}Introdução}{1}%
-\contentsline {section}{\numberline {2}Desenho dos agentes}{1}%
+\contentsline {section}{\numberline {2}Desenho dos agentes}{2}%
 \contentsline {subsection}{\numberline {2.1}Movimento das formigas}{2}%
 \contentsline {subsection}{\numberline {2.2}Liberação de feromônios}{4}%
 \contentsline {subsection}{\numberline {2.3}Combate entre formigas}{5}%
 \contentsline {subsection}{\numberline {2.4}Sumário dos agentes}{5}%
+\contentsline {section}{\numberline {3}Impressão do mapa no console}{6}%
