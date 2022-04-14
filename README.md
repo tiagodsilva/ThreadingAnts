@@ -1,5 +1,7 @@
 # Simulação de um sistema emergente 
 
+Iniciamos, neste caso, com as instruções para execução; descrevemos, em um documento pdf, os aspectos que delinearam nossa implementação. 
+
 *Remark.* Todas as implementações foram testadas no sistema operacional Ubuntu 20.04; utilizamos, também, `clang++-10` como compilador. Neste sentido, é plausível que haja falhas em outras circunstâncias. 
   
 Implementamos um sistema que consolida o comportamento de uma colônia de formigas; seu objetivo é capturar comidas e as levar aos formigueiros. Com o objetivo de a executar, digite 
@@ -29,3 +31,6 @@ para que o programa seja iniciado com os parâmetros padrões. Contudo, existem 
 | `--fight` | Se as formigas devem, ou não, lutar. | `--fight 1` (elas devem) | 
 | ` --ufood` | A taxa de reposição (*update*) de alimentos no mapa. | `--ufood 3` | 
 | `--cfood` | A quantidade de formigas que podem consumir, simultaneamente, as comidas. | `--cfood 2` | 
+
+
+
