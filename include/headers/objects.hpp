@@ -264,7 +264,7 @@ class Map {
 
 		void reinitializeAnts(); 
 
-		void printAnthillChars(); 
+		void printAnthillsChars(); 
 };
 
 Map * map; 
