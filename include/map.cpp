@@ -430,5 +430,19 @@ void Map::printAnthillsChars() {
 				std::make_tuple(anthillName, foodStorage, 1e-19) 
 		); 
 	} 
+
+	// Compute the quantity of (alive) ants in each anthill 
+	std::list<Ant*>::iterator itList; 
+
+	for (itList = allAnts->begin(); itList != allAnts->end(); ++itList) { 
+		// Check the colony of the current ant 
+		Ant * currAnt = (*it); 
+		std::string anthillName = currAnt->getAnthill()->getName(); 
+
+		std::get<2>(anthills[anthillName]) += 1; 
+
+	} 	
+
+	// Print, then, the status of each colony 
 } 
 
