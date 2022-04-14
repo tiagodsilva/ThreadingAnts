@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1649973195 "report.tex" "report.pdf" "report" 1649973196
+["pdflatex"] 1649978655 "report.tex" "report.pdf" "report" 1649978656
   "/etc/texmf/web2c/texmf.cnf" 1630360922 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -32,6 +32,7 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1248133631 32362 179c33bbf43f19adbb3825bb4e36e57a ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1248133631 36118 fad905eba93cff5bce1e185fe980a177 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb" 1248133631 31099 c85edf1dd5b9e826d67c9c7293b6786c ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb" 1248133631 24252 1e4e051947e12dfb50fee0b7f4e26e3a ""
@@ -145,11 +146,11 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1630361151 8259090 5ba46b16273ac456ac11c920026209ec ""
   "image.png" 1649964999 177376 dd6cd2c80714c36234e320fd05ff8020 ""
   "map.png" 1649970583 80693 0c6302351b78977df6820faf57b1b78c ""
-  "report.aux" 1649973196 1306 dab8df6abb50ad466f5ee4330336385c "pdflatex"
-  "report.tex" 1649973194 15893 ada62efa9d2a7e4e55eebaf5358082ef ""
-  "report.toc" 1649973196 583 a7a84a6c45d2795b0134d1f0cfe59fb0 "pdflatex"
+  "report.aux" 1649978656 1306 dab8df6abb50ad466f5ee4330336385c "pdflatex"
+  "report.tex" 1649978655 17027 9f047c854f7f09bf2893d1027c592209 ""
+  "report.toc" 1649978656 583 a7a84a6c45d2795b0134d1f0cfe59fb0 "pdflatex"
   (generated)
-  "report.log"
-  "report.toc"
   "report.aux"
+  "report.toc"
+  "report.log"
   "report.pdf"
