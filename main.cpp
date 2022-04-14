@@ -127,8 +127,9 @@ void multithreadStage() {
 */  
 void sequentialGame() { 
 	// While the current iteration is plausible, play the game 
+	map->print(); 
 	const std::string LINES = concatStrings("+", width); 
-
+	
 	while (GAME_ITERATION < iterations) { 
 		std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
 		stage(); 
@@ -156,7 +157,7 @@ void multithreadGame() {
 	std::cout << LINES << "Initialization" << std::endl;
 	while (GAME_ITERATION < iterations) { 
 		if (map->allAntsPlayed()) {
-			std::this_thread::sleep_for(std::chrono::milliseconds(499)); 
+			std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
 			// map->checkPheromones(); 
 			map->print(); 
 			map->prepareNextIter(nThreads); 
@@ -178,8 +179,8 @@ int main(int argc, char *argv[]) {
 	
 	map->print(); 
 
-	// sequentialGame(); 
-	multithreadGame(); 
+	sequentialGame(); 
+	// multithreadGame(); 
 
 	return EXIT_SUCCESS; 
 } 

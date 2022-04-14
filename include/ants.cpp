@@ -288,6 +288,6 @@ bool Ant::fight() {
 
 	// Increment the quantity of deaths in the appropriate anthill 
 	map->getTile(x_pos, y_pos)->incrementDeaths(anthillName); 
-
+	
 	return true; 
 } 

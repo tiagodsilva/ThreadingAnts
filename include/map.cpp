@@ -253,6 +253,9 @@ void Map::initializeAnts() {
 } 
 
 
+/**  
+* Identify the dead ants; they are killed in the game.  
+*/  
 void Map::reinitializeAnts() { 
 	// std::lock_guard<std::mutex> lk(mapMutex); 
 	std::list<Ant*>::iterator it = allAnts->begin(); 

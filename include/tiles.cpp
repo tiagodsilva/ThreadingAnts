@@ -83,16 +83,22 @@ void Tile::killAnt(Ant * ant) {
 * @param Ant * ant the ant that is going to be extracted from this tile 
 */  
 Ant * Tile::extractAnt(Ant * ant) { 
-	std::lock_guard<std::mutex> lk(tileMutex); 
+	std::unique_lock<std::mutex> lk(tileMutex); 
 	// std::lock_guard<std::mutex> lk(deathMutex); 
 	// Identify the ant's colony; ants from the same colony are indistinguishable 
 	std::string colony = ant->getAnthill()->getName(); 
 	
 	// Compute an ant 
-	Ant * currAnt = ants->find(colony)->second->top(); 
-	ants->find(colony)->second->pop(); 
+	std::stack<Ant*> * pStack = ants->find(colony)->second; 
+	Ant * currAnt; 
+	if (!pStack->empty()) { 
+		currAnt = pStack->top(); 
+		pStack->pop(); 
+	} else { 
+		throw AntNotFound("There is no ant in the stack!"); 
+	} 
 
-	if (ants->find(colony)->second->size() < 1) 
+	if (pStack->empty()) 
 		ants->erase(ants->find(colony)); 
 
 	return currAnt; 
@@ -275,7 +281,7 @@ void Tile::incrementDeaths(std::string anthill) {
 	std::lock_guard<std::mutex> lk(deathMutex); 
 	// Update the quantity of deaths for this anthill 
 	if (deaths.find(anthill) == deaths.end()) { 
-		deaths[anthill] = 1; 
+		deaths.insert({anthill, 1}); 
 	} else { 
 		deaths[anthill] += 1; 
 	} 
@@ -300,7 +306,6 @@ void Tile::killAnts() {
 		for (int death = 0; death < min<int>(nDeaths, pStack->size()); death++) { 
 			Ant * deadAnt = pStack->top(); 
 			deadAnt->isDead = true; 
-			// pStack->pop();  
 		} 
 
 		deaths[anthillName] = 1e-19; 
