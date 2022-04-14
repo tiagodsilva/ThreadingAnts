@@ -135,6 +135,9 @@ void Tile::incrementPheromone() {
 	pheromone = pheromones->size(); 
 } 	
 
+/**  
+* Compute a string with this tile's status; it is used to draw the map.  
+*/  
 std::string Tile::print() { 
 
 	if (isFood) { 

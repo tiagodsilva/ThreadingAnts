@@ -19,10 +19,7 @@
 #define PSURVIVAL std::string("12") // pheromone's lifetime 
 #define UFOOD std::string("45") // food's update rate 
 #define CFOOD std::string("3") // quantity of ants that eat the food conveniently 
-
-using semaphore = int; 
-// Semaphore to control the game's stages 
-semaphore gameSemaphore; 
+#define FIGHT std::string("1") // Whether the ants should fight each other 
 
 // Integer quantities 
 int nThreads, width, height, 
@@ -54,6 +51,7 @@ void parse(InputParser * parser) {
 	cfood = parser->parseInt("--cfood", CFOOD); 
 	colonies = parser->parseVector<int>("--colonies", COLONIES); 
 	foods = parser->parseVector<int>("--foods", FOODS); 
+	fight = parser->parseInt<int>("--fight", FIGHT); 
 } 
 
 /**  
@@ -174,13 +172,13 @@ int main(int argc, char *argv[]) {
 	
 	parse(parser); 
 	// This instance, `map`, is global 
-	map = new Map(width, height, fov, psurvival, ufood); 
+	map = new Map(width, height, fov, psurvival, ufood);
 	initializeGame(map, width, height); 
 	
 	map->print(); 
 
-	sequentialGame(); 
-	// multithreadGame(); 
+	// sequentialGame(); 
+	multithreadGame(); 
 
 	return EXIT_SUCCESS; 
 } 

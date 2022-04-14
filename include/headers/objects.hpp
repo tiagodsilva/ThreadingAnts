@@ -12,8 +12,6 @@
 
 #include "geometry.hpp" 
 
-typedef int semaphore; 
-
 class Anthill; 
 class Map; 
 class Ant; 
@@ -235,8 +233,11 @@ class Map {
 
 		// The rate with which we  restore the foods in this map 
 		int ufood; 
+		// Whether we should implement fight; it is unstable 
+		bool fight; 
 	public:
-		Map(int mapWidth, int mapHeight, int fov, int psurvival, int ufood);
+		Map(int mapWidth, int mapHeight, int fov, int psurvival, int ufood, 
+				bool fight);
 		Map(); 
 		Tile * getTile(int x, int y);
 		std::vector<Tile*> neighbors(int x, int y);
