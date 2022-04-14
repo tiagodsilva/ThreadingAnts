@@ -107,6 +107,12 @@ Em cada iteração, as formigas que não estão direcionando alimentos ao formig
 
 Quando, desta maneira, uma formiga decide lutar, ela executa um ataque coordenado a todas as formigas adversárias em sua coordenada; a probabilidade de que ela vença é, neste caso, proporcional à quantidade de aliadas em sua coordenada. Apesar do ponto culminante desta luta, uma das formigas é \textit{gravemente ferida} e rotulada com o atributo \texttt{isDead}; na iteração seguinte, quando percorrermos a lista de feromônios, também capturaremos as formigas mortas e as extraríremos da simulação. Enfatizamos, aliás, que, mesmo que a rotulação das formigas seja executada em threads distintas, a sua extração é executada na thread principal; isso porque, como elas estão contempladas em um atributo da classe \texttt{Map}, \texttt{allAnts}, precisaríamos garantir que cada thread modificasse este atributo consitentemente, o que, no entanto, é essencialmente equivalente à execução por uma thread (é bastante difícil particionar o tratamento de uma lista entre threads). 
 
+\subsection{Sumário dos agentes} 
+
+A movimentação das formigas, a liberação de feromônios e os aspectos bélicos foram, logo, particularmente inconvenientes, na medida em que eles culminavam na caracterização de ações bastante entrelaçadas -- as formigas modificam as comidas e, também, modificam a si mesmas; a dinamicidade introduzida pelo surgimento da morte foi, também, aflitivo, porque precisávamos, neste caso, ser mais cautelosos na escolha da formiga seguinte a executar o movimento e interagir com o mapa. A propósito, a introdução de aspectos estocásticos na simulação injetou oscilações no sistema que, em alguns cenários, foram inadequadas. 
+
+Tivemos, aliás, confrontos tétricos com a própria linguagem de programação, \texttt{C++}; procedimentos elementares, como o cômputo da distância entre uma coordenada e um segmento, exigiram tremenda introspecção. 
+
 
 
 \end{document} 
