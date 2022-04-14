@@ -9,3 +9,5 @@ make
 ``` 
 
 and check that things are okay. In this sense, there is a set of attributes of the simulation that could be modified; verify, for instance, the preamble at [`main.cpp`](./main.cpp) for details and their names. 
+
+The ants, now, fight; the military aspects, however, are unstable. 
