@@ -37,7 +37,8 @@ bool Food::consume() {
 	if (currAnts > maxAnts || (volume < 1)) 
 		return false;   
 	
-	eat(currAnts); // Eat the food consistently with the rods embracing 
+	int thisSeat = currAnts; 	
+	eat(thisSeat); // Eat the food consistently with the rods embracing 
 	return true; // The food was eaten 
 } 
 
@@ -123,7 +124,7 @@ void Food::eat(int i) {
 * @param int i the current ant 
 */  
 int Food::LEFT(int i) { 
-	return (i - 1) % maxAnts; 
+	return (i + maxAnts - 1) % maxAnts; 
 } 
 
 /**  
