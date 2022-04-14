@@ -1,0 +1,61 @@
+\documentclass[12pt]{article} 
+
+\title{Modelagem em multithread da interação entre colônias de formiga} 
+\author{Germano Andrade, João Alcindo e Tiago da Silva} 
+\date{\today} 
+
+% language 
+\usepackage[portuguese]{babel} 
+% general packages 
+\usepackage{amssymb} 
+\usepackage{amsmath} 
+\usepackage{amsthm} 
+\usepackage{amsfonts} 
+\usepackage{enumitem} 
+\usepackage{tabularx} 
+
+% figures 
+\usepackage{graphicx} 
+\usepackage{tikz} 
+\usepackage{tkz-graph} 
+\usetikzlibrary{arrows} 
+% \usetikzlibrary{calc} 
+
+% theorems environment 
+\let \eps \epsilon 
+\usepackage{fullpage} 
+
+\newtheorem{theorem}{Teorema} 
+\newtheorem{proposition}{Proposição} 
+
+\theoremstyle{definition} 
+% \newtheorem{problem}{Exercício} 
+\newtheorem{definition}{Definição} 
+\newtheorem{lemma}{Lema} 
+\newtheorem*{description*}{Problema} 
+
+\SetVertexNormal[Shape      = circle, 
+                 LineWidth  = 2pt]
+\SetUpEdge[lw         = 1.5pt]
+
+\newcommand\exercisea{\@alpha{a, b, d}}  
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+  \newenvironment{#1}[1]
+  {%
+   \renewcommand\customgenericname{#2}%
+   \renewcommand\theinnercustomgeneric{##1}%
+   \innercustomgeneric
+  }
+  {\endinnercustomgeneric}
+}
+\newcustomtheorem{problem}{Exercício}
+ 
+\begin{document}  
+	 
+\maketitle  
+% \tableofcontents 
+
+\end{document} 
