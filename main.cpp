@@ -156,7 +156,7 @@ void multithreadGame() {
 	std::cout << LINES << "Initialization" << std::endl;
 	while (GAME_ITERATION < iterations) { 
 		if (map->allAntsPlayed()) {
-			std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
+			std::this_thread::sleep_for(std::chrono::milliseconds(499)); 
 			// map->checkPheromones(); 
 			map->print(); 
 			map->prepareNextIter(nThreads); 

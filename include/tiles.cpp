@@ -38,10 +38,11 @@ Tile::Tile(int x_tile, int y_tile, std::string anthillName)
 * @param Ant ant the ant to be inserted in the tile 
 */  
 void Tile::insertAnt(Ant * ant) { 
+	std::lock_guard<std::mutex> lk(tileMutex); 
 	if (isFood) 
 		throw BorderError("This tile is not suitable for movement!"); 
 	
-	std::lock_guard<std::mutex> lk(tileMutex); 
+	// std::lock_guard<std::mutex> lk(tileMutex); 
 	// tileMutex.lock(); 
 	// Capture ant's colony 
 	std::string colony = ant->getAnthill()->getName(); 
@@ -83,6 +84,7 @@ void Tile::killAnt(Ant * ant) {
 */  
 Ant * Tile::extractAnt(Ant * ant) { 
 	std::lock_guard<std::mutex> lk(tileMutex); 
+	// std::lock_guard<std::mutex> lk(deathMutex); 
 	// Identify the ant's colony; ants from the same colony are indistinguishable 
 	std::string colony = ant->getAnthill()->getName(); 
 	
