@@ -6,3 +6,4 @@
 \contentsline {subsection}{\numberline {2.3}Combate entre formigas}{5}%
 \contentsline {subsection}{\numberline {2.4}Sumário dos agentes}{5}%
 \contentsline {section}{\numberline {3}Impressão do mapa no console}{6}%
+\contentsline {section}{\numberline {4}Implementação multithread}{6}%

@@ -123,6 +123,7 @@ Neste ínterim, contudo, descrevemos os procedimentos para imprimir o mapa, e su
 	\item \textit{comidas}, \texttt{|Food, Volume|}, no qual inserimos, adjacente ao nome \texttt{Food}, a quantidade, em unidades de volume, de alimento disponível. 
 \end{enumerate} 
 
+\noindent Estes foram, portanto, os mecanismos que ensejaram a atualização e a impressão do mapa no console; verificaremos, mais tarde, alguns detalhes da implementação multithread. 
 
 \begin{figure} 
 	\centering 
@@ -130,6 +131,13 @@ Neste ínterim, contudo, descrevemos os procedimentos para imprimir o mapa, e su
 	\caption{Mapa em que a simulação ocorre.} 
 	\label{fig:map} 
 \end{figure} 
+
+\section{Implementação multithread} 
+
+Importantemente, encetamos com uma implementação em uma thread; o objetivo disso é garantir que, em circunstâncias com múltiplas threads, os erros sejam culminantes da paralelização, e não idiossincráticos do desenho da simulação. Vamos, desta maneira, descrever, laconicamente, a introdução de múltiplas threads no programa. Escrutinaremos, contudo, a captura de alimento, que, neste caso, consolida inconveniências amarradas fortemente à programação em paralelo. 
+
+Neste sentido, a etapa inicial do programa consiste na inicialização do mapa; precisamos instanciar as coordenadas, os formigueiros e as formigas. Apesar de podermos introduzir múltiplas threads para particionar estas tarefas, escolhemos a decisão mais parcimoniosa e executamos estes procedimentos na thread principal, porque, como esta etapa é executada uma vez, no início da simulação, rotulamos sua paralelização como inapropriada. Em sequência, precisamos executar os procedimentos da simulação -- movimento das formigas e atualização do ambiente -- por uma quantidade de iterações parametrizável; contemplamos, no parágrafo seguinte, esta descrição. 
+
 
 
 
