@@ -7,6 +7,7 @@
 
 #include <string> 
 #include <tuple> 
+#include <ncurses.h> 
 
 #include "headers.hpp" 
 
@@ -151,16 +152,22 @@ void multithreadGame() {
 	const std::string LINES = concatStrings("+", width); 
 
 	std::cout << LINES << "Initialization" << std::endl;
-	while (GAME_ITERATION < iterations) { 
+
+	int ch; 
+	nodelay(stdscr, TRUE); 
+
+	while (GAME_ITERATION < iterations) { 	
+			
+		// User input 
 		if (map->allAntsPlayed()) {
 			std::this_thread::sleep_for(std::chrono::milliseconds(299)); 
 			// map->checkPheromones(); 
 			map->print(); 
 			map->prepareNextIter(nThreads); 
-			
+
 			std::cout << LINES << GAME_ITERATION << std::endl; 
 			GAME_ITERATION++; 
-		} 
+		} 	
 	} 
 } 
 
