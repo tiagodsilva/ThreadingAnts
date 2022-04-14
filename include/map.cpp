@@ -260,6 +260,7 @@ void Map::reinitializeAnts() {
 	while (it != allAnts->end()) { 
 		bool isDead = (*it)->isDead; 
 		if (isDead) { 
+			getTile((*it)->getX(), (*it)->getY())->extractAnt((*it)); 
 			allAnts->erase(it++); 
 		} else { 
 			++it; 

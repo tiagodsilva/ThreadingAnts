@@ -178,7 +178,7 @@ bool Ant::moveToFood() {
 				
 		// Identify and apply the food's direction 
 		moveInSegment(antVec, foodVec, neighbors); 
-		return false; // Should not fight deterministically!   
+		return true; // Should not fight deterministically!   
 	} 
 		
 	// Notify that, as the neighboring tiles are plausible, it should fight stocastically  
@@ -247,7 +247,7 @@ void Ant::stage() {
 	bool fought = false; 
 	if (coin == 1) 
 		fought = fight(); 
-
+	
 	if (!fought) // If it did not fight, there are no enemies for war 
 		moveRandomly(); 
 } 
@@ -273,15 +273,14 @@ bool Ant::fight() {
 	std::string thisAnthill = antHill->getName(); 
 
 	for (int i = 0; i < nColonies; i++) { 
-		nEnemies[i] = 1/(it->second + 1); // The probability of death is inversely proportional to 
-							// the quantity of enemies 
-		if (it != enemies.end()) 
-		       ++it; 	
+		nEnemies[i] = 1/(static_cast<double>(it->second) + 1); // The probability of death is inversely proportional to 
+		// the quantity of enemies 
+		++it; 	
 	} 
-	
+
 	// Execute a fight 
 	int dead = weightedRandom<double>(nEnemies, nColonies);  
-	
+
 	// Compute the anthill's name correspondent to the dead ant 
 	it = enemies.begin(); 
 	std::advance(it, dead); 

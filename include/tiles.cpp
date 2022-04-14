@@ -89,6 +89,10 @@ Ant * Tile::extractAnt(Ant * ant) {
 	// Compute an ant 
 	Ant * currAnt = ants->find(colony)->second->top(); 
 	ants->find(colony)->second->pop(); 
+
+	if (ants->find(colony)->second->size() < 1) 
+		ants->erase(ants->find(colony)); 
+
 	return currAnt; 
 } 		
 
@@ -266,7 +270,7 @@ void Tile::checkPheromones() {
 * @param std::string anthill the anthill's name 
 */  
 void Tile::incrementDeaths(std::string anthill) { 
-	std::lock_guard<std::mutex> lk(tileMutex); 
+	std::lock_guard<std::mutex> lk(deathMutex); 
 	// Update the quantity of deaths for this anthill 
 	if (deaths.find(anthill) == deaths.end()) { 
 		deaths[anthill] = 1; 
