@@ -263,6 +263,8 @@ class Map {
 		int getPSurvival(); 
 
 		void reinitializeAnts(); 
+
+		void printAnthillChars(); 
 };
 
 Map * map; 

@@ -84,6 +84,8 @@ std::vector<Tile*> Map::neighbors(int x, int y) {
 */   
 void Map::print() { 
 	// Print each tile in row major sequence 
+	// and the current quantity of ants for each colony 
+	printAnthillChars(); 
 	for (int row = height - 1; row > -1; row--) { 
 		for (int col = 0; col < width; col++) { 
 			Tile * currTile = getTile(col, row); 
