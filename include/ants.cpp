@@ -234,6 +234,14 @@ void Ant::stage() {
 
 	bool shouldFight = moveToFood(); 
 
+	if (!map->fight) { 
+		if (!shouldFight) // the variable `shouldFight` is true if there is 
+			// a food with positive volume in the neighborhood or the ant 
+			// executed a movement; in both scenarios, it should not move 
+			moveRandomly(); 
+		return; 
+	} 
+
 	// Check whether the ant should fight; it is an attribute, which is modified in the `moveToFood` method in 
 	// this class  
 	if (shouldFight) { // In this case, the food's volume is positive, 

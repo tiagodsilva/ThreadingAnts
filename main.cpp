@@ -24,7 +24,7 @@
 // Integer quantities 
 int nThreads, width, height, 
     iterations, psurvival, fov, 
-    ufood, cfood; 
+    ufood, cfood, fight; 
 
 // Introduce, for the colonies, the quantities (x, y, nAnts); for the foods, 
 // (x, y, volume), as those are parametrizable  
@@ -51,7 +51,7 @@ void parse(InputParser * parser) {
 	cfood = parser->parseInt("--cfood", CFOOD); 
 	colonies = parser->parseVector<int>("--colonies", COLONIES); 
 	foods = parser->parseVector<int>("--foods", FOODS); 
-	fight = parser->parseInt<int>("--fight", FIGHT); 
+	fight = parser->parseInt("--fight", FIGHT); 
 } 
 
 /**  
@@ -172,7 +172,8 @@ int main(int argc, char *argv[]) {
 	
 	parse(parser); 
 	// This instance, `map`, is global 
-	map = new Map(width, height, fov, psurvival, ufood);
+	map = new Map(width, height, fov, psurvival, ufood, 
+			(bool)(fight));
 	initializeGame(map, width, height); 
 	
 	map->print(); 

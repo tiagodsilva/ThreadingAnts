@@ -233,9 +233,9 @@ class Map {
 
 		// The rate with which we  restore the foods in this map 
 		int ufood; 
+	public:
 		// Whether we should implement fight; it is unstable 
 		bool fight; 
-	public:
 		Map(int mapWidth, int mapHeight, int fov, int psurvival, int ufood, 
 				bool fight);
 		Map(); 

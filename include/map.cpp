@@ -11,8 +11,9 @@
 * Constructor method for Map.  
 * @param mapWidth, mapHeight the map's dimensions 
 */  
-Map::Map(int mapWidth, int mapHeight, int fov, int psurvival, int ufood)
-	: width(mapWidth), height(mapHeight), fov(fov), psurvival(psurvival), ufood(ufood) { 
+Map::Map(int mapWidth, int mapHeight, int fov, int psurvival, int ufood, bool fight)
+	: width(mapWidth), height(mapHeight), fov(fov), psurvival(psurvival), 
+	ufood(ufood), fight(fight) { 
 		// Instantiate an array of tiles 
 		int area = mapWidth * mapHeight; 
 		// and insert tiles in it 
@@ -365,8 +366,11 @@ Tile * Map::captureFoodNear(int x, int y) {
 
 			try { 
 				Tile * possibleFood = getTile(currX, currY); 
-				if (possibleFood->isFood) 
-					return possibleFood; 
+				if (possibleFood->isFood) { 
+					Food * food = getFood(currX, currY); 
+					if (food->getVolume() >= 1) 
+						return possibleFood; 
+				} 
 			} catch (BorderError& e) { // Assert that the borders are consistent 
 				continue; 
 			} 
