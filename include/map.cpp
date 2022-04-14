@@ -444,5 +444,16 @@ void Map::printAnthillsChars() {
 	} 	
 
 	// Print, then, the status of each colony 
+	std::cout << "Colonies:" << std::endl; 
+	std::cout << "Name" << "\t" << "Food" << "\t" << "Ants" << std::endl; 
+
+	const std::string LINES = "++++\t++++\t++++\n"; 
+	std::cout << LINES; 
+	for (std::tuple<std::string, int, int> colony : anthills) { 
+		std::cout << std::get<0>(colony) << "\t"; 
+		std::cout << std::get<1>(colony) << "\t"; 
+		std::cout << std::get<2>(colony) << std::endl; 
+		std::cout << LINES; 
+	} 	
 } 
 
