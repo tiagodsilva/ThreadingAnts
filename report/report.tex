@@ -95,5 +95,7 @@ Em cada iteração, há incisivamente um tripleto de ações que as formigas pod
 	\item \texttt{moveToFood}. As formigas envisionam, em seu movimento, coordenadas a uma distância caracterizada pelo atributo -- do mapa; todas as formigas, em todos os formigueiros, gozam de campos de visão idênticos (contudo, poderíamos modificar a função que identifica instâncias de \texttt{Food} nas vizinhanças e distinguir a busca por comida para cada formiga -- escolhemos, neste sentido, o desenho mais parcimonioso) --; portanto, elas podem verificar se há alimentos e executar um movimento informado. Neste caso, com as restrições de acesso simultâneo aos alimentos, este ``movimento informado" pode, com efeito, consistir em aguardar e, possivelmente, lutar.  
 \end{enumerate} 
 
+Em cada iteração da simulação, assim, cada formiga executa um movimento condicional ao seu estado atual: se ela estiver equipada com comida, ela, incondicionalmente ao seu ambiente, ao formigueiro; se não, ela escaneia o ambiente que a entorna e verifica se há alimentos -- se houver, ela se direciona a eles e, se não, ela se movimenta aleatoriamente. Em algumas circunstâncias, ela escolhe lutar; postergamos a descrição desta ação, contudo, para as seções seguintes. Na seção seguinte, caracterizamos o movimento de formigas com comida e a introdução de feromônios. 
+
 
 \end{document} 
