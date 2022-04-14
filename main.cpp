@@ -8,7 +8,7 @@
 #include <string> 
 #include <tuple> 
 
-#include "include/headers.h" 
+#include "headers.hpp" 
 
 // command line; these are their standard values 
 #define NTHREADS std::string("5") // quantity of threads  

@@ -4,8 +4,8 @@
 #include <stdio.h> 
 #include <stack> 
 // #include "tiles.cpp" 
-#include "headers/objects.hpp" 
-#include "headers/exceptions.hpp"
+#include "objects.hpp" 
+#include "exceptions.hpp"
 
 /**  
 * Constructor method for Map.  

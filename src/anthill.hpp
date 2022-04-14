@@ -2,7 +2,7 @@
 #include <vector> 
 #include <string> 
 
-#include "headers/objects.hpp" 
+#include "objects.hpp" 
 
 /**  
 * Constructor method for the `Anthill` object 

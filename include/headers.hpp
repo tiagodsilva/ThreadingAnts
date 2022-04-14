@@ -7,7 +7,6 @@
 #include "../src/map.hpp"
 #include "exceptions.hpp"
 #include "geometry.hpp"
-#include "headers.hpp"
 #include "objects.hpp"
 #include "parser.hpp"
 #endif

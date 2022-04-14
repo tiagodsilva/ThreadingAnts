@@ -2,8 +2,8 @@
 #include <vector> 
 // #include "tiles.cpp" 
 
-#include "headers/objects.hpp" 
-#include "headers/geometry.hpp" 
+#include "objects.hpp" 
+#include "geometry.hpp" 
 
 #define MAX_INT 2147483647 
 

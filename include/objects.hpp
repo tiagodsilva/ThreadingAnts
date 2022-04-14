@@ -6,7 +6,9 @@
 #include <stack>  
 #include <utility> 
 #include <list> 
+#include <thread> 
 #include <mutex> 
+// #include <semaphore> 
 #include <semaphore.h> 
 #include <condition_variable> 
 
@@ -272,25 +274,4 @@ class Map {
 };
 
 Map * map; 
-
-class Region { 
-	private: 
-		std::vector<Tile*> tiles; // the tiles in this region 
-		// Coordinates in which region starts 
-		//  + 
-		//  + Region 
-		//  + 
-		// (x, y) + + +   
-		int x; 
-		int y; 
-
-		// The horizontal and vertical offsets 
-		int xOffset; 
-		int yOffset; 
-
-		// it needs a mutex 
-	public: 
-		Region(int xRegion, int yRegion, 
-			int xOffsetRegion, int yOffsetRegion); 
-}; 
 #endif 

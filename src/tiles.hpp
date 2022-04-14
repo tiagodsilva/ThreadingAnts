@@ -6,8 +6,8 @@
 // #include "map.cpp" 
 // Tile ** tiles; 
 
-#include "headers/objects.hpp" 
-#include "headers/exceptions.hpp" 
+#include "objects.hpp" 
+#include "exceptions.hpp" 
 /**  
 * Constructor method for `Tile`.  
 * @param int x_tile, y_tile the tile's coordinates 

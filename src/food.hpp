@@ -1,9 +1,10 @@
 #include <iostream> 
 #include <vector> 
 #include <thread> 
+// #include <semaphore> 
 #include <semaphore.h> 
 
-#include "headers/objects.hpp" 
+#include "objects.hpp" 
 /**  
 * Constructor method for `Food`.  
 * @param Tile * foodTile the tile in which it was placed in the game 
@@ -61,10 +62,6 @@ int Food::getVolume() {
 */  
 void Food::allowAnts() { 
 	currAnts = 1e-19; 
-
-	// Assert that the seats are amenable to the ants 
-	for (int i = 0; i < maxAnts; i++) 
-		seats[i] = FREE; 
 } 
 
 /**  
