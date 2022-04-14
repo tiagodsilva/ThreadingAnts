@@ -66,4 +66,34 @@ Na seção subsequente, vislumbramos os alicereces que culminaram na versão mul
 
 \section{Desenho dos agentes} 
 
+A simulação da interaçao entre formigueiros contempla, neste cenário, múltiplos agentes; em um momento inicial, portanto, é importante que os caracterizemos, garantindo que eles possam interagir consistentemente durante a simulação. Em nossa implementação, em particular, identificamos cada agente com uma classe; alguns gozam de múltiplas instâncias (como o agente \texttt{Ant}, formiga), e outros, não (como o agente \texttt{Map}, mapa). Explicitamente, introduzimos as classes 
+
+\begin{enumerate} 
+	\item \texttt{Anthill}, formigueiro, 
+	\item \texttt{Ant}, formiga, 
+	\item \texttt{Food}, comida, 
+	\item \texttt{Map}, mapa e 
+	\item \texttt{Tile}, azulejo (ou, equivalentemente, coordenada); 
+\end{enumerate} 
+
+\noindent elas estão, assim, descritas na Figura~\ref{fig:siml}. Perceba, logo, que as formigas estão amarradas ao formigueiro e, além disso, interagem com ele, incrementando o seu armazém de alimento; em contraste, a interação entre as formigas e a comida consiste no decremento de um atributo -- o volume da instância de comida; por outro lado, as formigas não modificam, objetivamente, os atributos das coordenadas do mapa -- eles que, na verdade, rastreiam, em uma tabela hash (em que as chaves correspondem aos nomes dos formigueiros) de pilhas, as formigas depositadas neles em cada iteração. Esta é, aliás, a interação mais crucial da simulação: as formigas se movem pelo mapa, identificam a comida, a capturam e, em um deslocamento para o formigueiro, incrementam o seu armazenamento de alimento. Nestas condições, o movimento das formigas é delicado; ele é, desta maneira, o tópico da seção seguinte. 
+
+\begin{figure} 
+	\centering 
+	\includegraphics[width = \textwidth]{image.png} 
+	\caption{Modelagem e interação dos agentes na simulação.} 
+	\label{fig:siml} 
+\end{figure} 
+
+\subsection{Movimento das formigas} 
+
+Em cada iteração, há incisivamente um tripleto de ações que as formigas podem executar: ou elas se movem aleatoriamente (método \texttt{moveRandomly}), ou elas se direcionam ao formigueiro (método \texttt{moveToColony}), ou elas procuram o alimento (método \texttt{moveToFood}; elas podem, também, entrar em combate; descreveremos, mais tarde, nossa aproximação para isso). Vislumbramos, nos itens seguintes, cada um desses movimentos. 
+
+\begin{enumerate} 
+	\item \texttt{moveRandomly}. No movimento aleatório, identificamos as coordenadas em que a formiga está e, em seguida, capturamos seus vizinhos\footnote{Que não contêm alimento; as formigas não interagem com estes azulejos -- elas modificam as instâncias da classe \texttt{Food} depositadas neles.}, verificando, importantemente, a sua existência (com esse objetivo, o método \texttt{getTile}, da classe \texttt{Map}, levanta uma exceção \texttt{BorderError}, sinalizando que o programa está acessando uma coordenada que transcende as bordas do mapa; o tratamento desta exceção, assim, garante a consistência da identificação das coordenadas vizinhas). Escolhemos, então, uma coordenada aleatoriamente; a probabilidade de uma instância ser escolhida é diretamente proporcional à quantidade de feromônio que ela contém (a liberação de feromônios é contemplada na seção seguinte). 
+	\item \texttt{moveToColony}. Equipadas com alimento, as formigas se direcionam ao formigueiro -- elas têm a informação de sua localização. Elas executam, para isso, um movimento retilíneo, implementado como uma adaptação do algoritmo de Breseham: inicialmente, traçamos, no plano cartersiano, o segmento que amarra a coordenada atual da formiga à de seu formigueiro; na etapa subsequente, computamos a coordenada vizinha da formiga mais próxima deste segmento, e a movemos nesta direção.  
+	\item \texttt{moveToFood}. As formigas envisionam, em seu movimento, coordenadas a uma distância caracterizada pelo atributo -- do mapa; todas as formigas, em todos os formigueiros, gozam de campos de visão idênticos (contudo, poderíamos modificar a função que identifica instâncias de \texttt{Food} nas vizinhanças e distinguir a busca por comida para cada formiga -- escolhemos, neste sentido, o desenho mais parcimonioso) --; portanto, elas podem verificar se há alimentos e executar um movimento informado. Neste caso, com as restrições de acesso simultâneo aos alimentos, este ``movimento informado" pode, com efeito, consistir em aguardar e, possivelmente, lutar.  
+\end{enumerate} 
+
+
 \end{document} 
