@@ -223,7 +223,8 @@ class Map {
 
 		// Mutex to control the map's update 
 		std::mutex mapMutex; 
-
+		std::mutex ioMutex; // Mutex to control the access to the IO methods in 
+				// this map 
 		// It is convenient, in a multithread program, to track the 
 		// ants in a list 
 		bool isInitialized; 

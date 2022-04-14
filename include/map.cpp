@@ -83,9 +83,10 @@ std::vector<Tile*> Map::neighbors(int x, int y) {
 * Print, in the terminal, the map's state as a text.  
 */   
 void Map::print() { 
+	std::lock_guard<std::mutex> lk(ioMutex); 
 	// Print each tile in row major sequence 
 	// and the current quantity of ants for each colony 
-	printAnthillChars(); 
+	printAnthillsChars(); 
 	for (int row = height - 1; row > -1; row--) { 
 		for (int col = 0; col < width; col++) { 
 			Tile * currTile = getTile(col, row); 
@@ -421,8 +422,9 @@ void Map::printAnthillsChars() {
 
 	for (it = anthillMap.begin(); it != anthillMap.end(); ++it) { 
 		// Identify the quantity of food storage 
-		int foodStorage = it->foodStorage; 
-		std::string anthillName = it->getName(); 
+		Anthill * currAnthill = it->second; 
+		int foodStorage = currAnthill->foodStorage; 
+		std::string anthillName = currAnthill->getName(); 
 
 		anthills.push_back( 
 				std::make_tuple(anthillName, foodStorage, 1e-19) 
