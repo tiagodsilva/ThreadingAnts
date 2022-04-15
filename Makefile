@@ -15,7 +15,6 @@ ifeq ($(OS),Windows_NT)
 else 
 .PHONY: ${COMPILED} 
 all: ${COMPILED} 
-	./${COMPILED} 
 ${COMPILED}: ${SOURCE}/*.hpp   
 	# Identify header files 
 	echo "#ifndef __HEADERS__" > ${HEADERS} ; \
