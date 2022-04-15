@@ -59,26 +59,6 @@ void Tile::insertAnt(Ant * ant) {
 } 
 		
 /**  
-* Kill an ant; as it contemplates shared data structures, it should control 
-* multiple accesses.  
-* @param Ant * ant the killed ant 
-*/  
-void Tile::killAnt(Ant * ant) { 
-	if (isFood || isAnthill) 
-		return; 
-
-	tileMutex.lock(); 
-	// Extract the ant from the queue 
-	Ant * thisAnt = extractAnt(ant); 
-	delete thisAnt; 
-	
-	// Kill the ant 
-	delete ant; 
-	tileMutex.unlock(); 
-} 
-		
-// Extracting an ant is correlated to killing it; however, we do not delete the instance 
-/**  
 * Extracts an ant for the current tile; it was directed to other tile. 
 * @param Ant * ant the ant that is going to be extracted from this tile 
 */  

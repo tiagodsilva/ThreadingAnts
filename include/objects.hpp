@@ -136,7 +136,6 @@ class Ant {
 		// Explicit ants methods
 		Ant(int x, int y, Anthill * colony);
 		void move(int x, int y);
-		void die();
 		void eat(Food * food);
 		int getX(); 
 		int getY(); 
@@ -184,7 +183,6 @@ class Tile {
 		Tile(int x_tile, int y_tile, std::string anthillName); 
 		Tile(); 
 		void insertAnt(Ant * ant);
-		void killAnt(Ant * ant);
 		Ant * extractAnt(Ant * ant);
 		std::map<std::string, int> numAnts();
 		void incrementPheromone();

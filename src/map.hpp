@@ -24,8 +24,8 @@ Map::Map(int mapWidth, int mapHeight, int fov, int psurvival, int ufood, bool fi
 			// |+++...+++|+++...+++|...|+++...+++| 
 			//  mapWidth  mapWidth      mapWidth 
 			// (each `mapWidth` tile corresponds to a row).  
-			const int row = i/mapHeight; 
-			const int column = i - mapHeight * row; 
+			const int row = i/mapWidth; 
+			const int column = i - mapWidth * row; 
 			tiles.push_back(new Tile(column, row, false)); 
 		} 
 } 
@@ -37,7 +37,7 @@ Map::Map(int mapWidth, int mapHeight, int fov, int psurvival, int ufood, bool fi
 Tile * Map::getTile(int x, int y) { 
 	// Compute the tile's instance from coordinates x and y 
 	if (x >= width || y >= height || x <= -1 || y <= -1) { 
-		throw BorderError("The coordinates (" + std::to_string(x) + " ," 
+		throw BorderError("The coordinates (" + std::to_string(x) + ", " 
 				+ std::to_string(y) + ") are inappropriate!"); 
 	} 
 	const int i = y * width + x; 

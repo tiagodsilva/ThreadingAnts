@@ -33,15 +33,6 @@ void Ant::move(int x, int y) {
 	nextTile->insertAnt(this); 
 } 
 		
-/**  
-* Kill this ant; it dies and is extracted from the current tile.  
-*/  	
-void Ant::die() { 
-	// Identify ant's tile 
-	Tile * tile = map->getTile(x_pos, y_pos); 
-	tile->killAnt(this); 
-} 
-
 void Ant::eat(Food * food) { 
 	// should be synchronized 
 	hasFood = food->consume(); 
