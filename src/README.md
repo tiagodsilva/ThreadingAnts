@@ -1,24 +1,23 @@
-# Simulation's objects 
+# Caracterização das classes 
 
-We should implement, still, the class `Food`. It is okay; it will be okay. 
+Neste README.md, descrevemos os aspectos mais programáticos do relatório; leia, por gentileza, o relatório para uma descrição mais legível. 
 
 ## Contemplação dos objetos  
 
-Vou, neste excerto, descrever, auspiciosamente sucintamente, os objetos e os métodos disponíveis nas linhas que escrevemos; a sua interface, neste caso, está acessível em [`./headers/objects.hpp`](./headers/objects.hpp). Especificamente, estamos equipados com os objetos 
+Vou, neste excerto, descrever, auspiciosamente sucintamente, os objetos e os métodos disponíveis nas linhas que escrevemos; a sua interface, neste caso, está acessível em [`../include/objects.hpp`](../include/objects.hpp). Especificamente, estamos equipados com os objetos 
 
 + `Anthill` (formigueiro), 
 + `Food` (comida), 
 + `Ant` (formiga), 
 + `Tile` (quadrado), 
 + `Map` (mapa) e 
-+ `Region` (região); 
 
-a classe região, enfaticamente, é um artifiício que ensejará, em etapas subsequentes, o controle apropriado do acesso simultâneo a espaços de endereçamento compartilhados. Contudo, precismoas *implementar o programa sequencial* e, em seguida, o *paralelizar*; neste sentido, a identificação de inelutáveis inadequações na paralelização, em oposição à inapropriação do sistema, será plausível. Portanto, esta classe, `Region`, é, inicialmente, uma interface com alguns atributos estáticos; seus métodos para asseverar acessos mutuamente exclusivos ainda serão, esperançosamente, implementados. 
+Contudo, precisamos *implementar o programa serial* e, em seguida, o *paralelizar*; neste sentido, a identificação de inelutáveis inadequações na paralelização, em oposição à inapropriação do sistema, será plausível.
 
 Nestas condições, o diagrama seguinte almeja sumarizar, em alguma extensão, as classes convenientes. 
 
 ```
- 	   ++++++++++(está inserido em)+ Map +++++++++(consiste em)+++++++++ Region  
+ 	   ++++++++++(está inserido em)+ Map +++++++++(consiste em)++++++ 
 Anthill ++++						+ 		+ 
            +(contém)+++   				+		+
 	              Ant+++(continência contigente)+++Tile 		+
@@ -54,9 +53,7 @@ if (hasFoodNear)
 	ant->moveRandomly(); 
 ``` 
 
-Verificamos, enfaticamente, que o movimento da formiga é condicional à sua contemplação das proximidades; podemos, na verdade, encapsular estas implementações em um método consolidado.
-
-Mais tarde, vou continuar a descrição. 
+Verificamos, enfaticamente, que o movimento da formiga é condicional à sua contemplação das proximidades; encapsulamos, na verdade, estas implementações em um método consolidado, `stage`.
 
 ## Classes 
 
