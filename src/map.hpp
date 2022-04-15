@@ -428,15 +428,17 @@ void Map::printAnthillsChars() {
 	std::map<std::string, Anthill*>::iterator it; 
 
 	// Vector to display the quantities 
-	std::map<std::string, std::tuple<std::string, int, int>> anthills; 
+	std::map<std::string, std::tuple<std::string, int, int, int>> anthills; 
 
 	for (it = anthillMap.begin(); it != anthillMap.end(); ++it) { 
 		// Identify the quantity of food storage 
 		Anthill * currAnthill = it->second; 
 		int foodStorage = currAnthill->foodStorage; 
 		std::string anthillName = currAnthill->getName(); 
+		int initialAnts = currAnthill->initialAnts; 
 
-		anthills[anthillName] = std::make_tuple(anthillName, foodStorage, 1e-19); 
+		anthills[anthillName] = std::make_tuple(anthillName, foodStorage, 
+				initialAnts, 1e-19); 
 	} 
 
 	// Compute the quantity of (alive) ants in each anthill 
@@ -447,25 +449,26 @@ void Map::printAnthillsChars() {
 		Ant * ant = (*itList); 
 		std::string anthillName = ant->getAnthill()->getName(); 
 
-		std::get<2>(anthills[anthillName]) += 1; 
+		std::get<3>(anthills[anthillName]) += 1; 
 	} 	
 
 	// Print, then, the status of each colony 
 	std::cout << "Colonies:" << std::endl; 
 	std::cout << "++++" << std::endl; 
-	std::cout << "Name" << "\t\t" << "Food" << "\t" << "Ants" << std::endl; 
+	std::cout << "Name" << "\t\t" << "Food" << "\t" << "Initial Ants" << "\t" << "Ants" << std::endl; 
 
-	const std::string LINES = "++++\t\t++++\t++++\n"; 
+	const std::string LINES = "++++\t\t++++\t++++\t\t++++\n"; 
 	std::cout << LINES; 
 
 	// Map iterator 
-	std::map<std::string, std::tuple<std::string, int, int>>::iterator iter; 
+	std::map<std::string, std::tuple<std::string, int, int, int>>::iterator iter; 
 
 	for (iter = anthills.begin(); iter != anthills.end(); ++iter) { 
-		const std::tuple<std::string, int, int> colony = iter->second; 
+		const std::tuple<std::string, int, int, int> colony = iter->second; 
 		std::cout << std::get<0>(colony) << "\t"; 
 		std::cout << std::get<1>(colony) << "\t"; 
-		std::cout << std::get<2>(colony) << std::endl; 
+		std::cout << std::get<2>(colony) << "\t\t"; 
+		std::cout << std::get<3>(colony) << std::endl; 
 		std::cout << LINES; 
 	} 	
 } 
