@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1649980749 "report.tex" "report.pdf" "report" 1649980751
+["pdflatex"] 1649981623 "report.tex" "report.pdf" "report" 1649981624
   "/etc/texmf/web2c/texmf.cnf" 1630360922 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -25,6 +25,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti12.tfm" 1136768653 1484 ed72f8f5cf654cda15ecc8e32bfcbee5 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm" 1136768653 768 1321e9409b4137d6fb428ac9dc956269 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm" 1136768653 772 9a936b7f5e2ff0557fce0f62822f0bbf ""
+  "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm" 1136768653 768 d7b9a2629a0c353102ad947dc9221d49 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1248133631 36741 fa121aac0049305630cf160b86157ee4 ""
@@ -148,11 +149,11 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1630361151 8259090 5ba46b16273ac456ac11c920026209ec ""
   "image.png" 1649964999 177376 dd6cd2c80714c36234e320fd05ff8020 ""
   "map.png" 1649970583 80693 0c6302351b78977df6820faf57b1b78c ""
-  "report.aux" 1649980751 1417 43bb3484a3976e6e04b579831a8408b2 "pdflatex"
-  "report.tex" 1649980748 18833 531a1f80950d566bb89355e0ac91be8c ""
-  "report.toc" 1649980751 653 2fbcda88aef7cc752209528cb6c6f620 "pdflatex"
+  "report.aux" 1649981624 1417 43bb3484a3976e6e04b579831a8408b2 "pdflatex"
+  "report.tex" 1649981623 20025 19acbd0dab5f6915cdf111a4a40e59f6 ""
+  "report.toc" 1649981624 653 2fbcda88aef7cc752209528cb6c6f620 "pdflatex"
   (generated)
   "report.pdf"
-  "report.aux"
   "report.toc"
+  "report.aux"
   "report.log"
