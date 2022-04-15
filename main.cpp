@@ -14,7 +14,7 @@
 // command line; these are their standard values 
 #define NTHREADS std::string("5") // quantity of threads  
 #define WIDTH std::string("5") // map's width 
-#define HEIGHT std::string("15") // map's height 
+#define HEIGHT std::string("5") // map's height 
 #define FOV std::string("2") // ant's field of view 
 #define ITERATIONS std::string("99") // quantity of iterations in the game 
 #define PSURVIVAL std::string("12") // pheromone's lifetime 
