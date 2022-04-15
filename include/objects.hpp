@@ -111,15 +111,11 @@ class Food {
 		void allowAnts(); 
 
 		// Methods for the philosophical ants 
-		void test(int i); 
-		void wait(int i); 
+		void test(int i);
 		void takeRods(int i); 
 
 		void eat(int i); 
 		void putRods(int i); // The ant is released from the list 
-
-		// Choose, randomly, whether to fight, and possibly die 
-		bool fight(); 
 }; 
 
 class Ant {

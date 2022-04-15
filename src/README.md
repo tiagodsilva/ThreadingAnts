@@ -72,6 +72,7 @@ private:
 
 	bool isInitialized; // se o formigueiro foi inicializado; isto é, se 
 			// as formigas foram instanciadas 
+	std::mutex foodMutex; // Mutex para controlar o acesso ao atributo `foodStorage` 
 public: 
 	int initialAnts; // a quantidade inicial de formigas 
 	int foodStorage; // a quantidade de alimento que as formigas trouxeram 
@@ -81,9 +82,8 @@ public:
 
 ```cpp 
 Anthill(int x, int y, std::string colonyName); // construtor 
-void instantiateAnts(int numAnts, int fov); // instancia formigas 
-	// no tile com coordenadas `x_pos` e `y_pos`; elas 
-	// gozam de um campo de visão igual a `fov` 
+void instantiateAnts(int numAnts); // instancia formigas 
+	// no tile com coordenadas `x_pos` e `y_pos` 
 void incrementFood(); // insere comida no formigueiro; incrementa `foodStorage` 
 
 int getX(); // captura a coordenada horizontal do formigueiro 
@@ -101,19 +101,40 @@ Classe contemplando o alimento, para o qual as formigas se deslocam.
 
 ```cpp 
 private: 
-	int x_pos, int y_pos; // as coordenadas da comida 
+	int x_pos, y_pos; // as coordenadas da comida 
 	int volume; // o volume da alimento disponível 
 	
 	int initialVolume; // o volume inicial inserido no jogo 
+
+	std::mutex attrMutex; // Acesso exclusivo ao atributo `initialVolume` 
+	std::mutex seatMutex; // Controle da quantidade de formigas sentadas 
+			// em torno da comida 
+	int maxAnts; // A quantidade máxima de formigas que podem acessar esta instância 
+	int currAnt // A quantidad de formigas que acessaram o alimento nesta iteração
+public: 
+	int * seats; // assentos desta instância 
+	sem_t * eatSemaphores; // semáforos para controle dos bastões 
 ``` 
 
 ```cpp 
+private: 
+int LEFT(int i); // captura as condições das formigas em ambos os lados da mesa 
+int RIGHT(int i); 
+void getFreeSeat() // Verifica se há assentos livres 
+public: 
 Food(int x, int y, int initVolume); // constructor 
 bool consume(); // tenta capturar uma unidade de volume de alimento; 
 	// se a operação for executada, o método computa `True` 
 	// (se não houver volume de alimento, por exemplo, ele computa `False`) 
 void restore(); // modifica o volume atual para o volume inicial 
 int getVolume(); // computa o volume atual de comida no tile 
+void allowAnts(); // permitir que mais formigas acessem este objeto 
+
+// Implementação de Dijkstra para o problema dos filósofos jantando 
+void test(int i); 
+void takeRods(int i); 
+void eat(int i); 
+void putRods(int i); 
 ``` 
 
 ### Ant 
@@ -128,10 +149,10 @@ private:
 	
 	Anthill * antHill; // ponteiro para o formigueiro em que a formiga 
 		// foi instanciada 
-	int fov; // o campo de visão da formiga 
 public: 
 	bool hasFood; // identifica se a formiga goza de alimento; 
 		// neste caso, seus movimentos serão direcionados ao formigueiro 
+	bool isDead; // se a formiga está gravemente ferida e, logo, morrerá 
 ```
 
 + Métodos 
@@ -139,7 +160,6 @@ public:
 ```cpp 
 Ant(int x, int y, Anthill* colony, int fieldOfView); // constructor 
 void move(int x, int y); // direciona à formiga ao tile x_pos + x, y_pos + y 
-void die(); // deveria, com efeito, ser implementado como um destrutor 
 void eat(Food * food); // tenta capturar uma unidade de volume do alimento `food`; 
 		// no cenário positivo, declara `hasFood = true` 
 int getX(); // captura as coordenadas horizontais da formiga 
@@ -158,6 +178,8 @@ Anthill * getAnthill(); // captura o atributo privado `antHill`
 void moveRandomly(); // executa um movimento aleatório no mapa; 
 		// a probabilidade de algum tile ser escolhido é proporcional 
 		// à quantidade de feromônio inserida nele 
+void stage(); // consolida as ações da formiga 
+bool fight(); // escolhe, possivelmente jogando uma moeda, se uma guerra deve ser declarada 
 ``` 
 
 ### Tile 
@@ -169,10 +191,15 @@ Existe, no tabuleiro, um conjunto de quadrados; esta é a classe que os caracter
 ```cpp 
 private: 
 	int x, y; // as coordenadas do tile 
+	std::mutex tileMutex; // mutexes para controlar acesso a atributos 
+	std::mutex pherMutex; 
+	std::mutex deathMutex; 
 public: 
 	std::map<std::string, std::stack<Ant*> * ants; // mapeia 
 		// cada colônia para uma pilha com as formigas 
 		// instanciadas por ela 
+	std::map<std::string, int> deaths; // Contempla a quantidade de formigas mortas em 
+		// em cada colônia 
 	bool isAnthill; // se há um formigueiro neste tile; 
 		// precisamos controlar os movimentos aleatórios a eles 
 	std::string anthillName; // se houver um formigueiro, este é seu nome 
@@ -191,7 +218,6 @@ Tile(); // constructores apropriados para os cenários em que há alimento, em q
 		// há formigueiros -- ou para tiles canônicos 
 void insertAnt(Ant * ant); // insere uma formiga na pilha que aponta para sua 
 		// colônia 
-void killAnt(Ant * ant); // extrai e aplica o método `die` da formiga `ant` 
 Ant * extractAnt(Ant * ant); // quando uma formiga se movimenta, ela precisa 
 		// ser extraída da pilha de seu tile atual; este método executa, 
 		// importantemente, esta tarefa 
@@ -205,6 +231,10 @@ std::string print(); // computa uma string para imprimir as informações do til
 int getX(); // computa as coordenadas horizontais no tile 
 int getY(); // e as verticais 
 Ant * getAnt(); // captura alguma formiga (de qualquer colônia) 
+std::vector<Ant*> getAnts(); // computa as formigas nestas coordenadas 
+void checkPheromones(); // verifica os feromônios inativos nestas coordenadas 
+void incrementDeaths(std::string anthillName); // incrementa a quantidade de formigas mortas 
+void killAnts(); // insere o rótulo da morte nas formigas 
 ``` 
 
 ### Map 
@@ -224,6 +254,15 @@ private:
 			// inserir uma lista global com as suas coordenadas 
 	int fov; // todas as formigas gozam do mesmo campo de visão; a discriminação, 
 		// neste universo, é inapropriada 
+	int psurvival; // a taxa de sobrevivência dos feromônios 
+	std::mutex mapMutex; // mutex para acesso a atributos compartilhados  
+	std::mutex ioMutex; 
+	bool isInitialized; // se o mapa foi inicializado 
+	long unsigned int currAnt; // ponteiro para a próxima formiga a interagir com o mapa 
+	std::list<Ant*> * allAnts; // lista com as formigas 
+	int ufood; // taxa de atualização das comidas 
+public: 
+	bool fight; // se deve haver lutas entre formigas 
 ```
 
 + Métodos 
@@ -233,10 +272,9 @@ Map(int mapWidth, int mapHeight, int fov);
 Map(); // constructores 
 Tile * getTile(int x, int y); // computa um tile (da lista `tiles`) com as 
 		// suas coordenadas, `x` e `y` 
-std::vector<Tile*> neighbors(int x, int y, 
-	int yLeftOffset, int yBottomOffset, int xRightOffset, int yTopOffset); // computa, 
+std::vector<Tile*> neighbors(int x, int y); // computa, 
 		// no tabuleiro, os tiles vizinhos ao tile com coordenadas `x` e `y` 
-void inertAnthill(int x, int y, std::string anthillName, 
+void insertAnthill(int x, int y, std::string anthillName, 
 		int nAnts); // insere (e inicializa) um formigueiro nas coordenadas `x` e `y` 
 void insertFood(int x, int y, int initialVolume); // insere um volume igual a `initialVolume` 
 		// com alimentos nas coordenadas `x` e `y` 
@@ -247,29 +285,21 @@ void print(); // imprime o mapa no terminal
 Ant * getAntInTile(int x, int y, std::string colony); // identifica 
 		// alguma formiga no tile (x, y); computa, também, um ponteiro 
 Ant * getAnyAnt(int x, int y); // captura uma formiga de qualquer colônia 
+
+void updateTiles(long unsigned int lTilesIndex, 
+	long unsigned int rTilesIndex); // atualiza as coordenadas em um programa multithread 
+void initializeAnts(); // Instancia as formigas nos formigueiros 
+Ant * computeNextAnt(); // Computa a próxima formiga a jogar 
+bool allAntsPlayed(); // Verifica se todas as formigas interagiram com o mapa nesta iteração 
+void prepareNextIter(int nThreads); // Prepara o mapa para a próxima iteração da simulação 
+
+Tile * captureFoodNear(int x, int y); // Captura alimentos próximos às coordenadas (x, y), 
+		// utilizando o campo de visão `fov` 
+int getPSurvival(); // Computa a taxa de sobrevivência do feromônio 
+void reinitializeAnts(); // Atualiza a quantidade de formigas vivas 
+void printAnthillsChars(); // Imprime as características de formigueiro no mapa 
 ```
 
 Em seguida, instanciamos um objeto global `map`, que, no início do programa, será inicializado com os atributos apropriados. 
-
-### Region 
-
-Podemos, em nossa simulação, utilizar semáforos para cada região. 
-
-+ Atributos 
-
-```cpp 
-private: 
-	std::vector<Tile*> tiles; // lista com os tiles nesta região 
-	int x, y; // as coordenadas (bottom-left) da região 
-	int xOffset, yOffset; // as dimensões -- altura e largura -- da região 
-	// possibly a mutex 
-``` 
-
-+ Métodos 
-
-```cpp 
-Region(int xRegion, int yRegion, 
-	int xOffsetRegion, int yOffsetRegion); 
-``` 
 
 
