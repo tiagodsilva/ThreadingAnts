@@ -2,6 +2,8 @@
 
 | [relatório](./report/report.pdf) | [source](./src) | [main.cpp](./main.cpp) | 
 
+Estudantes: Germano Andrade, João Alcindo e Tiago da Silva. 
+
 Iniciamos, neste caso, com as instruções para execução; descrevemos, em um documento pdf, os aspectos que delinearam nossa implementação. 
 
 *Remark.* Todas as implementações foram testadas no sistema operacional Ubuntu 20.04; utilizamos, também, `clang++-11` como compilador. Neste sentido, é plausível que haja falhas em outras circunstâncias. 
